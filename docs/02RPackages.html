@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Analytics 101 – Exploratory Data Analysis using R</title>
+<title>Data Analytics 101 -- Exploratory Data Analysis using R – rpackages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -105,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02RPackages.html">R Packages</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -132,8 +166,8 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Welcome</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -144,7 +178,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02RPackages.html" class="sidebar-item-text sidebar-link">
+  <a href="./02RPackages.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">R Packages</span></a>
   </div>
 </li>
@@ -184,40 +218,140 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a>
+  <li><a href="#r-packages" id="toc-r-packages" class="nav-link active" data-scroll-target="#r-packages">R Packages</a>
   <ul class="collapse">
-  <li><a href="#our-focus" id="toc-our-focus" class="nav-link" data-scroll-target="#our-focus">Our focus</a></li>
+  <li><a href="#benefits-of-r-packages" id="toc-benefits-of-r-packages" class="nav-link" data-scroll-target="#benefits-of-r-packages">Benefits of R Packages</a></li>
+  <li><a href="#comprehensive-r-archive-network-cran" id="toc-comprehensive-r-archive-network-cran" class="nav-link" data-scroll-target="#comprehensive-r-archive-network-cran">Comprehensive R Archive Network (CRAN)</a></li>
+  <li><a href="#installing-a-r-package" id="toc-installing-a-r-package" class="nav-link" data-scroll-target="#installing-a-r-package">Installing a R Package</a>
+  <ul class="collapse">
+  <li><a href="#popular-r-packages" id="toc-popular-r-packages" class="nav-link" data-scroll-target="#popular-r-packages">Popular R Packages</a></li>
+  </ul></li>
+  <li><a href="#sample-plot" id="toc-sample-plot" class="nav-link" data-scroll-target="#sample-plot">Sample Plot</a>
+  <ul class="collapse">
+  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="02RPackages.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>July 18, 2023 V2</p>
-<p>Exploratory Data Analysis (EDA) is an approach to analyzing data sets to summarize their main characteristics, often using statistical graphics and other data visualization methods. EDA is primarily for seeing what the data can tell us beyond the formal modeling or hypothesis testing tasks.</p>
-<p>The EDA approach can be broken down into the following steps:</p>
-<p><strong>Data Cleaning:</strong> This step includes handling missing data, removing outliers, and other data cleansing processes.</p>
-<p><strong>Univariate Analysis:</strong> Here, each field in the dataset is analyzed independently to better understand its distribution, outliers, and unique values. This could involve statistical plots for measuring central tendency like mean, median, mode, frequency distribution, quartiles, etc.</p>
-<p><strong>Bivariate Analysis:</strong> This step involves the analysis of two variables to determine the empirical relationship between them. It includes techniques such as scatter plots for continuous variables or crosstabs for categorical data.</p>
-<p><strong>Multivariate Analysis:</strong> This is an advanced step, involving analysis with more than two variables. It helps to understand the interactions between different fields in the dataset.</p>
-<p><strong>Data Visualization:</strong> This is the creation of plots such as histograms, box plots, scatter plots, etc., to identify patterns, relationships, or outliers within the dataset. This can be done using visualization tools or libraries.</p>
-<p><strong>Insight Generation:</strong> After visualizations and some statistical tests, analysts will generate insights that could lead to further questions, hypotheses, and model building.</p>
-<p>The EDA process is an important precursor to more complex analyses because it allows for the researcher to confirm or invalidate some initial hypotheses and to formulate a more precise question or hypothesis that can lead to further statistical analysis and testing.</p>
-<section id="our-focus" class="level2">
-<h2 class="anchored" data-anchor-id="our-focus">Our focus</h2>
-<ul>
-<li>We ignore the Data Cleaning step, although we acknowledge it’s practical relevance. We assume that we are working with a clean dataset.</li>
-<li>We emphasize Univariate and Bivariate Analysis of data and the corresponding Data Visualization.</li>
-<li>We cover some basic Multivariate Analysis.</li>
-<li>We emphasize Insight Generation.</li>
-</ul>
-<p><em>We illustrate all of the above using the R programming language.</em></p>
-<p>We further illustrate how to use R programming on a real-world dataset. Our dataset concerns the S&amp;P500 stocks. This will demonstrate a practical aspect of using this book. We have many sample codes regarding this, using real-world data.. We will explore financial metrics such as the Return on Equity , Return on Assets, Return on Invested Capital of S&amp;P500 shares.</p>
+<section id="r-packages" class="level1">
+<h1>R Packages</h1>
+<ol type="1">
+<li><p>R packages are collections of code, data, and documentation that enhance the capabilities of R, a programming language and software environment used for statistical computing and graphics.</p></li>
+<li><p>R packages are created by R users and developers and provide additional tools, functions, and datasets that serve various purposes, such as data analysis, visualization, and machine learning.</p></li>
+<li><p>R packages can be obtained from various sources, including the Comprehensive R Archive Network (CRAN), Bioconductor, GitHub, and other online repositories.</p></li>
+<li><p>To utilize R packages, they can be imported into R using the <strong><code>library()</code></strong> function, allowing access to the functions and data within them for use in R scripts and interactive sessions. [1]</p></li>
+</ol>
+<section id="benefits-of-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="benefits-of-r-packages">Benefits of R Packages</h2>
+<p>There are numerous advantages to using R packages:</p>
+<ol type="1">
+<li><p>Reusability: R packages enable users to write code that is readily reusable across applications. Once a package has been created and published, others can install and use it, sparing them time and effort in coding.</p></li>
+<li><p>Collaboration: Individuals or teams can develop packages collaboratively, enabling the sharing of code, data, and ideas. This promotes collaboration within the R community and the creation of new tools and techniques.</p></li>
+<li><p>Standardization: Packages help standardize the code and methodology used for particular duties, making it simpler for users to comprehend and replicate the work of others. This decreases the possibility of errors and improves the dependability of results.</p></li>
+<li><p>Scalability: Packages can manage large data sets and sophisticated analyses, enabling users to scale up their work to larger, more complex problems.</p></li>
+<li><p>Accessibility: R packages are freely available and can be installed on a variety of operating systems, making them accessible to a broad spectrum of users. [1]</p></li>
+</ol>
+</section>
+<section id="comprehensive-r-archive-network-cran" class="level2">
+<h2 class="anchored" data-anchor-id="comprehensive-r-archive-network-cran">Comprehensive R Archive Network (CRAN)</h2>
+<ol type="1">
+<li><p>The Comprehensive R Archive Network (CRAN) is a global network of servers dedicated to maintaining and distributing R packages. These packages consist of code, data, and documentation that enhance the functionality of R.</p></li>
+<li><p>CRAN serves as a centralized and well-organized repository, simplifying the process for users to find, obtain, and install the required packages. With thousands of packages available, users can utilize the install.packages() function in R to download and install them.</p></li>
+<li><p>CRAN categorizes packages into various groups such as graphics, statistics, and machine learning, facilitating easy discovery of relevant packages based on specific needs.</p></li>
+<li><p>CRAN is maintained by the R Development Core Team and is accessible to anyone with an internet connection, ensuring broad availability and accessibility. [2]</p></li>
+</ol>
+</section>
+<section id="installing-a-r-package" class="level2">
+<h2 class="anchored" data-anchor-id="installing-a-r-package">Installing a R Package</h2>
+<ol type="1">
+<li><p>The <code>install.packages()</code> function can be employed to install R packages.</p></li>
+<li><p>For instance, to install the <code>ggplot2</code> package in R, you would execute the following code:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li><p>Executing the code provided will download and install the <code>ggplot2</code> package, along with any necessary dependencies, on your system.</p></li>
+<li><p>It’s important to remember that a package needs to be installed only once on your system. Once installed, you can easily import the package into your R session using the <code>library()</code> function.</p></li>
+<li><p>For example, to import the <code>ggplot2</code> package in R, you can execute the following code:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li>By executing the provided code, you will enable access to the functions and datasets of the <code>ggplot2</code> package for use within your R session.</li>
+</ol>
+<section id="popular-r-packages" class="level3">
+<h3 class="anchored" data-anchor-id="popular-r-packages">Popular R Packages</h3>
+<p>There are several popular R packages useful for summarizing, transforming, manipulating and visualizing data. Here is a list of some commonly used packages along with a brief description of each:</p>
+<ol type="1">
+<li><p><code>dplyr</code>: A grammar of data manipulation, providing a set of functions for easy and efficient data manipulation tasks like filtering, summarizing, and transforming data frames.</p></li>
+<li><p><code>tidyr</code>: Provides tools for tidying data, which involves reshaping data sets to facilitate analysis by ensuring each variable has its own column and each observation has its own row.</p></li>
+<li><p><code>plyr</code>: Offers a set of functions for splitting, applying a function, and combining results, allowing for efficient data manipulation and summarization.</p></li>
+<li><p><code>reshape2</code>: Provides functions for transforming data between different formats, such as converting data from wide to long format and vice versa.</p></li>
+<li><p><code>data.table</code>: A high-performance package for data manipulation, offering fast and memory-efficient tools for tasks like filtering, aggregating, and joining large data sets.</p></li>
+<li><p><code>lubridate</code>: Designed specifically for working with dates and times, it simplifies common tasks like parsing, manipulating, and formatting date-time data.</p></li>
+<li><p><code>stringr</code>: Offers a consistent and intuitive set of functions for working with strings, including pattern matching, string manipulation, and string extraction.</p></li>
+<li><p><code>magrittr</code>: Provides a simple and readable syntax for composing data manipulation and transformation operations, making code more readable and expressive.</p></li>
+<li><p><code>ggplot2</code>: A powerful and flexible package for creating beautiful and customizable data visualizations using a layered grammar of graphics approach.</p></li>
+<li><p><code>plotly</code>: Enables interactive and dynamic data visualizations, allowing users to create interactive plots, charts, and dashboards that can be explored and analyzed. [2]</p></li>
+</ol>
+</section>
+</section>
+<section id="sample-plot" class="level2">
+<h2 class="anchored" data-anchor-id="sample-plot">Sample Plot</h2>
+<p>As an illustration, here is a sample code for a scatterplot created using the ggplot2 package.</p>
+<p><a href="#fig-mpgwt">Figure&nbsp;1</a> considers the mtcars dataset inbuilt in R and illustrates the relationship between the weight of cars measured in thousands of pounds and the corresponding mileage measured in miles per gallon.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-mpgwt" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02RPackages_files/figure-html/fig-mpgwt-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Scatterplot of Car Mileage with Car Weight</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="getting-help" class="level3">
+<h3 class="anchored" data-anchor-id="getting-help">Getting help</h3>
+<p>To seek assistance with an R package, you can explore the following avenues:</p>
+<ol type="1">
+<li><p>Documentation: Most R packages come with comprehensive documentation that explains the package’s functions, datasets, and provides usage examples. You can access the documentation by using the <strong><code>help()</code></strong> function or typing <strong><code>?package_name</code></strong> in the R console, where “package_name” is the name of the specific package you want to learn about.</p></li>
+<li><p>Integrated help system: R has an integrated help system that offers documentation and demonstrations for functions and packages. In the R console, you can access the help system by typing <strong><code>help(topic)</code></strong> or <strong><code>?topic</code></strong>, where “topic” represents the name of the function or package you need assistance with.</p></li>
+<li><p>Online Resources: Numerous online resources are available for obtaining help with R packages. Blogs, forums, and question-and-answer platforms like Stack Overflow offer valuable insights and solutions to specific problems. These platforms are particularly helpful for finding answers to specific questions and obtaining general guidance on package usage. [3]</p></li>
+</ol>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>[1] Hadley, W., &amp; Chang, W. (2018). R Packages. O’Reilly Media.</p>
+<p>Hester, J., &amp; Wickham, H. (2018). R Packages: A guide based on modern practices. O’Reilly Media.</p>
+<p>Wickham, H. (2015). R Packages: Organize, Test, Document, and Share Your Code. O’Reilly Media.</p>
+<p>[2] Wickham, H., François, R., Henry, L., &amp; Müller, K. (2021). dplyr: A Grammar of Data Manipulation. R package version 1.0.7. Retrieved from <a href="https://cran.r-project.org/package=dplyr"><strong>https://CRAN.R-project.org/package=dplyr</strong></a></p>
+<p>Wickham, H., &amp; Henry, L. (2020). tidyr: Tidy Messy Data. R package version 1.1.4. Retrieved from <a href="https://cran.r-project.org/package=tidyr"><strong>https://CRAN.R-project.org/package=tidyr</strong></a></p>
+<p>Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., &amp; Woo, K. (2021). ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics. R package version 3.3.5. Retrieved from <a href="https://cran.r-project.org/package=ggplot2"><strong>https://CRAN.R-project.org/package=ggplot2</strong></a></p>
+<p>Wickham, H. (2011). The Split-Apply-Combine Strategy for Data Analysis. Journal of Statistical Software, 40(1), 1-29.</p>
+<p>Wickham, H. (2019). reshape2: Flexibly Reshape Data: A Reboot of the Reshape Package. R package version 1.4.4. Retrieved from <a href="https://cran.r-project.org/package=reshape2"><strong>https://CRAN.R-project.org/package=reshape2</strong></a></p>
+<p>Dowle, M., Srinivasan, A., Gorecki, J., Chirico, M., Stetsenko, P., Short, T., ... &amp; Lianoglou, S. (2021). data.table: Extension of <strong><code>data.frame</code></strong>. R package version 1.14.0. Retrieved from <a href="https://cran.r-project.org/package=data.table"><strong>https://CRAN.R-project.org/package=data.table</strong></a></p>
+<p>Grolemund, G., &amp; Wickham, H. (2011). Dates and Times Made Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.</p>
+<p>Wickham, H. (2019). stringr: Simple, Consistent Wrappers for Common String Operations. R package version 1.4.0. Retrieved from <a href="https://cran.r-project.org/package=stringr"><strong>https://CRAN.R-project.org/package=stringr</strong></a></p>
+<p>Sievert, C. (2021). plotly: Create Interactive Web Graphics via ‘plotly.js’. R package version 4.10.0. Retrieved from <a href="https://cran.r-project.org/package=plotly"><strong>https://CRAN.R-project.org/package=plotly</strong></a></p>
+<p>Bache, S. M., &amp; Wickham, H. (2014). magrittr: A Forward-Pipe Operator for R. R package version 2.0.1. Retrieved from <a href="https://cran.r-project.org/package=magrittr"><strong>https://CRAN.R-project.org/package=magrittr</strong></a></p>
+<p>[3] R Core Team. (2021). Writing R Extensions. Retrieved from <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html"><strong>https://cran.r-project.org/doc/manuals/r-release/R-exts.html</strong></a></p>
+<p>Wickham, H., &amp; Grolemund, G. (2016). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media.</p>
+<p>RStudio Team. (2020). RStudio: Integrated Development Environment for R. Retrieved from <a href="https://www.rstudio.com/"><strong>https://www.rstudio.com/</strong></a></p>
 
 
 </section>

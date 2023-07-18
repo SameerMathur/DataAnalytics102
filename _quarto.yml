@@ -45,7 +45,7 @@ website:
     footer: ""
     contents:
       - href: index.qmd
-        text: Home
+        text: Welcome
       - 01OverviewOfR.qmd
       - 02RPackages.qmd
       - 03DataStructures.qmd

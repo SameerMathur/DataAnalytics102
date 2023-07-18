@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Analytics 101 -- Exploratory Data Analysis using R – livecase01</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data Analytics 101 – Exploratory Data Analysis using R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/" rel="" target="_blank"><i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Sameer Mathur</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true" rel="" target="_blank"><i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Aryeman Gupta Mathur</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/AryemanGuptaMathur/Data_Analytics_101" rel="" target="_blank"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text">Book’s Github</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06LiveCase01.html">Case Analysis of SP500</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/openscapes_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01OverviewOfR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02RPackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Packages</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03DataStructures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Structures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04ReadingData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05ExploringDataframes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploring Dataframes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06LiveCase01.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Case Analysis of SP500</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><img src="FINALIZED BOOK COVER.png" class="img-fluid"></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#case-analysis-of-sp500" id="toc-case-analysis-of-sp500" class="nav-link active" data-scroll-target="#case-analysis-of-sp500">Case Analysis of SP500</a>
+  <ul class="collapse">
+  <li><a href="#reading-sp500-data-from-a-google-sheet-into-a-tibble" id="toc-reading-sp500-data-from-a-google-sheet-into-a-tibble" class="nav-link" data-scroll-target="#reading-sp500-data-from-a-google-sheet-into-a-tibble">1) Reading S&amp;P500 data from a Google Sheet into a tibble</a></li>
+  <li><a href="#reviewing-the-data" id="toc-reviewing-the-data" class="nav-link" data-scroll-target="#reviewing-the-data">1) Reviewing the data</a></li>
+  <li><a href="#rename-data-columns" id="toc-rename-data-columns" class="nav-link" data-scroll-target="#rename-data-columns">Rename Data Columns</a></li>
+  <li><a href="#review-data-columns" id="toc-review-data-columns" class="nav-link" data-scroll-target="#review-data-columns">Review Data Columns</a></li>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="06LiveCase01.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="case-analysis-of-sp500" class="level1">
+<h1>Case Analysis of SP500</h1>
+<p>We will investigate data related to the S&amp;P500 stocks.</p>
+<p>This is the URL of the data we will use: https://docs.google.com/spreadsheets/d/11ahk9uWxBkDqrhNm7qYmiTwrlSC53N1zvXYfv7ttOCM/edit#gid=0</p>
+<section id="reading-sp500-data-from-a-google-sheet-into-a-tibble" class="level3">
+<h3 class="anchored" data-anchor-id="reading-sp500-data-from-a-google-sheet-into-a-tibble">1) Reading S&amp;P500 data from a Google Sheet into a tibble</h3>
+<p>The Google Sheet ID is: <code>11ahk9uWxBkDqrhNm7qYmiTwrlSC53N1zvXYfv7ttOCM</code>. We can use the function <code>gsheet2tbl</code> in package <code>gsheet</code> to read the Google Sheet into a dataframe, as demonstrated in the following code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read S&amp;P500 stock data present in a Google Sheet.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gsheet)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>prefix <span class="ot">&lt;-</span> <span class="st">"https://docs.google.com/spreadsheets/d/"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sheetID <span class="ot">&lt;-</span> <span class="st">"11ahk9uWxBkDqrhNm7qYmiTwrlSC53N1zvXYfv7ttOCM"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Form the URL to connect to</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>url500 <span class="ot">&lt;-</span> <span class="fu">paste</span>(prefix, sheetID) </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the Google Sheet located at the URL into a tibble called sp500</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sp500 <span class="ot">&lt;-</span> <span class="fu">gsheet2tbl</span>(url500)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>No encoding supplied: defaulting to UTF-8.</code></pre>
+</div>
+</div>
+</section>
+<section id="reviewing-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="reviewing-the-data">1) Reviewing the data</h3>
+<p>We run the str() function to better understand the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sp500)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Classes 'tbl_df', 'tbl' and 'data.frame':   503 obs. of  36 variables:
+ $ Date                                   : chr  "7/18/2023" "7/18/2023" "7/18/2023" "7/18/2023" ...
+ $ Ticker                                 : chr  "A" "AAL" "AAP" "AAPL" ...
+ $ Description                            : chr  "Agilent Technologies, Inc." "American Airlines Group, Inc." "Advance Auto Parts Inc." "Apple Inc." ...
+ $ Sector                                 : chr  "Health Technology" "Transportation" "Retail Trade" "Electronic Technology" ...
+ $ Industry                               : chr  "Medical Specialties" "Airlines" "Specialty Stores" "Telecommunications Equipment" ...
+ $ Market.Capitalization                  : num  3.54e+10 1.18e+10 4.20e+09 3.00e+12 2.40e+11 ...
+ $ Price                                  : num  119.8 18.1 70.7 190.7 136 ...
+ $ X52.Week.Low                           : num  113.3 11.7 63.6 124.2 131 ...
+ $ X52.Week.High                          : num  160 19.1 212 194 168 194 116 78.3 328 524 ...
+ $ Return.on.Equity..TTM.                 : num  24.8 NA 14.6 146 51.1 389 16 14.8 30.7 33.7 ...
+ $ Return.on.Assets..TTM.                 : num  12.7 2.64 3.35 27.6 5.43 2.79 7.82 4.98 14.9 17.9 ...
+ $ Return.on.Invested.Capital..TTM.       : num  16.51 5.44 6.17 57.18 9.9 ...
+ $ Gross.Margin..TTM.                     : num  54.1 21.7 43.8 43.2 72.2 ...
+ $ Operating.Margin..TTM.                 : num  23.78 7.3 5.63 29.16 41.07 ...
+ $ Net.Margin..TTM.                       : num  19.19 3.39 3.61 24.49 13.3 ...
+ $ Price.to.Earnings.Ratio..TTM.          : num  26.39 7.13 10.51 32.4 32.03 ...
+ $ Price.to.Book..FY.                     : num  6.66 NA 1.56 60 13.95 ...
+ $ Enterprise.Value.EBITDA..TTM.          : num  18.8 7.03 8.84 24.7 9.3 12.8 19.3 NA 17.5 33.2 ...
+ $ EBITDA..TTM.                           : num  1.97e+09 6.02e+09 9.21e+08 1.24e+11 3.18e+10 ...
+ $ EPS.Diluted..TTM.                      : num  4.54 2.54 6.72 5.89 4.25 ...
+ $ EBITDA..TTM.YoY.Growth.                : num  10.52 NA -16 -5.36 10.6 ...
+ $ EBITDA..Quarterly.YoY.Growth.          : num  8.2 NA -39.01 -4.58 11.68 ...
+ $ EPS.Diluted..TTM.YoY.Growth.           : num  9.17 NA -25.21 -4.33 -39.11 ...
+ $ EPS.Diluted..Quarterly.YoY.Growth.     : num  11.69944 NA -68.36829 -0.00656 -94.89037 ...
+ $ Price.to.Free.Cash.Flow..TTM.          : num  30.06 6.94 NA 31 10.27 ...
+ $ Free.Cash.Flow..TTM.YoY.Growth.        : num  11.81 NA -100.23 -7.85 6.68 ...
+ $ Free.Cash.Flow..Quarterly.YoY.Growth.  : num  55.7078 648.1481 -176.1352 -0.0312 -15.3392 ...
+ $ Debt.to.Equity.Ratio..MRQ.             : num  0.473 NA 1.582 1.763 4.678 ...
+ $ Current.Ratio..MRQ.                    : num  2.37 0.718 1.244 0.94 0.96 ...
+ $ Quick.Ratio..MRQ.                      : num  1.708 0.624 0.238 0.878 0.821 ...
+ $ Dividend.Yield.Forward                 : num  0.752 NA 1.416 0.503 4.353 ...
+ $ Dividends.per.share..Annual.YoY.Growth.: num  8.25 NA 84.62 5.88 7.53 ...
+ $ Price.to.Sales..FY.                    : num  5.246 0.243 0.385 7.895 4.166 ...
+ $ Revenue..TTM.YoY.Growth.               : num  7.8597 50.2948 1.4153 -0.2544 0.0282 ...
+ $ Revenue..Quarterly.YoY.Growth.         : num  6.85 36.97 1.29 -2.51 -9.7 ...
+ $ Technical.Rating                       : chr  "Sell" "Strong Buy" "Neutral" "Strong Buy" ...</code></pre>
+</div>
+</div>
+<p>The <code>str(sp500)</code> output provides valuable insights into the structure and data types of the columns in the <code>sp500</code> tibble. Let’s delve into the details:</p>
+<p>The output reveals that <code>sp500</code> is a tibble with dimensions [503 × 36]. This means it consists of 503 rows, each representing a specific S&amp;P500 stock, and 36 columns containing information about each stock.</p>
+<p>Here’s a breakdown of the information associated with each column:</p>
+<ul>
+<li><p>The columns labeled <code>Date</code>, <code>Stock</code>, <code>Description</code>, <code>Sector</code>, and <code>Industry</code> are character columns. They respectively represent the date, stock ticker symbol, description, sector, and industry of each S&amp;P500 stock.</p></li>
+<li><p>Columns such as <code>Market.Capitalization</code>, <code>Price</code>, <code>X52.Week.Low</code>, <code>X52.Week.High</code>, and other numeric columns contain diverse financial metrics and stock prices related to the S&amp;P500 stocks.</p></li>
+<li><p>The column labeled <code>Technical.Rating</code> is a character column that assigns a technical rating to each stock.</p></li>
+</ul>
+<p>By examining the <code>str(sp500)</code> output, you gain a comprehensive understanding of the data types and column names present in the <code>sp500</code> tibble, enabling you to grasp the structure of the dataset effectively.</p>
+</section>
+<section id="rename-data-columns" class="level3">
+<h3 class="anchored" data-anchor-id="rename-data-columns">Rename Data Columns</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a mapping of new column names</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Date"</span>, <span class="st">"Stock"</span>, <span class="st">"Desc"</span>, <span class="st">"Sector"</span>, <span class="st">"Industry"</span>, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MarketCap"</span>, <span class="st">"Price"</span>, <span class="st">"Low52Wk"</span>, <span class="st">"High52Wk"</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ROE"</span>, <span class="st">"ROA"</span>, <span class="st">"ROIC"</span>, <span class="st">"GrossMargin"</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"OperatingMargin"</span>, <span class="st">"NetMargin"</span>, <span class="st">"PE"</span>, </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PB"</span>, <span class="st">"EVEBITDA"</span>, <span class="st">"EBITDA"</span>, <span class="st">"EPS"</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"EBITDA_YOY"</span>, <span class="st">"EBITDA_QYOY"</span>, <span class="st">"EPS_YOY"</span>, </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"EPS_QYOY"</span>, <span class="st">"PFCF"</span>, <span class="st">"FCF"</span>, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"FCF_QYOY"</span>, <span class="st">"DebtToEquity"</span>, <span class="st">"CurrentRatio"</span>, </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"QuickRatio"</span>, <span class="st">"DividendYield"</span>, </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DividendsPerShare_YOY"</span>, <span class="st">"PS"</span>, </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Revenue_YOY"</span>, <span class="st">"Revenue_QYOY"</span>, <span class="st">"TechRating"</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns using the new_names vector</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>sp500 <span class="ot">&lt;-</span> sp500 <span class="sc">%&gt;%</span> </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> new_names, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code is designed to rename the columns of the <code>sp500</code> tibble using a predefined mapping of new column names. Let’s go through the code step by step:</p>
+<ol type="1">
+<li><p>A vector named <code>new_names</code> is created, which contains the desired new names for each column in the <code>sp500</code> tibble. Each element in the <code>new_names</code> vector corresponds to a specific column in the <code>sp500</code> tibble and represents the desired new name for that column.</p></li>
+<li><p>The <code>%&gt;%</code> operator, often referred to as the pipe operator, is used to pass the <code>sp500</code> tibble to the subsequent operation in a more readable and concise manner.</p></li>
+<li><p>The <code>rename_with()</code> function from the <code>dplyr</code> package is applied to the <code>sp500</code> tibble. This function allows you to rename columns based on a specified function or formula.</p></li>
+<li><p>In this case, a formula <code>~ new_names</code> is used as the first argument of <code>rename_with()</code>. This formula indicates that the new names for the columns should be sourced from the <code>new_names</code> vector.</p></li>
+<li><p>The second argument, <code>everything()</code>, specifies that the renaming should be applied to all columns in the <code>sp500</code> tibble.</p></li>
+<li><p>Finally, the resulting tibble with the renamed columns is assigned back to the <code>sp500</code> variable, effectively updating the tibble with the new column names.</p></li>
+</ol>
+<p>In essence, the code uses the <code>new_names</code> vector as a mapping to assign new column names to the <code>sp500</code> tibble, ensuring that each column is given the desired new name specified in <code>new_names</code>.</p>
+</section>
+<section id="review-data-columns" class="level3">
+<h3 class="anchored" data-anchor-id="review-data-columns">Review Data Columns</h3>
+</section>
+<section id="data-description" class="level3">
+<h3 class="anchored" data-anchor-id="data-description">Data Description</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Table 1: Desription of Column Names
+</div></th>
+</tr>
+<tr class="odd">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">Date of the observation</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stock</td>
+<td style="text-align: left;">Stock ticker symbol</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Desc</td>
+<td style="text-align: left;">Description of the stock</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sector</td>
+<td style="text-align: left;">Sector the stock belongs to</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Industry</td>
+<td style="text-align: left;">Industry the stock belongs to</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MarketCap</td>
+<td style="text-align: left;">Market capitalization of the company</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Price</td>
+<td style="text-align: left;">Stock price</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Low52Wk</td>
+<td style="text-align: left;">52-week low price</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">High52Wk</td>
+<td style="text-align: left;">52-week high price</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ROE</td>
+<td style="text-align: left;">Return on Equity</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ROA</td>
+<td style="text-align: left;">Return on Assets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ROIC</td>
+<td style="text-align: left;">Return on Invested Capital</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GrossMargin</td>
+<td style="text-align: left;">Gross Margin</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OperatingMargin</td>
+<td style="text-align: left;">Operating Margin</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NetMargin</td>
+<td style="text-align: left;">Net Margin</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PE</td>
+<td style="text-align: left;">Price-to-Earnings Ratio</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PB</td>
+<td style="text-align: left;">Price-to-Book Ratio</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EVEBITDA</td>
+<td style="text-align: left;">Enterprise Value to EBITDA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EBITDA</td>
+<td style="text-align: left;">EBITDA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EPS</td>
+<td style="text-align: left;">Earnings per Share</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EBITDA_YOY</td>
+<td style="text-align: left;">EBITDA Year-over-Year Growth</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EBITDA_QYOY</td>
+<td style="text-align: left;">EBITDA Quarterly Year-over-Year Growth</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EPS_YOY</td>
+<td style="text-align: left;">EPS Year-over-Year Growth</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EPS_QYOY</td>
+<td style="text-align: left;">EPS Quarterly Year-over-Year Growth</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PFCF</td>
+<td style="text-align: left;">Price-to-Free Cash Flow</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FCF</td>
+<td style="text-align: left;">Free Cash Flow</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FCF_QYOY</td>
+<td style="text-align: left;">Free Cash Flow Quarterly Year-over-Year Growth</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DebtToEquity</td>
+<td style="text-align: left;">Debt-to-Equity Ratio</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CurrentRatio</td>
+<td style="text-align: left;">Current Ratio</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">QuickRatio</td>
+<td style="text-align: left;">Quick Ratio</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DividendYield</td>
+<td style="text-align: left;">Dividend Yield</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DividendsPerShare_YOY</td>
+<td style="text-align: left;">Annual Dividends per Share Year-over-Year Growth</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PS</td>
+<td style="text-align: left;">Price-to-Sales Ratio</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Revenue_YOY</td>
+<td style="text-align: left;">Revenue Year-over-Year Growth</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Revenue_QYOY</td>
+<td style="text-align: left;">Revenue Quarterly Year-over-Year Growth</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TechRating</td>
+<td style="text-align: left;">Technical Rating</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/">Sameer Mathur</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true">Aryeman Gupta Mathur</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
