@@ -1,0 +1,39 @@
+project:
+  type: book
+
+book:
+  title: "Data Analytics 101 -- Exploratory Data Analysis using R programming."
+  author: "Sameer Mathur, Aryeman Gupta Mathur"
+  date: "4 July 2023"
+  page-footer:
+    left: |
+      Data Analytics 101 -- Exploratory Data Analysis using R programming by Sameer Mathur, Aryeman G. Mathur
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  cover-image: BookCover.png
+  favicon: BookCover.png
+  chapters:
+    - index.qmd
+    - 01OverviewOfR.qmd
+    - 02RPackages.qmd
+    - 03InbuiltRFunctions.qmd
+    - 04DataStructures.qmd
+    - 05ReadingData.qmd
+    - 06ExploringDataframes.qmd
+    - 07SummarzingCategoricalData.qmd
+    - 08ExploringTibbles.qmd
+    - 09SummarizingContinuousData.qmd
+    - 10SummarizingContinuousData.qmd
+    - 11SummarizingContinuousData.qmd
+format:
+  pdf:
+    documentclass: scrreport
+    header-includes: |
+      \titlehead{
+        \begin{center}
+          \includegraphics[width=5in]{BookCover.png}
+        \end{center}
+      }
+
+editor: visual
+

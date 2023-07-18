@@ -1,0 +1,176 @@
+# Exploring Dataframes
+
+*This chapter is incomplete, work-in-progress.*
+
+Here's how you can explore the mtcars data frame:
+
+View the data: Use the head() or tail() function to view the first or last few rows of the data frame, respectively. For example:
+
+1.  Find the dimensions (rows and columns) of the dataframe
+
+```{r}
+data(mtcars)
+dim(mtcars)
+```
+
+2.  Retrieve the names of the columns in the dataframe
+
+```{r}
+names(mtcars)
+```
+
+3.  str()
+
+*to display the structure of the dataframe, including the data type and the first few rows.*
+
+```{r}
+str(mtcars)
+```
+
+4.  head()
+
+*to view the first few rows of the dataframe.*
+
+```{r}
+head(mtcars)
+```
+
+5.  tail()
+
+*to view the last few rows of the dataframe.*
+
+```{r}
+tail(mtcars)
+```
+
+6.  summary()
+
+*to generate summary statistics for each column in the dataframe.*
+
+```{r}
+summary(mtcars)
+```
+
+7.  table()
+
+*to generate a frequency table for a categorical variable.*
+
+```{r}
+table(mtcars$cyl)
+```
+
+8.  unique()
+
+to find unique values in a column of the dataframe.
+
+```{r}
+unique(mtcars$cyl)
+```
+
+## Logical operations
+
+Here are some examples of logical operations functions in R using the mtcars dataset:
+
+1.  Subsetting based on a condition:
+
+The logical expression \[\] and square bracket notation can be used to subset the mtcars dataset according to a criterion. For instance, to only choose the rows where the mpg is higher than 20:
+
+```{r}
+# Subset mtcars based on mpg > 20
+mtcars_subset <- mtcars[mtcars$mpg > 20, ]
+mtcars_subset
+```
+
+2.  The which() function:
+
+The which() function returns the indexes of the vector's members that adhere to a predicate. To determine the indices of the rows where mpg is larger than 20 for instance:
+
+```{r}
+# Find the indices of rows where mpg > 20
+indices <- which(mtcars$mpg > 20)
+indices
+```
+
+3.  The ifelse() function:
+
+The ifelse() function applies a logical condition to a vector and returns a new vector with values depending on whether the condition is TRUE or FALSE. It is a vectorized version of the if-else statement. For instance, to add a new column called high mpg that shows whether or not the mpg value is more than 20:
+
+```{r}
+# Create a new column "high_mpg" based on mpg > 20
+mtcars$high_mpg <- ifelse(mtcars$mpg > 20, "Yes", "No")
+```
+
+4.  The all() and any() functions:
+
+If every element in a vector satisfies a logical criterion, the all() function returns TRUE; otherwise, it returns FALSE. If at least one element in a vector satisfies a logical criterion, the any() method returns TRUE; otherwise, it returns FALSE. To determine whether every value in the mpg column is larger than 20, for instance:
+
+```{r}
+# Check if all values in mpg column are greater than 20
+all(mtcars$mpg > 20)
+```
+
+And to check if at least one value in the mpg column is greater than 20:
+
+Check if any value in mpg column is greater than 20
+
+```{r}
+any(mtcars$mpg > 20)
+```
+
+## Creating new functions in R
+
+1.  Function to calculate average mileage:
+
+```{r}
+avg_mileage <- function(data) {
+  mean(data$mpg)
+}
+
+# Usage
+avg_mileage(mtcars) # Returns the average mileage of all cars in the dataset
+
+```
+
+2.  Function to plot a scatter plot of horsepower vs. miles per gallon:
+
+```{r}
+plot_horsepower_vs_mpg <- function(data) {
+  plot(data$hp, data$mpg, xlab = "Horsepower", ylab = "Miles per gallon")
+}
+
+# Usage
+plot_horsepower_vs_mpg(mtcars) # Plots a scatter plot of horsepower vs. miles per gallon
+
+```
+
+3.  Function to calculate average mileage for cars with a specific number of cylinders:
+
+```{r}
+avg_mileage_by_cyl <- function(data, cyl) {
+  mean(data$mpg[data$cyl == cyl])
+}
+
+# Usage
+
+# Returns the average mileage of cars with 4 cylinders
+avg_mileage_by_cyl(mtcars, 4) 
+
+# Returns the average mileage of cars with 6 cylinders
+avg_mileage_by_cyl(mtcars, 6) 
+
+```
+
+4.  Function to calculate average horsepower for cars with a specific number of gears:
+
+```{r}
+avg_hp_by_gear <- function(data, gear) {
+  mean(data$hp[data$gear == gear])
+}
+
+# Returns the average horsepower of cars with 3 gears
+avg_hp_by_gear(mtcars, 3) 
+
+# Returns the average horsepower of cars with 4 gears
+avg_hp_by_gear(mtcars, 4) 
+
+```

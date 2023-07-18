@@ -1,0 +1,79 @@
+
+### BEGIN yaml FOR BOOK'S WEBSITE ###
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Data Analytics 101 -- Exploratory Data Analysis using R"
+
+  margin-header: |
+    ![](FINALIZED BOOK COVER.png)  
+  page-footer:
+    background: "blue"
+    center: 
+      - text: "Sameer Mathur"
+        href: https://www.qatar.cmu.edu/directory/sameer-mathur/
+      - text: "Aryeman Gupta Mathur"
+        href: https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&ouid=100224206438187222136&rtpof=true&sd=true
+  navbar:
+    background: "blue"
+    pinned: false
+    search: false
+    right: 
+      - icon: globe
+        href: https://www.qatar.cmu.edu/directory/sameer-mathur/
+        text: "Sameer Mathur"
+        target: "_blank"
+      - icon: globe
+        href: https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&ouid=100224206438187222136&rtpof=true&sd=true
+        text: "Aryeman Gupta Mathur"
+        target: "_blank"
+      - icon: github
+        href: https://github.com/AryemanGuptaMathur/Data_Analytics_101
+        text: "Book's Github"
+        target: "_blank"
+
+  sidebar:
+    logo: "images/openscapes_hex.png"
+    background: "#FEC20C"
+    pinned: true
+    align: center
+    style: "docked"
+    search: true
+    collapse-level: 1
+    footer: ""
+    contents:
+      - href: index.qmd
+        text: Home
+      - 01OverviewOfR.qmd
+      - 02RPackages.qmd
+      - 03InbuiltRFunctions.qmd
+      - 04DataStructures.qmd
+      - 05ReadingData.qmd
+      - 06ExploringDataframes.qmd
+      - 07SummarzingCategoricalData.qmd
+      - 08ExploringTibbles.qmd
+      - 09SummarizingContinuousData.qmd
+      - 10SummarizingContinuousData.qmd
+      - 11SummarizingContinuousData.qmd
+### END yaml FOR BOOK'S WEBSITE ###
+
+format:
+  html:
+    theme: cosmo
+    toc: true # may need to comment this out to revert this back to the book
+    fig-width: 8
+    fig-height: 4
+    code-fold: false
+  pdf:
+    documentclass: scrreport
+    header-includes: |
+      \titlehead{
+        \begin{center}
+          \includegraphics[width=5in]{FINALIZED BOOK COVER.png}
+        \end{center}
+      }
+
+editor: visual
+
