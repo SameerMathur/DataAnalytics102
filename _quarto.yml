@@ -5,7 +5,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Data Analytics 101 -- Exploratory Data Analysis using R"
+  title: "Data Analytics 102 -- Exploratory Data Analysis using R"
 
   margin-header: |
     ![](FINALIZED BOOK COVER.png)  
