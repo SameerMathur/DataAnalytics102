@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Analytics 102 -- Applied Statistics and Regression Using R – ttest</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data Analytics 102 – Applied Statistics and Regression Using R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/" rel="" target="_blank"><i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Sameer Mathur</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true" rel="" target="_blank"><i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Aryeman Gupta Mathur</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/SameerMathur/DataAnalytics102" rel="" target="_blank"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text">Book’s Github</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04TTest.html">t-tests</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/openscapes_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01GettingStarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02ZTests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Z Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03ChiSquareTests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chi-Square Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04TTest.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">t-tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05ANOVA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ANOVA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correlation Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07LinearRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Regression.</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08Interaction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interactions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09LogLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Log-Linear Regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10LogLog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Log-Log Regression</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><img src="BookCover102.png" class="img-fluid"></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#t-tests" id="toc-t-tests" class="nav-link active" data-scroll-target="#t-tests">t-tests</a></li>
+  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link" data-scroll-target="#one-sample-t-test">One-Sample t-test</a>
+  <ul class="collapse">
+  <li><a href="#business-applications-of-one-sample-t-test" id="toc-business-applications-of-one-sample-t-test" class="nav-link" data-scroll-target="#business-applications-of-one-sample-t-test">Business Applications of One-Sample t-test</a>
+  <ul class="collapse">
+  <li><a href="#marketing" id="toc-marketing" class="nav-link" data-scroll-target="#marketing">Marketing:</a></li>
+  <li><a href="#finance" id="toc-finance" class="nav-link" data-scroll-target="#finance">Finance:</a></li>
+  <li><a href="#organizational-behavior" id="toc-organizational-behavior" class="nav-link" data-scroll-target="#organizational-behavior">Organizational Behavior:</a></li>
+  </ul></li>
+  <li><a href="#concept-behind-the-one-sample-t-test" id="toc-concept-behind-the-one-sample-t-test" class="nav-link" data-scroll-target="#concept-behind-the-one-sample-t-test">Concept behind the One-Sample t-test</a></li>
+  <li><a href="#running-the-one-sample-t-test-in-r" id="toc-running-the-one-sample-t-test-in-r" class="nav-link" data-scroll-target="#running-the-one-sample-t-test-in-r">Running the One-Sample t-test in R</a></li>
+  </ul></li>
+  <li><a href="#independent-samples-t-test" id="toc-independent-samples-t-test" class="nav-link" data-scroll-target="#independent-samples-t-test">Independent Samples t-test</a>
+  <ul class="collapse">
+  <li><a href="#business-applications-of-independent-samples-t-test" id="toc-business-applications-of-independent-samples-t-test" class="nav-link" data-scroll-target="#business-applications-of-independent-samples-t-test">Business Applications of Independent Samples t-test</a>
+  <ul class="collapse">
+  <li><a href="#marketing-1" id="toc-marketing-1" class="nav-link" data-scroll-target="#marketing-1">Marketing:</a></li>
+  <li><a href="#finance-1" id="toc-finance-1" class="nav-link" data-scroll-target="#finance-1">Finance:</a></li>
+  <li><a href="#organizational-behavior-1" id="toc-organizational-behavior-1" class="nav-link" data-scroll-target="#organizational-behavior-1">Organizational Behavior:</a></li>
+  </ul></li>
+  <li><a href="#concept-behind-the-two-sample-t-test" id="toc-concept-behind-the-two-sample-t-test" class="nav-link" data-scroll-target="#concept-behind-the-two-sample-t-test">Concept behind the Two Sample t-test</a></li>
+  </ul></li>
+  <li><a href="#dependent-samples-t-test-a.k.a-paired-samples-t-test" id="toc-dependent-samples-t-test-a.k.a-paired-samples-t-test" class="nav-link" data-scroll-target="#dependent-samples-t-test-a.k.a-paired-samples-t-test">Dependent Samples t-test (a.k.a Paired Samples t-test)</a>
+  <ul class="collapse">
+  <li><a href="#business-applications-of-dependent-sample-t-test" id="toc-business-applications-of-dependent-sample-t-test" class="nav-link" data-scroll-target="#business-applications-of-dependent-sample-t-test">Business Applications of Dependent Sample t-test</a>
+  <ul class="collapse">
+  <li><a href="#marketing-2" id="toc-marketing-2" class="nav-link" data-scroll-target="#marketing-2">Marketing:</a></li>
+  <li><a href="#finance-2" id="toc-finance-2" class="nav-link" data-scroll-target="#finance-2">Finance:</a></li>
+  <li><a href="#organizational-behavior-2" id="toc-organizational-behavior-2" class="nav-link" data-scroll-target="#organizational-behavior-2">Organizational Behavior:</a></li>
+  </ul></li>
+  <li><a href="#concept-behind-the-paired-sample-t-test" id="toc-concept-behind-the-paired-sample-t-test" class="nav-link" data-scroll-target="#concept-behind-the-paired-sample-t-test">Concept behind the Paired sample t-test</a>
+  <ul class="collapse">
+  <li><a href="#hypothesis-for-paired-sample-t-test" id="toc-hypothesis-for-paired-sample-t-test" class="nav-link" data-scroll-target="#hypothesis-for-paired-sample-t-test">Hypothesis for Paired sample t-test</a></li>
+  <li><a href="#ict-training-data" id="toc-ict-training-data" class="nav-link" data-scroll-target="#ict-training-data">ICT training data</a></li>
+  <li><a href="#visualizing-samples" id="toc-visualizing-samples" class="nav-link" data-scroll-target="#visualizing-samples">Visualizing samples</a></li>
+  <li><a href="#running-paired-sample-t-test-in-r" id="toc-running-paired-sample-t-test-in-r" class="nav-link" data-scroll-target="#running-paired-sample-t-test-in-r">Running Paired sample t-test in R</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#t-test-assumptions" id="toc-t-test-assumptions" class="nav-link" data-scroll-target="#t-test-assumptions">t-test Assumptions</a>
+  <ul class="collapse">
+  <li><a href="#assumptions-behind-one-sample-t-test" id="toc-assumptions-behind-one-sample-t-test" class="nav-link" data-scroll-target="#assumptions-behind-one-sample-t-test">Assumptions behind One-Sample t-test</a></li>
+  <li><a href="#assumptions-behind-the-independent-samples-t-test" id="toc-assumptions-behind-the-independent-samples-t-test" class="nav-link" data-scroll-target="#assumptions-behind-the-independent-samples-t-test">Assumptions behind the Independent samples t-test</a></li>
+  <li><a href="#assumptions-behind-the-dependent-samples-t-test" id="toc-assumptions-behind-the-dependent-samples-t-test" class="nav-link" data-scroll-target="#assumptions-behind-the-dependent-samples-t-test">Assumptions behind the Dependent samples t-test</a></li>
+  <li><a href="#checking-t-test-assumptions" id="toc-checking-t-test-assumptions" class="nav-link" data-scroll-target="#checking-t-test-assumptions">Checking t-test Assumptions</a>
+  <ul class="collapse">
+  <li><a href="#q-q-plot-for-normality" id="toc-q-q-plot-for-normality" class="nav-link" data-scroll-target="#q-q-plot-for-normality">Q-Q Plot for Normality</a></li>
+  <li><a href="#shapiro-wilk-test-for-normality" id="toc-shapiro-wilk-test-for-normality" class="nav-link" data-scroll-target="#shapiro-wilk-test-for-normality">Shapiro-Wilk Test for Normality</a></li>
+  <li><a href="#two-sample-kolmogorov-smirnov-test-for-normality" id="toc-two-sample-kolmogorov-smirnov-test-for-normality" class="nav-link" data-scroll-target="#two-sample-kolmogorov-smirnov-test-for-normality">Two-sample Kolmogorov-Smirnov test for Normality</a></li>
+  <li><a href="#assumption-of-equal-variance" id="toc-assumption-of-equal-variance" class="nav-link" data-scroll-target="#assumption-of-equal-variance">Assumption of Equal Variance</a></li>
+  <li><a href="#if-the-assumption-of-equal-variance-is-violated" id="toc-if-the-assumption-of-equal-variance-is-violated" class="nav-link" data-scroll-target="#if-the-assumption-of-equal-variance-is-violated">If the Assumption of Equal Variance is Violated?</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#non-parametric-alternatives-to-t-test" id="toc-non-parametric-alternatives-to-t-test" class="nav-link" data-scroll-target="#non-parametric-alternatives-to-t-test">Non-parametric alternatives to t-test</a>
+  <ul class="collapse">
+  <li><a href="#one-sample-wilcoxon-signed-rank-test" id="toc-one-sample-wilcoxon-signed-rank-test" class="nav-link" data-scroll-target="#one-sample-wilcoxon-signed-rank-test">One-Sample Wilcoxon Signed Rank Test</a></li>
+  <li><a href="#two-sample-wilcoxon-test-a.k.a-mann-whitney-u-test" id="toc-two-sample-wilcoxon-test-a.k.a-mann-whitney-u-test" class="nav-link" data-scroll-target="#two-sample-wilcoxon-test-a.k.a-mann-whitney-u-test">Two-Sample Wilcoxon test (a.k.a Mann-Whitney U test)</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="04TTest.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="t-tests" class="level1">
+<h1>t-tests</h1>
+<p><em>July 26, 2023</em></p>
+<ol type="1">
+<li>To evaluate whether there is a significant difference between the means of two groups, a t-test is a statistical test that is employed. T-tests come in a variety of forms, including:</li>
+</ol>
+<ul>
+<li>One-sample t-test</li>
+<li>Independent samples t-test</li>
+<li>Dependent samples t-test (also known as a Paired samples t-test)</li>
+</ul>
+<ol start="2" type="1">
+<li><p>One-sample t-test is a statistical test used to determine if a sample mean differs significantly from a hypothesized population mean.</p></li>
+<li><p>Independent samples t-test is a statistical test used to determine if the means of two independent samples are significantly different.</p></li>
+<li><p>Dependent samples t-test is a statistical test used to determine if there is a significant difference between two related samples.</p></li>
+</ol>
+</section>
+<section id="one-sample-t-test" class="level1">
+<h1>One-Sample t-test</h1>
+<section id="business-applications-of-one-sample-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="business-applications-of-one-sample-t-test">Business Applications of One-Sample t-test</h2>
+<section id="marketing" class="level3">
+<h3 class="anchored" data-anchor-id="marketing">Marketing:</h3>
+<p>A one-sample t-test can be used in various ways to make data-driven decisions. Here are some marketing applications of one-sample t-test:</p>
+<ol type="1">
+<li><p>Testing for ad effectiveness: A one-sample t-test can be performed to ascertain whether a marketing campaign has been successful in raising brand recognition or sales. Customers can be randomly chosen and asked to complete surveys both before and after the promotion. To ascertain whether the campaign was successful, a one-sample t-test can be used to compare the mean survey scores from before and after the campaign.</p></li>
+<li><p>Price testing: Customers’ acceptance of a product’s price can be assessed using a one-sample t-test. To ascertain a sample of customers’ purchasing intentions, a survey might be conducted. One-sample t-tests can be used to compare the sample mean to the product’s pricing to determine whether it is too high or too cheap.</p></li>
+<li><p>Product testing: To find out if a product satisfies client expectations, utilise the one-sample t-test. Customers can be asked to complete a survey to review a product on its quality, dependability, and design, among other qualities. To ascertain whether the product matches customer expectations, one-sample t-tests can be used to compare the sample’s mean scores to the hypothesised mean.</p></li>
+<li><p>Customer satisfaction testing: To find out whether customers are pleased with a product or service, utilise the one-sample t-test. To gauge customer happiness, a sample of customers can complete a survey. A one-sample t-test can be used to compare the sample’s mean score to a hypothesised mean in order to assess whether or not customers are happy.</p></li>
+<li><p>Market research: One-sample t-tests can be used by businesses to examine survey data and determine whether a sample’s responses significantly deviate from an assumed mean. Understanding consumer preferences and making wise company decisions can both benefit from this.</p></li>
+</ol>
+</section>
+<section id="finance" class="level3">
+<h3 class="anchored" data-anchor-id="finance">Finance:</h3>
+<p>In finance, one-sample t-test can be used in various ways to make data-driven decisions. Here are some finance applications of one-sample t-test:</p>
+<ol type="1">
+<li><p>Stock market analysis: If a stock’s returns are considerably different from a benchmark index or an expected return, one-sample t-test can be employed to detect this. If the stock’s performance differs significantly from expectations, a one-sample t-test can be used to compare a sample of the returns to the expected return.</p></li>
+<li><p>Credit risk analysis: If a borrower’s credit score differs significantly from the population’s average credit score, one-sample t-test can be employed to ascertain this. One-sample t-test can be used to compare a sample of borrower credit scores to the population’s average credit score to see if there is a significant difference.</p></li>
+<li><p>Portfolio performance analysis: If a portfolio’s returns differ considerably from a benchmark index or an expected return, one-sample t-test can be employed to assess this. If the portfolio’s performance differs significantly from expectations, a one-sample t-test can be used to compare a sample of the returns to the predicted return.</p></li>
+<li><p>Hypothesis testing: Financial hypotheses can be tested using the one-sample t-test, including the ones that a variable has a normal distribution and that an asset class’s mean return is zero.</p></li>
+</ol>
+</section>
+<section id="organizational-behavior" class="level3">
+<h3 class="anchored" data-anchor-id="organizational-behavior">Organizational Behavior:</h3>
+<p>In organizational behavior, one-sample t-test can be used in various ways to make data-driven decisions. Here are some organizational behavior applications of one-sample t-test:</p>
+<ol type="1">
+<li><p>Employee satisfaction surveys: A one-sample t-test can be used to examine whether the average score in a survey of employees is substantially different from an average score that has been hypothesised. One-sample t-test can be used to compare the survey results to the estimated average score to see if employee satisfaction differs significantly from what was predicted.</p></li>
+<li><p>Training program evaluations: If the average score of a training programme evaluation differs considerably from a predicted average score, a one-sample t-test can be performed to discover this. The effectiveness of the training programme can be assessed by comparing the evaluation results to the average score that was hypothesised using a one-sample t-test.</p></li>
+<li><p>Employee performance evaluations: If the average score of an employee performance review differs considerably from a predicted average score, a one-sample t-test can be performed to determine this. One-sample t-tests can be used to compare the evaluation results to the hypothetical average score to see if the employee’s performance differed considerably from what was anticipated.</p></li>
+<li><p>Organizational culture assessments: If the average score of an organisational culture evaluation differs considerably from a predicted average score, a one-sample t-test can be performed to determine this. One-sample t-test can be used to examine whether the organisational culture is significantly different from what was anticipated by comparing the assessment findings to the average score that was hypothesised.</p></li>
+</ol>
+</section>
+</section>
+<section id="concept-behind-the-one-sample-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="concept-behind-the-one-sample-t-test">Concept behind the One-Sample t-test</h2>
+<ol type="1">
+<li>The mean of a single sample of observations, commonly referred to as the “hypothesised mean,” is compared to a known value using a one-sample t-test, a statistical test.</li>
+<li>The test can be used to derive conclusions about the population from which the sample was taken and determines whether the sample mean differs significantly from the anticipated mean.</li>
+<li>The t-statistic, which is the difference between the sample mean and the hypothesised mean divided by the standard error of the mean, serves as the foundation for the test.</li>
+<li>The chance of observing the sample mean if the genuine population mean is identical to the hypothesised mean is then calculated by comparing the t-statistic to a t-distribution.</li>
+<li>If this probability is small, it suggests that the sample mean is significantly different from the hypothesized mean, and the null hypothesis (that the sample mean is equal to the hypothesized mean) can be rejected.</li>
+</ol>
+</section>
+<section id="running-the-one-sample-t-test-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-one-sample-t-test-in-r">Running the One-Sample t-test in R</h2>
+<ol type="1">
+<li>Read the data into a dataframe</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Convert the data type of categorical data to <strong>factor</strong></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am  <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>am)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>gear  <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>gear)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>vs  <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>vs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>As an illustration, suppose that our objective is to compare whether the mean weight of the cars is different from 3 (1000 lbs), a value determined in a previous study.</li>
+</ol>
+<ul>
+<li>H0: The mean weight of the cars is not different from 3 (1000 lbs).</li>
+<li>H1: The mean weight of the cars is different from 3 (1000 lbs).</li>
+</ul>
+<ol start="4" type="1">
+<li>Code:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample t-test</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(wt, <span class="at">mu =</span> <span class="dv">3</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the results</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>res </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  wt
+t = 1.256, df = 31, p-value = 0.2185
+alternative hypothesis: true mean is not equal to 3
+95 percent confidence interval:
+ 2.864478 3.570022
+sample estimates:
+mean of x 
+  3.21725 </code></pre>
+</div>
+</div>
+<ol start="5" type="1">
+<li><p>The p-value of the test is 0.2185, which is greater than the significance level alpha = 0.05.</p></li>
+<li><p>So we fail to reject the null hypothesis.</p></li>
+<li><p>We can conclude that the mean weight of the cars is not different from theoretical mean 3 (1000 lbs)</p></li>
+</ol>
+</section>
+</section>
+<section id="independent-samples-t-test" class="level1">
+<h1>Independent Samples t-test</h1>
+<section id="business-applications-of-independent-samples-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="business-applications-of-independent-samples-t-test">Business Applications of Independent Samples t-test</h2>
+<section id="marketing-1" class="level3">
+<h3 class="anchored" data-anchor-id="marketing-1">Marketing:</h3>
+<ol type="1">
+<li><p>A/B testing: The effectiveness of two versions of a website or marketing campaign can be compared using the two-sample t-test to see if there are any significant differences. To establish which version is more successful, a sample of consumers can be randomly assigned to either one, and their replies can then be compared using a two-sample t-test.</p></li>
+<li><p>Product comparisons: To find out if the means of two different items are substantially different in terms of customer preferences, apply the two-sample t-test. To establish which product is preferred, a sample of consumers can be asked to rate the two goods, and the mean scores can be compared using a two-sample t-test.</p></li>
+<li><p>Price comparisons: To find out if the means of two alternative prices are significantly different in terms of client preferences, apply the two-sample t-test. To find out which price is more acceptable, a sample of customers can be polled about their willingness to pay for a product at two different prices. The mean scores from the comparison can then be compared using a two-sample t-test.</p></li>
+<li><p>Demographic comparisons: The two-sample t-test can be used to determine whether the means of two different demographic groups’ purchasing patterns are significantly different from one another. To find out if there are any notable differences in the purchasing habits of a sample of customers from two different demographic groups, the mean scores can be compared using a two-sample t-test.</p></li>
+</ol>
+</section>
+<section id="finance-1" class="level3">
+<h3 class="anchored" data-anchor-id="finance-1">Finance:</h3>
+<ol type="1">
+<li><p>Investment strategy comparisons: To find out if the means of two alternative investing strategies are substantially different in terms of their returns, apply the two-sample t-test. The strategy with a significantly greater return can be determined by comparing a sample of investments in each strategy using a two-sample t-test.</p></li>
+<li><p>Asset class comparisons: To find out if the means of two separate asset classes have returns that differ considerably, apply the two-sample t-test. The asset class with the considerably greater return can be identified by comparing a sample of investments in each asset class using a two-sample t-test.</p></li>
+<li><p>Industry comparisons: To find out if the means of two distinct industries have statistically different financial performance, apply the two-sample t-test. The two-sample t-test can be used to compare a sample of businesses from each industry to discover which has significantly better financial performance.</p></li>
+<li><p>Portfolio performance comparisons: If the means of two separate portfolios differ considerably in terms of returns, the two-sample t-test can be employed to determine this. The portfolio with a significantly better return can be determined by comparing a sample of investments in each portfolio using a two-sample t-test.</p></li>
+</ol>
+</section>
+<section id="organizational-behavior-1" class="level3">
+<h3 class="anchored" data-anchor-id="organizational-behavior-1">Organizational Behavior:</h3>
+<ol type="1">
+<li><p>Gender and diversity studies: If there is a statistically significant difference between the means of two different gender or diversity groups with regard to their work attitudes, job satisfaction, or other pertinent factors, the two-sample t-test can be employed to ascertain this. The two-sample t-test can be used to examine a sample of employees from each group to see whether there are any notable differences in their attitudes or job satisfaction.</p></li>
+<li><p>Leadership studies: To find out if the means of two alternative leadership philosophies are noticeably different in terms of their efficacy, apply the two-sample t-test. To ascertain whether leadership style is more efficient in terms of employee performance, work happiness, or other pertinent characteristics, a sample of employees from each leadership style can be compared using a two-sample t-test.</p></li>
+<li><p>Organizational change studies: The means of two distinct employee groups can be compared using the two-sample t-test to see if they differ significantly in terms of how they reacted to organisational change. To see if there are any appreciable variations in the employees’ attitudes or levels of job satisfaction, a sample of those who are exposed to the change and those who are not can be compared using a two-sample t-test.</p></li>
+<li><p>Workload and job demands studies: To find out if the means of two different job roles or teams have significantly different workloads or job demands, apply the two-sample t-test. The two-sample t-test can be used to examine a sample of individuals from each job role or team to see whether there are any notable differences in the workload or job demands.</p></li>
+</ol>
+</section>
+</section>
+<section id="concept-behind-the-two-sample-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="concept-behind-the-two-sample-t-test">Concept behind the Two Sample t-test</h2>
+<ol type="1">
+<li>Example: Compare whether the mean weight of the cars having am = 0 is significantly different from mean weight of the cars having am = 1.</li>
+</ol>
+<ul>
+<li><p>H0: The mean weight of the cars having am = 0 is not significantly different from mean weight of the cars having am = 1</p></li>
+<li><p>H1: The mean weight of the cars having am = 0 is significantly different from mean weight of the cars having am = 1</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  wt by am
+t = 5.2576, df = 30, p-value = 1.125e-05
+alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+95 percent confidence interval:
+ 0.8304317 1.8853577
+sample estimates:
+mean in group 0 mean in group 1 
+       3.768895        2.411000 </code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>The p-value of the test is 1.125e-05, which is less than the significance level alpha = 0.05.</p></li>
+<li><p>We can reject the null hypothesis.</p></li>
+<li><p>We conclude that mean weight of the cars having am = 0 is significantly different from mean weight of the cars having am = 1</p></li>
+</ol>
+</section>
+</section>
+<section id="dependent-samples-t-test-a.k.a-paired-samples-t-test" class="level1">
+<h1>Dependent Samples t-test (a.k.a Paired Samples t-test)</h1>
+<section id="business-applications-of-dependent-sample-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="business-applications-of-dependent-sample-t-test">Business Applications of Dependent Sample t-test</h2>
+<section id="marketing-2" class="level3">
+<h3 class="anchored" data-anchor-id="marketing-2">Marketing:</h3>
+<ol type="1">
+<li><p>Before-and-after studies: If there is a significant difference between the outcomes of a marketing campaign or intervention before and after, the dependent sample t-test can be employed to ascertain this. To determine whether there has been a substantial shift in the customers’ opinions or behaviour, a sample of consumers can be polled before and after the campaign or intervention, and their replies can be compared using a dependent sample t-test.</p></li>
+<li><p>Loyalty program evaluations: To find out if there is a significant difference in consumer spending or loyalty before and after the launch of a loyalty programme, utilise the dependent sample t-test. To ascertain whether there is a significant difference, a sample of customers can be followed before and after the program’s launch, and their spending or loyalty can be compared using a dependent sample t-test.</p></li>
+<li><p>Product feature evaluations: If there is a substantial difference in client preferences for a product with or without a certain feature, the dependent sample t-test can be employed to ascertain it. To ascertain whether there is a significant difference, a sample of consumers can be asked to rate the product both with and without the feature, and their replies can be compared using a dependent sample t-test.</p></li>
+<li><p>Sales promotion evaluations: To find out if there is a significant difference in sales before and after a sales promotion, apply the dependent sample t-test. To find out if there is a substantial difference, sales data can be collected before and after the promotion and compared using dependent sample t-test.</p></li>
+</ol>
+</section>
+<section id="finance-2" class="level3">
+<h3 class="anchored" data-anchor-id="finance-2">Finance:</h3>
+<ol type="1">
+<li><p>Investment performance evaluations: If there is a substantial difference in investment performance between two separate time periods, the dependent sample t-test can be performed to ascertain this. The dependent sample t-test can be used to compare a sample of investments before and after a particular event or time period, like as the introduction of a new policy or a shift in the market, to see if there is a significant difference in performance.</p></li>
+<li><p>Trading strategy evaluations: To find out if there is a significant difference in the performance of a trading strategy before and after a particular event or time period, utilise the dependent sample t-test. If there is a significant difference in performance between before and after the event or time period, a sample of trading strategies can be compared using a dependent sample t-test to find out.</p></li>
+<li><p>Risk management evaluations: To find out if there is a significant difference in risk before and after a particular event or time period, apply the dependent sample t-test. To evaluate if there is a significant difference in risk before and after the event or time period, a sample of risk management solutions can be compared using a dependent sample t-test.</p></li>
+<li><p>Portfolio management evaluations: To find out if there is a significant difference in portfolio performance before and after a particular event or time period, apply the dependent sample t-test. To establish if there is a significant difference in performance before and after the event or time period, a sample of portfolios can be compared using a dependent sample t-test.</p></li>
+</ol>
+</section>
+<section id="organizational-behavior-2" class="level3">
+<h3 class="anchored" data-anchor-id="organizational-behavior-2">Organizational Behavior:</h3>
+<ol type="1">
+<li><p>Training evaluations: To find out if there is a significant change in employee performance between before and after a certain training programme, utilise the dependent sample t-test. To determine whether there is a significant difference in the performance of a sample of employees, their performance can be assessed before and after the training programme and compared using a dependent sample t-test.</p></li>
+<li><p>Employee engagement evaluations: To find out if there is a significant difference in employee engagement between before and after a given intervention or policy change, utilise the dependent sample t-test. The dependent sample t-test can be used to examine the engagement levels of a sample of employees before and after the intervention or policy change and see whether there is a statistically significant difference.</p></li>
+<li><p>Leadership evaluations: To evaluate whether there is a significant difference in leadership effectiveness between before and after a certain leadership development programme, a dependent sample t-test can be utilised. A dependent sample t-test can be used to assess the perceptions of leadership effectiveness of a sample of employees before and after the programme to see if there is a statistically significant difference.</p></li>
+<li><p>Organizational change evaluations: To evaluate whether there is a significant difference in employee attitudes before and after a certain organisational change, utilise the dependent sample t-test. To determine whether there is a significant difference, a sample of employees can be assessed before and after the change, and their views of the change can be compared using a dependent sample t-test.</p></li>
+</ol>
+</section>
+</section>
+<section id="concept-behind-the-paired-sample-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="concept-behind-the-paired-sample-t-test">Concept behind the Paired sample t-test</h2>
+<ol type="1">
+<li><p>It is a statistical method used to check if the mean difference between two sets of observations is zero is the paired sample t-test, also known as the dependent sample t-test.</p></li>
+<li><p>Each subject or thing is measured twice in a paired sample t-test, yielding pairs of observations.</p></li>
+</ol>
+<section id="hypothesis-for-paired-sample-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-for-paired-sample-t-test">Hypothesis for Paired sample t-test</h3>
+<ol type="1">
+<li><p>Suppose a training program was conducted to improve the participants’ knowledge of ICT. Data were collected from a selected sample of 10 individuals before and after the ICT training program.</p></li>
+<li><p>Test the hypothesis that the training is effective to improve the participants’ knowledge of ICT at 95% level of significance.</p></li>
+<li><p>Hypotheses</p></li>
+</ol>
+<p>H0: there is no difference in participants’ knowledge before and after the ICT training</p>
+<p>H1: ICT training affected the participant’s knowledge</p>
+</section>
+<section id="ict-training-data" class="level3">
+<h3 class="anchored" data-anchor-id="ict-training-data">ICT training data</h3>
+<ol start="4" type="1">
+<li>Let’s create this data set. First, create before and after as objects containing the scores of ICT training.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.2</span>, <span class="fl">14.6</span>, <span class="fl">13.4</span>, <span class="fl">11.2</span>, <span class="fl">12.7</span>, <span class="fl">10.4</span>, <span class="fl">15.8</span>, <span class="fl">13.9</span>, <span class="fl">9.5</span>, <span class="fl">14.2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">13.5</span>, <span class="fl">15.2</span>, <span class="fl">13.6</span>, <span class="fl">12.8</span>, <span class="fl">13.7</span>, <span class="fl">11.3</span>, <span class="fl">16.5</span>, <span class="fl">13.4</span>, <span class="fl">8.7</span>, <span class="fl">14.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>Now create a data matrix using data.frame() function.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">subject =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="dv">2</span>), </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">time =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"before"</span>, <span class="st">"after"</span>), <span class="at">each =</span> <span class="dv">10</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">score =</span> <span class="fu">c</span>(before, after))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   subject   time score
+1        1 before  12.2
+2        2 before  14.6
+3        3 before  13.4
+4        4 before  11.2
+5        5 before  12.7
+6        6 before  10.4
+7        7 before  15.8
+8        8 before  13.9
+9        9 before   9.5
+10      10 before  14.2
+11       1  after  13.5
+12       2  after  15.2
+13       3  after  13.6
+14       4  after  12.8
+15       5  after  13.7
+16       6  after  11.3
+17       7  after  16.5
+18       8  after  13.4
+19       9  after   8.7
+20      10  after  14.6</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-samples" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-samples">Visualizing samples</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(score <span class="sc">~</span> time, <span class="at">data =</span> df,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#003C67FF"</span>, <span class="st">"#EFC000FF"</span>),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"ICT training score improves knowlege"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Time"</span>, <span class="at">ylab =</span> <span class="st">"Score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04TTest_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="running-paired-sample-t-test-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="running-paired-sample-t-test-in-r">Running Paired sample t-test in R</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">formula =</span> score <span class="sc">~</span> time, <span class="at">data =</span> df,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mu =</span> <span class="dv">0</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>,   </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  score by time
+t = 2.272, df = 9, p-value = 0.0246
+alternative hypothesis: true mean difference is greater than 0
+95 percent confidence interval:
+ 0.1043169       Inf
+sample estimates:
+mean difference 
+           0.54 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mu argument indicate the true value of difference in means for a two sample test. </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE for paired argument as this is paired sample data and each subject is measured twice before and after the ICT training. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><p>The results showed that the probability value is lower than 0.05.</p></li>
+<li><p>Lower the p-value, lower the evidence we have to support the null hypothesis.</p></li>
+<li><p>Based on this result, we shall reject the null hypothesis of no difference. It means ICT training significantly improved the participants’ knowledge.</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="t-test-assumptions" class="level1">
+<h1>t-test Assumptions</h1>
+<section id="assumptions-behind-one-sample-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions-behind-one-sample-t-test">Assumptions behind One-Sample t-test</h2>
+<p>Recall that the one-sample t-test is a statistical test used to determine if the mean of a sample is significantly different from a known or hypothesized population mean. There are several assumptions that must be met before conducting a one-sample t-test:</p>
+<ol type="1">
+<li><p>Random sampling: The sample should be randomly selected from the population of interest. This assumption ensures that the sample is representative of the population.</p></li>
+<li><p>Normality: The data should follow a normal distribution. This assumption is important because the t-test assumes that the distribution of the means of the sample is normal.</p></li>
+<li><p>Independence: The observations within the sample should be independent of each other. In other words, the value of one observation should not depend on or influence the value of another observation in the same sample.</p></li>
+<li><p>Scale of measurement: The data should be measured on an interval or ratio scale. This assumption ensures that the data has equal intervals between values.</p></li>
+</ol>
+<p>If these assumptions are not met, the results of the one-sample t-test may not be valid or reliable. It is important to check these assumptions before conducting a one-sample t-test and to use alternative tests if the assumptions are not met.</p>
+</section>
+<section id="assumptions-behind-the-independent-samples-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions-behind-the-independent-samples-t-test">Assumptions behind the Independent samples t-test</h2>
+<p>Remember that the one-sample t-test is a statistical analysis used to assess whether a sample’s mean differs significantly from an actual or predicted population mean. Before doing a one-sample t-test, a number of conditions must be satisfied:</p>
+<ol type="1">
+<li><p>Independence: Each group’s observations must be separate from the others. In other words, the value of one observation in a group shouldn’t be influenced or dependent on the value of another observation.</p></li>
+<li><p>Normality: Each group’s data should have a normal distribution. This presumption is crucial since the t-test assumes a normal distribution for the distribution of the mean differences between the two groups.</p></li>
+<li><p>Homogeneity of variance: Each group’s data variance ought to be equal. Because the t-test implies that the variances of the two groups are identical, this presumption is crucial.</p></li>
+<li><p>Scale of measurement: The data should be measured on an interval or ratio scale. This assumption ensures that the data has equal intervals between values.</p></li>
+</ol>
+<p>The findings of the independent samples t-test might not be valid or accurate if these suppositions are not true. When performing an independent samples t-test, it is crucial to confirm these hypotheses. If necessary, other tests should be used. Non-parametric tests like the Mann-Whitney U test can be utilised if the normality assumption is violated. The standard independent samples t-test can be substituted with a Welch’s t-test if the homogeneity of variance assumption is not met.</p>
+</section>
+<section id="assumptions-behind-the-dependent-samples-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions-behind-the-dependent-samples-t-test">Assumptions behind the Dependent samples t-test</h2>
+<p>Remember that a paired samples t-test, sometimes referred to as a dependent samples t-test, is a statistical test used to compare the means of two related samples. The observations in one sample are paired with the observations in the other sample, so the samples are thought to be connected. The samples could, for instance, be measurements taken on the same group of people before and after a therapy. A dependent samples t-test is conducted with the following presumptions:</p>
+<ol type="1">
+<li><p>Independence: The differences between the pairs of observations should be independent of each other. In other words, the value of one difference should not depend on or influence the value of another difference.</p></li>
+<li><p>Normality: The differences between the paired observations should follow a normal distribution. This assumption is important because the t-test assumes that the distribution of the mean differences is normal.</p></li>
+<li><p>Scale of measurement: The differences between the paired observations should be measured on an interval or ratio scale. This assumption ensures that the data has equal intervals between values.</p></li>
+</ol>
+<p>The findings of the dependent samples t-test might not be valid or accurate if these suppositions are not true. When doing a dependent samples t-test, it is crucial to confirm these hypotheses. If necessary, other tests should be used. Non-parametric tests, such as the Wilcoxon signed-rank test, can be utilised if the normality assumption is violated.</p>
+</section>
+<section id="checking-t-test-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="checking-t-test-assumptions">Checking t-test Assumptions</h2>
+<p>Assumption of Normality: We will check whether the dependent variable wt is normally distributed or not.</p>
+<section id="q-q-plot-for-normality" class="level3">
+<h3 class="anchored" data-anchor-id="q-q-plot-for-normality">Q-Q Plot for Normality</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(mtcars<span class="sc">$</span>wt, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">frame =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(mtcars<span class="sc">$</span>wt, <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04TTest_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>We can see that all the data points are not on the 45 degree line, hence we assume that the distribuion of weight is not normal.</p>
+</section>
+<section id="shapiro-wilk-test-for-normality" class="level3">
+<h3 class="anchored" data-anchor-id="shapiro-wilk-test-for-normality">Shapiro-Wilk Test for Normality</h3>
+<p>Here, the sample size must be between 3 and 5000)</p>
+<p>H0: mtcars$wt is normally distributed</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run Shapiro-Wilk test</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  mtcars$wt
+W = 0.94326, p-value = 0.09265</code></pre>
+</div>
+</div>
+</section>
+<section id="two-sample-kolmogorov-smirnov-test-for-normality" class="level3">
+<h3 class="anchored" data-anchor-id="two-sample-kolmogorov-smirnov-test-for-normality">Two-sample Kolmogorov-Smirnov test for Normality</h3>
+<p>H0: mtcars$wt is normally distributed</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">32</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x, mtcars<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact two-sample Kolmogorov-Smirnov test
+
+data:  x and mtcars$wt
+D = 0.875, p-value = 6.934e-13
+alternative hypothesis: two-sided</code></pre>
+</div>
+</div>
+</section>
+<section id="assumption-of-equal-variance" class="level3">
+<h3 class="anchored" data-anchor-id="assumption-of-equal-variance">Assumption of Equal Variance</h3>
+<p>We will check whether the variances across the two groups are same or not.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comparing variances </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: The variances of the two samples wt~am are not different</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(wt<span class="sc">~</span>am)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test to compare two variances
+
+data:  wt by am
+F = 1.5876, num df = 18, denom df = 12, p-value = 0.4177
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.5107978 4.3959133
+sample estimates:
+ratio of variances 
+          1.587613 </code></pre>
+</div>
+</div>
+<p>From the output above we can see that the p-value is not less than the significance level of 0.05. This means that there is no evidence to suggest that the variances are statistically significantly different. Therefore, we can assume the homogeneity of variances in the two groups (am = 1 &amp; am = 0).</p>
+</section>
+<section id="if-the-assumption-of-equal-variance-is-violated" class="level3">
+<h3 class="anchored" data-anchor-id="if-the-assumption-of-equal-variance-is-violated">If the Assumption of Equal Variance is Violated?</h3>
+<p>We will use Welch Two Sample t-test. We can use this test by simply writting (var.equal = FALSE) using t.test() in R</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing t-test,when assumption of equal variance is violated</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>tst <span class="ot">&lt;-</span> <span class="fu">t.test</span>(wt<span class="sc">~</span>am, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>tst</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  wt by am
+t = 5.4939, df = 29.234, p-value = 6.272e-06
+alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+95 percent confidence interval:
+ 0.8525632 1.8632262
+sample estimates:
+mean in group 0 mean in group 1 
+       3.768895        2.411000 </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="non-parametric-alternatives-to-t-test" class="level1">
+<h1>Non-parametric alternatives to t-test</h1>
+<section id="one-sample-wilcoxon-signed-rank-test" class="level2">
+<h2 class="anchored" data-anchor-id="one-sample-wilcoxon-signed-rank-test">One-Sample Wilcoxon Signed Rank Test</h2>
+<ol type="1">
+<li><p>The one-sample Wilcoxon signed rank test is a non-parametric statistical test alternative to one-sample t-test, when the data cannot be assumed to be normally distributed.</p></li>
+<li><p>It is used to determine if the median of a single sample of paired observations is different from a hypothesized value.</p></li>
+<li><p>The test works by first calculating the differences between each pair of observations and taking the absolute values of these differences.</p></li>
+<li><p>The ranks of these absolute differences are then calculated, and the sign of each difference is retained.</p></li>
+<li><p>The sum of the ranks of the positive differences and the sum of the ranks of the negative differences are then calculated, and the smaller of the two sums is used as the test statistic.</p></li>
+<li><p>Hypothesis Testing</p></li>
+</ol>
+<ul>
+<li>The null hypothesis of the test is that the median of the paired differences is equal to the hypothesized value.</li>
+<li>The alternative hypothesis is that the median of the paired differences is not equal to the hypothesized value.</li>
+</ul>
+<ol start="7" type="1">
+<li>The significance of the test is determined by comparing the calculated value of the test statistic to a critical value from a table or by calculating a p-value using the normal approximation or exact method.</li>
+</ol>
+<ul>
+<li>If the p-value is less than the chosen significance level (usually 0.05), then the null hypothesis is rejected, and it is concluded that the median of the paired differences is different from the hypothesized value.</li>
+<li>If the p-value is greater than the chosen significance level, then there is insufficient evidence to reject the null hypothesis.</li>
+</ul>
+<ol start="8" type="1">
+<li>Example: Compare whether the median weight of cars the differ from 3 (1000 lbs), a value determined in a previous study.</li>
+</ol>
+<p>H0: The median weight of the cars is not different from theoretical median 3 (1000 lbs).</p>
+<p>H1: The median weight of the cars is different from theoretical median 3 (1000 lbs).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample wilcoxon test</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>wil <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(wt, <span class="at">mu =</span> <span class="dv">3</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the results</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>wil </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>The p-value of the test is 0.3081, which is greater than the significance level alpha = 0.05.</p></li>
+<li><p>We fail to reject the null hypothesis.</p></li>
+<li><p>We can conclude that the median weight of the cars is not different from theoretical median 3 (1000 lbs)</p></li>
+</ul>
+</section>
+<section id="two-sample-wilcoxon-test-a.k.a-mann-whitney-u-test" class="level2">
+<h2 class="anchored" data-anchor-id="two-sample-wilcoxon-test-a.k.a-mann-whitney-u-test">Two-Sample Wilcoxon test (a.k.a Mann-Whitney U test)</h2>
+<ol type="1">
+<li><p>The two-sample Wilcoxon test, also known as the Wilcoxon rank-sum test or Mann-Whitney U test, is a non-parametric statistical test used to compare the distributions of two independent samples.</p></li>
+<li><p>It is often used as an alternative to the two-sample t-test when the data does not meet the assumption of normality.</p></li>
+<li><p>The test works by combining the two samples and ranking all the observations from lowest to highest. The ranks of the observations in each sample are then calculated, and the test statistic U is calculated as the smaller of the two sums of the ranks.</p></li>
+<li><p>Hypothesis Testing</p></li>
+</ol>
+<ul>
+<li>The null hypothesis of the test is that the two samples come from the same distribution, while the alternative hypothesis is that they come from different distributions.</li>
+</ul>
+<ol start="5" type="1">
+<li>The significance of the test is determined by comparing the calculated value of U to a critical value from a table or by calculating a p-value using the normal approximation or exact method.</li>
+</ol>
+<ul>
+<li><p>If the p-value is less than the chosen significance level (usually 0.05), then the null hypothesis is rejected, and it is concluded that the two samples come from different distributions.</p></li>
+<li><p>If the p-value is greater than the chosen significance level, then there is insufficient evidence to reject the null hypothesis.</p></li>
+</ul>
+<ol start="6" type="1">
+<li>Example: Compare whether the median weight of the cars having am = 0 is significantly different from median weight of the cars having am = 1.</li>
+</ol>
+<ul>
+<li><p>H0: The median weight of the cars having am = 0 is not significantly different from median weight of the cars having am = 1</p></li>
+<li><p>H1: The median weight of the cars having am = 0 is significantly different from median weight of the cars having am = 1</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute unpaired two-samples Wilcoxon test</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>twil <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(wt<span class="sc">~</span>am)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>twil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  wt by am
+W = 230.5, p-value = 4.347e-05
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The p-value of the test is 4.347e-05, which is less than the significance level alpha = 0.05.</p></li>
+<li><p>We can reject the null hypothesis,and conclude that median weight of the cars having am = 0 is significantly different from median weight of the cars having am = 1</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/">Sameer Mathur</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true">Aryeman Gupta Mathur</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

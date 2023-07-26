@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Analytics 102 -- Applied Statistics and Regression Using R – anova</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data Analytics 102 – Applied Statistics and Regression Using R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/" rel="" target="_blank"><i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Sameer Mathur</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true" rel="" target="_blank"><i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Aryeman Gupta Mathur</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/SameerMathur/DataAnalytics102" rel="" target="_blank"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text">Book’s Github</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05ANOVA.html">ANOVA</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/openscapes_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01GettingStarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02ZTests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Z Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03ChiSquareTests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chi-Square Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04TTest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">t-tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05ANOVA.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">ANOVA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correlation Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07LinearRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Regression.</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08Interaction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interactions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09LogLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Log-Linear Regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10LogLog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Log-Log Regression</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><img src="BookCover102.png" class="img-fluid"></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#anova" id="toc-anova" class="nav-link active" data-scroll-target="#anova">ANOVA</a>
+  <ul class="collapse">
+  <li><a href="#business-applications-of-one-way-anova" id="toc-business-applications-of-one-way-anova" class="nav-link" data-scroll-target="#business-applications-of-one-way-anova">Business Applications of One-Way ANOVA</a></li>
+  <li><a href="#anova-versus-t-test" id="toc-anova-versus-t-test" class="nav-link" data-scroll-target="#anova-versus-t-test">ANOVA versus t-test</a></li>
+  </ul></li>
+  <li><a href="#one-way-anova" id="toc-one-way-anova" class="nav-link" data-scroll-target="#one-way-anova">One-Way ANOVA</a>
+  <ul class="collapse">
+  <li><a href="#running-the-one-way-anova-in-r" id="toc-running-the-one-way-anova-in-r" class="nav-link" data-scroll-target="#running-the-one-way-anova-in-r">Running the One-Way ANOVA in R</a></li>
+  <li><a href="#pairwise-comparision-using-tuckys-post-hoc-test" id="toc-pairwise-comparision-using-tuckys-post-hoc-test" class="nav-link" data-scroll-target="#pairwise-comparision-using-tuckys-post-hoc-test">Pairwise comparision using Tucky’s Post-Hoc test</a></li>
+  </ul></li>
+  <li><a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova">Two-Way ANOVA</a>
+  <ul class="collapse">
+  <li><a href="#running-the-two-way-anova-in-r" id="toc-running-the-two-way-anova-in-r" class="nav-link" data-scroll-target="#running-the-two-way-anova-in-r">Running the Two-Way ANOVA in R</a></li>
+  <li><a href="#two-way-anova-and-interactions" id="toc-two-way-anova-and-interactions" class="nav-link" data-scroll-target="#two-way-anova-and-interactions">Two-Way ANOVA and Interactions</a></li>
+  <li><a href="#running-the-two-way-anova-with-interaction-in-r" id="toc-running-the-two-way-anova-with-interaction-in-r" class="nav-link" data-scroll-target="#running-the-two-way-anova-with-interaction-in-r">Running the Two-Way ANOVA With Interaction in R</a></li>
+  <li><a href="#pairwise-comparision-using-tuckys-post-hoc-test-1" id="toc-pairwise-comparision-using-tuckys-post-hoc-test-1" class="nav-link" data-scroll-target="#pairwise-comparision-using-tuckys-post-hoc-test-1">Pairwise comparision using Tucky’s Post-Hoc test</a></li>
+  <li><a href="#limitations-of-anova" id="toc-limitations-of-anova" class="nav-link" data-scroll-target="#limitations-of-anova">Limitations of ANOVA</a></li>
+  <li><a href="#levenes-test-for-homogeneity-of-variance" id="toc-levenes-test-for-homogeneity-of-variance" class="nav-link" data-scroll-target="#levenes-test-for-homogeneity-of-variance">Levene’s Test for Homogeneity Of Variance</a></li>
+  <li><a href="#welch-one-way-test" id="toc-welch-one-way-test" class="nav-link" data-scroll-target="#welch-one-way-test">Welch One-Way Test</a></li>
+  </ul></li>
+  <li><a href="#non-parametric-tests" id="toc-non-parametric-tests" class="nav-link" data-scroll-target="#non-parametric-tests">Non-Parametric Tests</a>
+  <ul class="collapse">
+  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal Distribution</a></li>
+  <li><a href="#kruskal-wallis-rank-sum-test" id="toc-kruskal-wallis-rank-sum-test" class="nav-link" data-scroll-target="#kruskal-wallis-rank-sum-test">Kruskal-Wallis Rank Sum Test</a></li>
+  <li><a href="#friedman-test" id="toc-friedman-test" class="nav-link" data-scroll-target="#friedman-test">Friedman Test</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="05ANOVA.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="anova" class="level1">
+<h1>ANOVA</h1>
+<p><em>July 26, 2023</em></p>
+<ol type="1">
+<li><p>ANOVA (Analysis of Variance) is a statistical technique used to determine whether the means of two or more groups differ significantly from one another. It is employed to establish whether the mean difference is actually different or merely the result of chance.</p></li>
+<li><p>There are several types of ANOVA, including One-Way ANOVA, Two-Way ANOVA, and Multi-Way ANOVA.</p></li>
+</ol>
+<ul>
+<li>One-Way ANOVA is used to compare the means of two or more groups.</li>
+<li>Two-Way ANOVA is used to compare the means of two or more groups while taking the influence of two independent factors into account.</li>
+<li>Multi-Way ANOVA is used to compare the means of two or more groups while taking the influence of more than two factors into account.</li>
+</ul>
+<ol start="3" type="1">
+<li>ANOVA works by dividing the total variance in a set of data into two parts:</li>
+</ol>
+<ul>
+<li>the variance <strong>between</strong> the groups (between-group variance)</li>
+<li>the variance <strong>within</strong> the groups (within-group variance).</li>
+</ul>
+<ol start="4" type="1">
+<li><p>Calculating the F-ratio, which is the ratio of the between-group variance to the within-group variance, reveals whether there is a significant difference between the group averages.</p></li>
+<li><p>ANOVA is frequently used to compare means and draw conclusions about populations from sample data in various disciplines, including economics, psychology, and marketing. Making data-driven, educated judgements based on statistical evidence is possible with this useful tool for spotting significant variations across groups.</p></li>
+</ol>
+<section id="business-applications-of-one-way-anova" class="level2">
+<h2 class="anchored" data-anchor-id="business-applications-of-one-way-anova">Business Applications of One-Way ANOVA</h2>
+<p>It can be applied in various business applications such as:</p>
+<ol type="1">
+<li><p>Comparing the average sales of a product across various geographies or demographic groups to determine which group has the greatest average.</p></li>
+<li><p>Human resource management: To assess whether there is a substantial variance in the median employee salary across various departments or job positions.</p></li>
+<li><p>Quality control: Quality control involves comparing the average number of product flaws across various production lines or manufacturing procedures in order to identify the one that results in the fewest flaws.</p></li>
+<li><p>Customer satisfaction: To analyse the average customer satisfaction scores across several product or service offerings and identify which one is producing the most positive feedback from customers.Business Applications of Two-Way ANOVA</p></li>
+</ol>
+<p>It can also be applied in various business applications such as:</p>
+<ol type="1">
+<li><p>Market research: To assess the impact on sales of two independent variables, such as product and location, and to ascertain whether the two variables interact.</p></li>
+<li><p>Human resource management: To investigate whether there is an interaction between two independent variables—such as job position and training program—and employee performance.</p></li>
+<li><p>Manufacturing: Assess whether there is an interaction between the two factors by examining the impact of two independent variables, such as the production process and the source of raw materials, on product quality.</p></li>
+<li><p>Customer satisfaction: To investigate whether there is an interaction between two independent variables, such as product line and mode of customer service (online, phone, in-person), on customer satisfaction.</p></li>
+</ol>
+<p>By using ANOVA, businesses can gain deeper insights into the relationships between one or more independent variables and the dependent variable, allowing them to make data-driven decisions and improve their business.</p>
+</section>
+<section id="anova-versus-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="anova-versus-t-test">ANOVA versus t-test</h2>
+<p>Both the t-test and the analysis of variance (ANOVA) are statistical techniques that are used to compare the means of two or more groups and ascertain whether there is a statistically significant difference between them. ANOVA and t-test, however, differ significantly in the following ways:</p>
+<ol type="1">
+<li><p><strong>Number of groups</strong>: The t-test is used to compare the means of just two groups, whereas ANOVA can be used to compare the means of two or more groups.</p></li>
+<li><p><strong>Assumptions</strong>: ANOVA makes the assumptions that the data are independent, normally distributed, and have similar variances across groups. The T-test presumes that the data are independent but not necessarily normally distributed with equal variances.</p></li>
+<li><p><strong>Multiple comparisons</strong>: ANOVA permits numerous comparisons of the means of different groups, whereas the t-test necessitates several tests and is hence more prone to Type I errors.</p></li>
+<li><p><strong>Power</strong>: When there are more than two groups, ANOVA has greater potential to identify significant differences between group means. When there are more than two groups, the T-test has lower power.</p></li>
+</ol>
+</section>
+</section>
+<section id="one-way-anova" class="level1">
+<h1>One-Way ANOVA</h1>
+<ol type="1">
+<li>One-way A statistical technique called ANOVA (Analysis of Variance) is used to determine whether the means of two or more groups are identical.</li>
+<li>When comparing multiple levels (categories) of an independent variable, it is used to assess whether there is a significant variation in the mean of the dependent variable (response variable) (explanatory variable).</li>
+<li>One-way ANOVA is a method of hypothesis testing used to compare the means of various groups to determine if any group differs significantly from the others.</li>
+</ol>
+<section id="running-the-one-way-anova-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-one-way-anova-in-r">Running the One-Way ANOVA in R</h2>
+<ol type="1">
+<li>Reading the Data</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Convert the categorical variables into factor variables</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>am)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>gear <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>gear)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>vs <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>vs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Null Hypothesis</li>
+</ol>
+<p>To compare whether the mean weight of the cars for cylinders (cyl=4,6,8) is significantly different or not.</p>
+<p>H0: The mean weight of cars having different cylinders (cyl=4,6,8) are not significantly different</p>
+<ol start="4" type="1">
+<li>Running the One-Way ANOVA in R</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing one way ANOVA</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>AnovaOneWay <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt<span class="sc">~</span>cyl, <span class="at">data =</span> mtcars)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaOneWay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+cyl          2  18.18   9.088   22.91 1.07e-06 ***
+Residuals   29  11.50   0.397                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The p-value of the test is 1.22e-07, which is less than the significance level alpha = 0.05.</p></li>
+<li><p>We can REJECT the null hypothesis,and conclude that mean weight of the cars for different cylinders (cyl=4,6,8) are significantly different.</p></li>
+</ul>
+</section>
+<section id="pairwise-comparision-using-tuckys-post-hoc-test" class="level2">
+<h2 class="anchored" data-anchor-id="pairwise-comparision-using-tuckys-post-hoc-test">Pairwise comparision using Tucky’s Post-Hoc test</h2>
+<ol type="1">
+<li><p>After running an ANOVA, the Tukey’s post-hoc test is performed to discover which pairs of group means are substantially different from one another (Analysis of Variance).</p></li>
+<li><p>It is a strategy for reducing the likelihood of at least one Type I error (false positive) among all comparisons, also known as the family-wise error rate.</p></li>
+<li><p>The Tukey test compares the means of all potential group pairs and modifies the significance level based on the number of comparisons.</p></li>
+<li><p>It provides a confidence interval for the difference between the means of the two groups as well as a p-value for each pairwise comparison. The difference between the means is deemed significant if the p-value is smaller than the significance level (for example, 0.05).</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tukey multiple comparisons of means</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tukey.test <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(AnovaOneWay)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tukey.test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = wt ~ cyl, data = mtcars)
+
+$cyl
+         diff        lwr      upr     p adj
+6-4 0.8314156 0.07939155 1.583440 0.0278777
+8-4 1.7134870 1.08680032 2.340174 0.0000006
+8-6 0.8820714 0.16206323 1.602080 0.0138630</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="two-way-anova" class="level1">
+<h1>Two-Way ANOVA</h1>
+<ol type="1">
+<li>A statistical technique called two-way ANOVA (Analysis of Variance) is used to examine the impact of two independent factors on a dependent variable.</li>
+<li>It is employed to ascertain whether the interactions between the two independent variables and the dependent variable are meaningful.</li>
+<li>An improvement over one-way ANOVA, two-way ANOVA enables the analysis of the effects of two independent factors on the dependent variable.</li>
+</ol>
+<section id="running-the-two-way-anova-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-two-way-anova-in-r">Running the Two-Way ANOVA in R</h2>
+<p>We shall be using mtcars data set to demonstrate Two-Way ANOVA. We will compare whether the mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmission Type (am = 0,1) are significantly different or not.</p>
+<ol type="1">
+<li>Hypothesis</li>
+</ol>
+<ul>
+<li><p>H0: The mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmission Type (am = 0,1) is not significantly different</p></li>
+<li><p>H1: The mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmission Type (am = 0,1) is significantly different</p></li>
+</ul>
+<ol start="2" type="1">
+<li>Two-Way ANOVA</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing two way ANOVA</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>AnovaTwoWay <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt <span class="sc">~</span> am <span class="sc">+</span> cyl, <span class="at">data =</span> mtcars)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaTwoWay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+am           1 14.232  14.232   48.49 1.43e-07 ***
+cyl          2  7.228   3.614   12.31 0.000146 ***
+Residuals   28  8.219   0.294                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>The p-value of the test is 0.000146, which is less than the significance level alpha = 0.05.</li>
+<li>We can reject the null hypothesis</li>
+<li>We conclude that mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmissions (am = 0,1) are significantly different</li>
+</ol>
+<p>Pairwise comparison using Tukey Post-Hoc test</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tukey multiple comparisons of means</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tukey.test <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(AnovaTwoWay)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tukey.test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = wt ~ am + cyl, data = mtcars)
+
+$am
+         diff       lwr        upr p adj
+1-0 -1.357895 -1.757343 -0.9584467 1e-07
+
+$cyl
+         diff        lwr      upr     p adj
+6-4 0.4258107 -0.2223305 1.073952 0.2518163
+8-4 0.9199122  0.3797945 1.460030 0.0006710
+8-6 0.4941015 -0.1264464 1.114649 0.1383557</code></pre>
+</div>
+</div>
+</section>
+<section id="two-way-anova-and-interactions" class="level2">
+<h2 class="anchored" data-anchor-id="two-way-anova-and-interactions">Two-Way ANOVA and Interactions</h2>
+<ol type="1">
+<li><p>To determine whether there is an interaction between the variables, the investigator manipulates two independent variables, each with numerous levels.</p></li>
+<li><p>After measuring the dependent variable, the means of the groups created by the combination of the two independent variables are assessed.</p></li>
+<li><p>This enables the experimenter to assess whether there is a meaningful interaction between the two independent factors and whether the magnitude of one independent variable’s impact on the dependent variable is reliant upon the magnitude of the other independent variable</p></li>
+<li><p>The main difference between two-way ANOVA with and without interactions is the way that the effects of the independent variables are analyzed.</p></li>
+<li><p>Two-way ANOVA without interactions:</p></li>
+</ol>
+<ul>
+<li>The main effects of each independent variable are examined separately in this particular sort of two-way ANOVA, without taking into account any potential interactions between the two independent variables.</li>
+<li>This is also known as a <strong>main effects model</strong>.</li>
+<li>The main purpose of this type of analysis is to <strong>determine if there is a significant effect of each independent variable on the dependent variable</strong>.</li>
+</ul>
+<ol start="6" type="1">
+<li>Two-way ANOVA with interactions:</li>
+</ol>
+<ul>
+<li>In this type of two-way ANOVA, the possible interaction between the two independent variables is taken into account.</li>
+<li><strong>When two independent variables interact, the impact of one on the dependent variable is influenced by the level of the other independent variable.</strong></li>
+<li>This form of analysis is used to assess if there is a significant interaction between the independent variables and if the level of one independent variable affects the level of the other independent variable when it comes to its impact on the dependent variable.</li>
+</ul>
+</section>
+<section id="running-the-two-way-anova-with-interaction-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-two-way-anova-with-interaction-in-r">Running the Two-Way ANOVA With Interaction in R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing two way ANOVA</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>AnovaTwoWayInt <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt <span class="sc">~</span> am<span class="sc">*</span>cyl, <span class="at">data =</span> mtcars)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaTwoWayInt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+am           1 14.232  14.232  45.394 3.78e-07 ***
+cyl          2  7.228   3.614  11.527 0.000261 ***
+am:cyl       2  0.067   0.033   0.106 0.899371    
+Residuals   26  8.152   0.314                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="pairwise-comparision-using-tuckys-post-hoc-test-1" class="level2">
+<h2 class="anchored" data-anchor-id="pairwise-comparision-using-tuckys-post-hoc-test-1">Pairwise comparision using Tucky’s Post-Hoc test</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tukey multiple comparisons of means</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tukey.test <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(AnovaTwoWayInt)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tukey.test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = wt ~ am * cyl, data = mtcars)
+
+$am
+         diff      lwr        upr p adj
+1-0 -1.357895 -1.77217 -0.9436199 4e-07
+
+$cyl
+         diff        lwr      upr     p adj
+6-4 0.4258107 -0.2469135 1.098535 0.2750199
+8-4 0.9199122  0.3593087 1.480516 0.0010767
+8-6 0.4941015 -0.1499828 1.138186 0.1570181
+
+$`am:cyl`
+              diff         lwr       upr     p adj
+1:4-0:4 -0.8927500 -2.05745123 0.2719512 0.2090063
+0:6-0:4  0.4537500 -0.86021020 1.7677102 0.8921575
+1:6-0:4 -0.1800000 -1.58468254 1.2246825 0.9986272
+0:8-0:4  1.1690833  0.05858428 2.2795824 0.0348194
+1:8-0:4  0.4350000 -1.13548282 2.0054828 0.9546454
+0:6-1:4  1.3465000  0.29298810 2.4000119 0.0066940
+1:6-1:4  0.7127500 -0.45195123 1.8774512 0.4357758
+0:8-1:4  2.0618333  1.27659192 2.8470747 0.0000002
+1:8-1:4  1.3277500 -0.03232802 2.6878280 0.0586249
+1:6-0:6 -0.6337500 -1.94771020 0.6802102 0.6782063
+0:8-0:6  0.7153333 -0.27792721 1.7085939 0.2660287
+1:8-0:6 -0.0187500 -1.50864082 1.4711408 1.0000000
+0:8-1:6  1.3490833  0.23858428 2.4595824 0.0107805
+1:8-1:6  0.6150000 -0.95548282 2.1854828 0.8313295
+1:8-0:8 -0.7340833 -2.04804353 0.5798769 0.5337008</code></pre>
+</div>
+</div>
+</section>
+<section id="limitations-of-anova" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-anova">Limitations of ANOVA</h2>
+<ol type="1">
+<li><p><strong>Assumptions</strong>: ANOVA makes the assumptions that the data are independent, normally distributed, and have similar variances across groups. The ANOVA results could be suspect if these presumptions are not true.</p></li>
+<li><p><strong>Limited to comparing means</strong>: ANOVA cannot be used to draw conclusions about other measures of central tendency, such as medians or modes, and is only capable of comparing the means of two or more groups.</p></li>
+<li><p><strong>Non-linear relationships</strong>: ANOVA presupposes that the independent and dependent variables have a linear relationship. ANOVA might not be appropriate if there is a non-linear relationship.</p></li>
+<li><p><strong>Type I and Type II errors:</strong> ANOVA is sensitive to Type I (false positive) and Type II (false negative) mistakes, like all statistical tests. It is crucial to select the proper level of significance and interpret the findings in light of the sample size and data variability.</p></li>
+<li><p><strong>Multiple comparisons</strong>: Multiple comparisons can raise the possibility of Type I errors when comparing the means of more than two groups. Adjustments to the significance level, like the Bonferroni correction, can be applied to overcome this problem.</p></li>
+</ol>
+</section>
+<section id="levenes-test-for-homogeneity-of-variance" class="level2">
+<h2 class="anchored" data-anchor-id="levenes-test-for-homogeneity-of-variance">Levene’s Test for Homogeneity Of Variance</h2>
+<ol type="1">
+<li><p>ANOVA makes the assumption that the data are normally distributed and that there is homogeneous variation between groups.</p></li>
+<li><p>A statistical test called the Levene’s test is used to evaluate the equality of variances between two or more groups.</p></li>
+<li><p>The validity of the ANOVA results may be affected if there are appreciable variance differences across groups, which can be found using Levene’s test.</p></li>
+<li><p>The null hypothesis is that the variances are equal across all groups, and the test statistic is computed from the absolute deviations of the data from their group averages.</p></li>
+<li><p>The null hypothesis is rejected and it is concluded that the variances are not equal if the test’s p-value is less than a predetermined level of significance. The Welch’s ANOVA or the Brown-Forsythe test should be used as alternatives to analysis of variance in this situation.</p></li>
+<li><p>Running the Levene’s Test for Homogeneity of Variance in R</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Levene's test</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(wt<span class="sc">~</span>cyl, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(&gt;F)
+group  2  0.4995  0.612
+      29               </code></pre>
+</div>
+</div>
+<ul>
+<li><p>From the output above we can see that the p-value is more than the significance level of 0.05.</p></li>
+<li><p>This means that there is no evidence to suggest that the variance in weights of the cars across three type of cylinder cars are statistically significantly different.</p></li>
+<li><p>Therefore, we can assume the homogeneity of variance in weights across three type of cylinder cars.</p></li>
+</ul>
+</section>
+<section id="welch-one-way-test" class="level2">
+<h2 class="anchored" data-anchor-id="welch-one-way-test">Welch One-Way Test</h2>
+<ol type="1">
+<li><p>When the assumption of equal variances (homogeneity of variance) across groups is not met, the Welch One-Way Test, a variation of the one-way ANOVA (Analysis of Variance) test, is utilised.</p></li>
+<li><p>The Welch test modifies the degrees of freedom and the test statistic to take into account unequal variances, in contrast to the conventional one-way ANOVA, which assumes equal variances.</p></li>
+<li><p>When the assumption of equal variances is not fulfilled, the Welch test provides a helpful substitute for the conventional one-way ANOVA. It can improve test power and yield more accurate results.</p></li>
+<li><p>The Welch test involves dividing the sum of squares of the variance-adjusted variance between the group means and the overall mean. The difference between the means is regarded as significant if the test statistic is higher than the critical value.Running the Welch One-Way Test in R</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA test with no assumption of equal variances</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(wt <span class="sc">~</span> cyl, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One-way analysis of means (not assuming equal variances)
+
+data:  wt and cyl
+F = 20.249, num df = 2.000, denom df = 18.974, p-value = 1.963e-05</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="non-parametric-tests" class="level1">
+<h1>Non-Parametric Tests</h1>
+<section id="normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="normal-distribution">Normal Distribution</h2>
+<p>ANOVA assumes that, the data are normally distributed and the variance across groups are homogeneous.</p>
+<ol type="1">
+<li>Normality plot of residuals</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># normality</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AnovaOneWay, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05ANOVA_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Shapiro-Wilk Test</li>
+</ol>
+<ul>
+<li><p>The Shapiro-Wilk test is a statistical test used to <strong>determine whether a sample of data comes from a normally distributed population</strong>.</p></li>
+<li><p>If the test’s p-value is less than a set significance level, the null hypothesis is rejected and it can be inferred that the data did not come from a normal distribution. This procedure tests the null hypothesis that the data were taken from a normal distribution.</p></li>
+<li><p>The Shapiro-Wilk test is widely used due to its relatively high power in detecting deviations from normality, especially for small sample sizes.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the residuals</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>aov_residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(<span class="at">object =</span> AnovaOneWay )</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># run Shapiro-Wilk test</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> aov_residuals )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  aov_residuals
+W = 0.9025, p-value = 0.007175</code></pre>
+</div>
+</div>
+</section>
+<section id="kruskal-wallis-rank-sum-test" class="level2">
+<h2 class="anchored" data-anchor-id="kruskal-wallis-rank-sum-test">Kruskal-Wallis Rank Sum Test</h2>
+<ul>
+<li><p>A non-parametric statistical test called the Kruskal-Wallis rank sum test is used to examine if the population medians of two or more distinct groups are equal.</p></li>
+<li><p>The Kruskal-Wallis test can be used to evaluate data that is not regularly distributed because, unlike the parametric one-way ANOVA, it does not assume that the underlying populations are normally distributed.</p></li>
+<li><p>It is a distribution-free test since the test statistic is dependent on the ranking of the observations rather than their actual values.</p></li>
+<li><p>It can be assumed that at least one of the groups has a difference median from the other groups if the p-value produced from the test is less than a predefined significance level.</p></li>
+<li><p>When the normality assumption cannot be met, a strong and popular substitute for the one-way ANOVA is the Kruskal-Wallis test.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kruskal-Wallis Rank Sum test</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(wt <span class="sc">~</span> cyl, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  wt by cyl
+Kruskal-Wallis chi-squared = 22.807, df = 2, p-value = 1.116e-05</code></pre>
+</div>
+</div>
+</section>
+<section id="friedman-test" class="level2">
+<h2 class="anchored" data-anchor-id="friedman-test">Friedman Test</h2>
+<ol type="1">
+<li><p>The Friedman test is a non-parametric alternative to the two-way ANOVA for repeated measures, and is used to test for differences among several related samples or repeated measurements on a single sample.</p></li>
+<li><p>The Friedman test assumes that the response variable is ordinal.</p></li>
+<li><p>In that it examines differences between groups, the Friedman test is comparable to a two-way ANOVA, but unlike the latter, it does not rely on any presumptions regarding the distribution of the response variable. Since the data are not normally distributed, the Friedman test becomes a helpful substitute.</p></li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/">Sameer Mathur</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true">Aryeman Gupta Mathur</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

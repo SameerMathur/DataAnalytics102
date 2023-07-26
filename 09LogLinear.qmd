@@ -1,0 +1,141 @@
+# Log-Linear Regression
+
+*July 26, 2023*
+
+## MODEL 1: Base Model
+
+## 1. Reading the data
+
+```{r}
+data(mtcars)
+attach(mtcars)
+```
+
+## 2. Predict a mpg of car from their weight
+
+### Plot mpg and wt
+
+```{r}
+plot(wt
+     , mpg
+     , xlab="weight", ylab="mpg")
+```
+
+## 3. Fitting a Linear Model
+
+### Simple Linear Regression
+
+```{r}
+fit <- lm(mpg ~ wt, data = mtcars)
+summary(fit)
+```
+
+```{r}
+plot(mtcars$wt,
+     mtcars$mpg,
+     main="",
+     xlab="wt",
+     ylab="mpg")
+lines(mtcars$wt, fitted(fit))
+```
+
+### Beta coefficients
+
+```{r}
+fit$coefficients
+
+```
+
+### Lists the predicted values in a fitted model
+
+```{r}
+fitted(fit)
+```
+
+### Lists the residual values in a fitted model
+
+Residuals are the vertical distances between the data and the fitted line. The Ordinary Least Squares (OLS) method minimizes the residuals. In OLS, the accuracy of a line through the sample data points is measured by the sum of squared residuals, and the goal is to make this sum as small as possible.
+
+```{r}
+residuals(fit)
+
+```
+
+### Statistical Significance and p-values
+
+-   The regression coefficient (3.45) is significantly dfferent from zero (p \< 0.001)
+
+-   There is an expected increase of 3.45 lbs of weight for every 1 inch increases in height.
+
+### Multiple R-squred
+
+```{r}
+# extacting the coefficient of determination
+summary(fit)$r.squared 
+
+```
+
+### Compute Confidence Interval for Linear Regression
+
+```{r}
+newdata = data.frame(wt = 4)
+predict(fit, newdata, interval = "confidence") 
+
+```
+
+### F-Statistic
+
+The F-statistic tests whether the predictor variables, taken together,predict the response variable.
+
+## MODEL 2: Log-Linear Model
+
+```{r}
+fit2 <- lm(log(mpg) ~ wt, data = mtcars)
+summary(fit2)
+```
+
+The beta estimate for wt in the above regression is -0.27178.
+
+This means that for a one-unit increase in the weight of a car, the expected value of the log of its miles per gallon (mpg) is expected to decrease by -0.27178 units, after controlling for other variables in the model.
+
+Since the response variable (log(mpg)) is on a logarithmic scale, the beta estimate for wt indicates a multiplicative effect on the mpg, rather than an additive effect.
+
+```{r}
+exp(-0.27178)
+```
+
+Specifically, we can interpret the beta estimate as suggesting that the expected ratio of mpg for two cars that differ by one unit in weight is e\^(-0.27178) = 0.7620219
+
+In other words, we would expect the car with the higher weight to have a fuel efficiency that is approximately 76.2% lower than the car with the lower weight, after controlling for other factors in the model.
+
+## MODEL 3a: Another Linear-Linear Model
+
+```{r}
+# Convert am to a factor variable
+mtcars$am <- factor(mtcars$am, labels = c("Automatic", "Manual"))
+
+fit3a <- lm((mpg) ~ wt + am, data = mtcars)
+summary(fit3a)
+```
+
+## MODEL 3b: Another Log-Linear Model
+
+```{r}
+
+fit3b <- lm(log(mpg) ~ wt + am, data = mtcars)
+summary(fit3b)
+```
+
+```{r}
+exp(-0.04307)
+```
+
+```{r}
+exp(-0.2869)
+```
+
+The beta estimate of amManual in the above regression is -0.04307. This means that, after controlling for weight, the expected value of the log of the miles per gallon (mpg) for a car with a manual transmission is expected to be -0.04307 units lower than for a car with an automatic transmission.
+
+Since the am variable was converted to a factor variable, the beta estimate for amManual represents the difference in the expected value of the response variable between cars with manual and automatic transmissions, after controlling for weight. In this case, the beta estimate indicates that cars with manual transmissions are expected to have a higher fuel efficiency than cars with automatic transmissions, all else being equal.
+
+It's important to note that the p-value for the amManual coefficient is greater than the conventional threshold of 0.05 for statistical significance. This means that we cannot reject the null hypothesis that the amManual coefficient is equal to zero, and thus the difference in fuel efficiency between manual and automatic transmissions may not be statistically significant. However, this should be interpreted with caution, as it's possible that the sample size or other factors in the data are affecting the p-value.
