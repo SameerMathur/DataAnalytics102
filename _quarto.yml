@@ -1,42 +1,41 @@
 
-### BEGIN yaml FOR BOOK'S WEBSITE ###
+### BEGIN yaml FOR Data Analytics 102 BOOK'S WEBSITE (Jul 26, 2023) ###
 project:
   type: website
   output-dir: docs
 
 website:
-  title: "Data Analytics 102 -- Exploratory Data Analysis using R"
+  title: "Data Analytics 102 -- Linear Regression and Applied Statistics Using R"
 
   margin-header: |
     ![](FINALIZED BOOK COVER.png)  
   page-footer:
-    background: "blue"
+    background: "#8E1600"
     center: 
       - text: "Sameer Mathur"
         href: https://www.qatar.cmu.edu/directory/sameer-mathur/
       - text: "Aryeman Gupta Mathur"
         href: https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&ouid=100224206438187222136&rtpof=true&sd=true
   navbar:
-    background: "blue"
+    background: "#8E1600"
     pinned: false
     search: false
     right: 
       - icon: globe
         href: https://www.qatar.cmu.edu/directory/sameer-mathur/
         text: "Sameer Mathur"
-        target: "_blank"
+        target: "_blank"  
       - icon: globe
         href: https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&ouid=100224206438187222136&rtpof=true&sd=true
         text: "Aryeman Gupta Mathur"
         target: "_blank"
       - icon: github
-        href: https://github.com/AryemanGuptaMathur/Data_Analytics_101
+        href: https://github.com/SameerMathur/DataAnalytics102
         text: "Book's Github"
         target: "_blank"
-
   sidebar:
     logo: "images/openscapes_hex.png"
-    background: "#FEC20C"
+    background: "#F8EEEC"
     pinned: true
     align: center
     style: "docked"
@@ -46,22 +45,19 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
-      - 01OverviewOfR.qmd
-      - 02RPackages.qmd
-      - 03DataStructures.qmd
-      - 04ReadingData.qmd
-      - 05ExploringDataframes.qmd
-      - 06LiveCase01.qmd
-  
-### END yaml FOR BOOK'S WEBSITE ###
-
+      - 01GettingStarted.qmd
+#      - 02RPackages.qmd
+#      - 03DataStructures.qmd
+#      - 04ReadingData.qmd
+      
 format:
   html:
-    theme: cosmo
+    theme: united
     toc: true # may need to comment this out to revert this back to the book
     fig-width: 8
     fig-height: 4
     code-fold: false
+    prefer-html: true
   pdf:
     documentclass: scrreport
     header-includes: |
@@ -72,4 +68,6 @@ format:
       }
 
 editor: visual
+
+
 

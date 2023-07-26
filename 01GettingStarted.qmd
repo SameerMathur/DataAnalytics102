@@ -1,8 +1,6 @@
-# Welcome {.unnumbered}
+# Getting Started
 
 *July 26, 2023*
-
-**Introduction**
 
 Welcome to "Data Analytics 102 -- Linear Regression and Applied Statistics Using R". This book is your guiding light in the complex world of data analysis and is designed for those who have already dipped their toes into the vast ocean of data analytics and wish to dive deeper. This book follows the highly successful "Data Analytics 101" and expands on the fundamental statistical concepts, focusing on linear regression and its myriad applications.
 
@@ -15,5 +13,3 @@ One of the core components of this book is the R programming language, a powerfu
 Throughout the book, we have incorporated numerous real-world datasets to help illustrate our points and to provide you with practical, hands-on experience. By working on these datasets, you'll see the concepts come alive, while also learning how to address the unique challenges that come with different types of data.
 
 "Data Analytics 102 -- Linear Regression and Applied Statistics Using R" aims to transform you from a beginner to a proficient data analyst who can navigate the world of data with confidence and expertise. With its blend of theory, application, and hands-on experience, this book is an invaluable resource for anyone looking to enhance their understanding of data analytics, linear regression, applied statistics, and the R language.
-
-Let's take the next step on your data analytics journey together!
