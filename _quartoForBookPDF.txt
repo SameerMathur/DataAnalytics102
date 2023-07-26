@@ -10,8 +10,8 @@ book:
       Data Analytics 101 -- Exploratory Data Analysis using R programming by Sameer Mathur, Aryeman G. Mathur
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
-  cover-image: BookCover.png
-  favicon: BookCover.png
+  cover-image: BookCover102.png
+  favicon: BookCover102.png
   chapters:
     - index.qmd
     - 01OverviewOfR.qmd

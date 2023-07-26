@@ -8,7 +8,7 @@ website:
   title: "Data Analytics 102 -- Applied Statistics and Regression Using R"
 
   margin-header: |
-    ![](FINALIZED BOOK COVER.png)  
+    ![](BookCover102.png)  
   page-footer:
     background: "#8E1600"
     center: 

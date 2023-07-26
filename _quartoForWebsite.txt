@@ -8,7 +8,7 @@ website:
   title: "Data Analytics 101 -- Exploratory Data Analysis using R"
 
   margin-header: |
-    ![](FINALIZED BOOK COVER.png)  
+    ![](BookCover102.png)  
   page-footer:
     background: "blue"
     center: 
