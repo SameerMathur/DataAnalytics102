@@ -4,15 +4,17 @@
 
 ## Overview of Z Tests
 
-Depending on the research question and the type of data being analyzed, different types of Z-tests are frequently employed in statistics.
+We will begin with the Z-test.
 
-Variations of the Z-test can be used to compare sample means or sample proportions. In this tutorial, we will confine our attention to the Z-tests used to analyze categorical data and sample proportions.
+The Z-test for proportions is a statistical method used to compare observed proportions, such as the proportion of successes in two groups, to see if there is a significant difference between them. This test is particularly useful when dealing with large sample sizes.
+
+Depending on the research question and the type of data being analyzed, different types of Z-tests are frequently employed in statistics. Variations of the Z-test can be used to compare sample means or sample proportions. In this chapteer, we will confine our attention to the Z-tests used to analyze **categorical** data and **sample proportions**.
 
 The following are three prevalent types of Z-tests for Categorical data:
 
-1.  **One-sample Z-test:** This test determines whether a sample mean or proportion significantly deviates from a known or hypothesized population mean or proportion.
+1.  **One-sample Z-test:** This test determines whether a sample proportion significantly deviates from a known or hypothesized population mean or proportion.
 
-2.  **Two-sample Z-test:** This test is used to determine whether there is a statistically significant difference between the means or proportions of two independent groups.
+2.  **Two-sample Z-test:** This test is used to determine whether there is a statistically significant difference between the proportions of two independent groups.
 
 3.  **Paired Z-test for proportions:** This test determines whether there is a statistically significant difference in proportions between two related groups, such as before and after a treatment or intervention. \[1\]
 
@@ -22,11 +24,11 @@ The following are three prevalent types of Z-tests for Categorical data:
 
 In marketing research and analysis, Z-tests for categorical data are useful tools for testing hypotheses and determining the significance of relationships between categorical variables. Here are some possible marketing applications of Z-tests for categorical data:
 
-1.  **Brand loyalty:** A marketer may wish to determine whether customers who purchase a particular brand are more loyal to the brand than those who purchase a competing brand. To compare the proportion of loyal customers between the two brands, a two-sample Z-test for proportions could be utilized.
+1.  **Brand loyalty:** A marketer may wish to determine whether customers who purchase a particular brand are more loyal to the brand based on repeat purchase, than those who purchase a competing brand. To compare the proportion of loyal customers between the two brands, a two-sample Z-test for proportions could be utilized.
 
-2.  **Customer satisfaction:** A marketer may wish to determine whether a new product or service is more satisfying to customers than its predecessor. Before and after the introduction of the new product or service, the proportion of satisfied customers could be compared using McNemar's test.
+2.  **Customer satisfaction:** A marketer may wish to determine whether a new product or service is more satisfying to customers than its predecessor. Before and after the introduction of the new product or service, the proportion of satisfied customers could be compared.
 
-3.  **Market segmentation:** A marketer may use market segmentation to determine whether there are significant differences in customer demographics or behavior across market segments. A Chi-square test could be utilized to determine if there is a significant relationship between the demographic variables and market segments.
+3.  **Market segmentation:** A marketer may use market segmentation to determine whether there are significant differences in customer demographics or behavior across market segments. A test could be utilized to determine if there is a significant relationship between the demographic variables and market segments.
 
 4.  **Advertising effectiveness:** A marketer may wish to determine if one advertising campaign is more effective than another at reaching the target audience. A two-sample Z-test for proportions could be used to compare the proportion of viewers who remember the message or take action following exposure to each campaign.
 
@@ -38,7 +40,7 @@ Z tests can be helpful in studying different aspects of Finance such as default 
 
 1.  **Credit risk assessment:** A financial institution assessing credit risk may wish to determine whether the proportion of delinquent loans varies significantly across risk categories. A two-sample Z-test for proportions could be utilized to compare the proportion of delinquent loans across various risk categories.
 
-2.  **Investment portfolio analysis:** An investor may wish to determine whether the proportion of winning trades varies significantly between different types of investments, including stocks, bonds, and commodities. Using a two-sample Z-test for proportions, it is possible to compare the proportion of profitable trades for the various types of investments.
+2.  **Investment portfolio analysis:** An investor may wish to determine whether the proportion of winning trades varies significantly between different types of investments, including stocks and bonds. Using a two-sample Z-test for proportions, it is possible to compare the proportion of profitable trades for the various types of investments.
 
 3.  **Customer behavior analysis:** A financial institution may conduct an analysis of customer behavior to determine whether the proportion of customers who use online banking varies significantly by age group. A Chi-square test could be utilized to determine if there is a significant relationship between the demographic variable (age group) and the proportion of customers who use online banking.
 
@@ -74,13 +76,13 @@ In organizational behavior research, Z-tests for categorical data can be useful 
 
     1.  **State the null hypothesis and alternative hypothesis:** Typically, the null hypothesis states that the sample proportion matches the hypothesized population proportion, whereas the alternative hypothesis states that the sample proportion differs from the hypothesized population proportion.
 
-    2.  **Determine the level of significance (α):** This is the maximum probability of rejecting the null hypothesis when it is true. Typical values for α are 0.05 or 0.01.
+    2.  **Determine the level of significance (α):** This is the maximum probability of rejecting the null hypothesis when it is true. Typical values for `α` are 0.05 or 0.01.
 
-    3.  **Collect sample data:** Obtain a random sample from the population and calculate the sample proportion (p).
+    3.  **Collect sample data:** Obtain a random sample from the population and calculate the sample proportion $(p)$.
 
-    4.  **Calculate the test statistic:** The test statistic is calculated as follows: $z = (p - p_0) / \sqrt(p_0 * (1 - p_0) / n)$ , where $p_0$ is the population proportion assumed under the null hypothesis, and $n$ is the sample size.
+    4.  **Calculate the test statistic:** The test statistic is calculated as follows: $z = (p_0 - p) / \sqrt{(p * (1 - p) / n)}$ , where $p$ is the population proportion assumed under the null hypothesis, and $n$ is the sample size.
 
-    5.  **Determine the critical value:** The critical value is the value of $z$ that corresponds to the chosen level of significance and degrees of freedom (df = n-1).
+    5.  **Determine the critical value:** The critical value is the value of $z$ that corresponds to the chosen level of significance and degrees of freedom $(df = n-1)$.
 
     6.  **Compare the test statistic to the critical value:** If the absolute value of the test statistic is greater than the critical value, we reject the null hypothesis. Otherwise, we fail to reject the null hypothesis.
 
@@ -90,43 +92,57 @@ In organizational behavior research, Z-tests for categorical data can be useful 
 
     9.  **Draw a conclusion.** \[5\]
 
-### Numerical Example for One-sample Z-test for Proportions
+### Numerical Example for One-sample Z-test for Proportions (Car Ownership)
 
-1.  Suppose a researcher wishes to determine whether the proportion of adults in a population who own a car significantly deviates from the null hypothesis of 70%. A random sample of 200 adults reveals that 150 of them own smartphones.
+1.  **Research Objective**:\
+    A researcher wants to determine if the proportion of adults in a population who own a car significantly deviates from 70%. A random sample of 200 adults shows that 150 of them own a car.
 
-2.  The null hypothesis states that the sample proportion equals the population proportion, whereas the alternative hypothesis states that the sample proportion does not equal the population proportion.
+2.  **Hypotheses**:
 
-    -   H0: p = 0.7
+    -   Null Hypothesis (`H0`): `p = 0.7`
+    -   Alternative Hypothesis (`Ha`): `p ≠ 0.7`
+    -   Here, `p` is the population proportion.
 
-    -   Ha: p ≠ 0.7
+3.  **Significance Level**:\
+    The significance level is set at 0.05.
 
-    where p is the proportion of the population.
+4.  **Critical Value**:\
+    The critical value for a two-tailed test at the 0.05 significance level is ±1.96.
 
-3.  Next, we establish the **significance level**, which is typically set at 0.05.
+5.  **Test Statistic Formula**:\
+    The test statistic (Z) is calculated using the formula: $$ Z = \frac{p_0 - p}{\sqrt{p \cdot (1 - p) / n}} $$
 
-4.  The **critical value** for a two-tailed test with a significance level of 0.05 is 1.96.
+    -   `p` is the hypothesized population proportion.
+    -   `p_0` is the sample proportion.
+    -   `n` is the sample size.
 
-5.  Now we can calculate the **test statistic** with the following formula:
+6.  **Calculation**:
 
-    Z = (p - P) / sqrt(P \* (1 - P) / n)
+    -   Sample proportion (`p_0`): `0.75` (150 out of 200)
+    -   Hypothesized population proportion (`p`): `0.7`
+    -   Sample size (`n`): `200`
+    -   The Z-score is calculated as approximately `1.54`.
 
-    where P is the hypothesized proportion of the population, p is the proportion of the sample, and n is the sample size.
+Verify by plugging in the values: $$ Z = \frac{0.75 - 0.7}{\sqrt{0.7 \cdot (1 - 0.7) / 200}} $$
 
-6.  Z = (0.75 - 0.7) / sqrt(0.7 \* (1 - 0.7) / 200)
+The calculated Z-score is approximately `1.54`.
 
-    Z = 1.76
+7.  **Decision Rule**:
+    -   Compare the absolute value of the test statistic with the critical value. If it's greater than 1.96, reject the null hypothesis.
+8.  **Conclusion**:
+    -   Since the absolute value of the test statistic (1.54) is less than the critical value (1.96), we **fail to reject the null** hypothesis. There is not enough statistical evidence to conclude that the proportion of adults who own a car in the population is significantly different from 70%. \[6\]
 
-7.  Since the absolute value of the test statistic is greater than the critical value (1.76 \> 1.96), we reject the null hypothesis and conclude that the sample proportion of 0.75 differs significantly from the expected population proportion of 0.70.
 
-8.  Therefore, we can conclude with 95% assurance that the proportion of adults who own a smartphone in the population is significantly different from 70%. \[6\]
+
+
 
 ### Running One-sample Z-test for Proportions in R
 
-1.  Suppose we want to test whether the proportion of cars with a 6-cylinder engine is significantly different from a hypothesized value of 50%.
+1.  Consider the `mtcars` data set. Suppose we want to test whether the proportion of cars with a **6-cylinder engine** `(cyl=6)` is significantly different from a hypothesized value of **50%**.
 
--   Null hypothesis: The proportion of 6-cylinder engine cars in the `mtcars` dataset is 0.5 (p = 0.5).
+-   **Null hypothesis**: The proportion of 6-cylinder engine cars in the `mtcars` dataset is 0.5 `(p = 0.5)`.
 
--   Alternative hypothesis: The proportion of 6-cylinder engine cars in the `mtcars` dataset is not equal to 0.5 (p ≠ 0.5).
+-   **Alternative hypothesis:** The proportion of 6-cylinder engine cars in the `mtcars` dataset is not equal to 0.5 `(p ≠ 0.5)`.
 
 ```{r}
 # Load the mtcars dataset
@@ -152,126 +168,146 @@ prop.test(n6,
           p = 0.5)
 ```
 
-2.  The sample proportion is 0.21875, indicating that only 21.9% of the cars in the dataset are equipped with a six-cylinder engine.
-3.  Using the prop.test function, we can now perform a one-sample Z-test on proportions:
-4.  The prop.test function requires three arguments: the number of successes (in this case, the number of cars with a 6-cylinder engine), the total number of trials (in this case, the total number of cars), and the population proportion hypothesis (0.5 in this case).
+2.  The sample proportion is **0.21875**, indicating that only **21.875%** of the cars in the dataset are equipped with a six-cylinder engine.
+
+3.  Using the `prop.test` function, we can now perform a one-sample Z-test on proportions:
+
+4.  The `prop.test` function requires three arguments:
+
+    the number of successes (in this case, the number of cars with a 6-cylinder engine),
+
+    the total number of trials (in this case, the total number of cars), and
+
+    the population proportion hypothesis (0.5 in this case)
+
 5.  The output reveals that the test statistic is X-squared = 9.0312 with a p-value of 0.002654 and one degree of freedom.
+
 6.  Since the p-value is less than the significance level (0.05), we reject the null hypothesis and conclude that the proportion of cars in the population with a 6-cylinder engine is significantly different from 50%.
-7.  The sample proportion estimate is 0.219%, with a 95% confidence interval encompassing this value (0.099, 0.404). \[7\]
 
-## Independent samples Z-test for Proportions
+7.  The sample proportion estimate is 0.21875, with a 95% confidence interval encompassing this value (0.099, 0.404). \[7\]
 
-1.  The independent samples Z-test for proportions is a statistical test used to determine if there is a statistically significant difference between two sample proportions drawn from independent populations.
 
-2.  A company may wish to determine, for instance, whether the proportion of male customers who purchase their product differs significantly from the proportion of female customers who purchase their product.
 
-3.  The company could collect separate samples of male and female customers, calculate the proportion of customers in each sample who purchased the product, and use a Z-test for independent samples to determine whether the difference in proportions is statistically significant. \[8\]
 
-### Independent samples Z-test for Proportions - Concepts
 
-Here are the steps involved in conducting an independent samples Z-test for proportions:
 
-1.  **State the null and alternative hypotheses:** The null hypothesis asserts that the two population proportions are equal, while the alternative hypothesis asserts that they are not.
 
-2.  **Determine the level of significance.** This is the level of risk the researcher is willing to accept when deciding on the null hypothesis. Typically, the significance level is set at 0.05.
 
-3.  **Determine the test's statistic:** The test statistic for a Z-test for proportions using independent samples is calculated using the following formula.
+## Independent Samples Z-Test for Proportions (2)
 
-    Z = (p1 - p2) / sqrt(p \* (1 - p) \* (1 / n1 + 1 / n2))
+1. **Introduction**:
+   The independent samples Z-test for proportions is used to determine if there's a significant difference between two sample proportions drawn from independent populations.
 
-    where p1 and p2 are sample proportions, n1 and n2 are sample sizes, and p is the pooled sample proportion, which is calculated as follows:
+2. **Example Scenario**:
+   A company might want to know if the proportion of male customers who purchase their product is significantly different from the proportion of female customers.
 
-    p = (x1 + x2) / (n1 + n2)
+3. **Application**:
+   The company collects separate samples of male and female customers, calculates the purchase proportions, and uses an independent samples Z-test to assess the significance of any difference. \[8\]
 
-    where x1 and x2 represent the success rate of each sample.
+### Independent Samples Z-Test for Proportions - Concepts
 
-    The **critical value** is the value of the test statistic that corresponds to the level of significance and the degrees of freedom.
+**Conducting the Test**:
 
-4.  **Comparing the test statistic to the threshold:** The null hypothesis is rejected if the absolute value of the test statistic is greater than the critical value. If not, the null hypothesis cannot be rejected.
+1. **Hypotheses**:
+   - Null Hypothesis (H0): The two population proportions are equal.
+   - Alternative Hypothesis (Ha): The two population proportions are not equal.
 
-5.  On the basis of the test results, the researcher can draw a conclusion regarding whether the two population proportions differ significantly. \[8\]
+2. **Significance Level**:
+   Typically set at 0.05, it's the acceptable risk level for incorrectly rejecting the null hypothesis.
 
-### Numerical Example for Independent samples Z-test
+3. **Test Statistic**:
+   The test statistic is calculated using the formula:
+   $$ Z = \frac{p1 - p2}{\sqrt{p \cdot (1 - p) \cdot (\frac{1}{n1} + \frac{1}{n2})}} $$
+   where \( p1 \) and \( p2 \) are sample proportions, \( n1 \) and \( n2 \) are sample sizes, and \( p \) is the pooled sample proportion:
+   $$ p = \frac{x1 + x2}{n1 + n2} $$
+   \( x1 \) and \( x2 \) are the number of successes in each sample.
 
-1.  Suppose a researcher is interested in comparing the proportion of men and women who purchase a particular product. A random sample of 200 men and 300 women reveals that 100 men and 150 women bought the product.
+4. **Decision Rule**:
+   The null hypothesis is rejected if the absolute value of \( Z \) is greater than the critical value (e.g., 1.96 for a two-tailed test at 0.05 significance level).
 
-2.  The null hypothesis states that the proportion of men and women who purchase the product is equal, whereas the alternative hypothesis states that the proportion is not equal. Hence, we have:
+5. **Conclusion**:
+   Based on the test results, a conclusion is drawn about the difference in population proportions. \[8\]
 
-    -   H0: p1 = p2
+### Numerical Example for Independent Samples Z-Test
 
-    -   Ha: p1 ≠ p2
+**Scenario**:
 
-    where p1 represents the percentage of men who buy the product and p2 represents the percentage of women who buy the product.
+1. A researcher compares the purchasing behavior of men and women for a product. A sample of 200 men and 300 women reveals 100 men and 150 women purchased the product.
 
-3.  Next, we establish the significance level, which is typically set at 0.05.
+2. **Hypotheses**:
+   - \( H0: p1 = p2 \)
+   - \( Ha: p1 not equal to p2 \)
+   where \( p1 \) is the proportion of men, and \( p2 \) is the proportion of women purchasing the product.
 
-4.  1.96 is the critical value for a two-tailed test with a significance level of 0.05.
+3. **Significance Level**: Set at 0.05.
 
-5.  Now we can calculate the test statistic with the following formula:
+4. **Critical Value**: For a two-tailed test at 0.05, it's 1.96.
 
-    Z = (p1 - p2) / sqrt(p \* (1 - p) \* (1 / n1 + 1 / n2))
+5. **Test Statistic Calculation**:
+   $$ Z = \frac{p1 - p2}{\sqrt{p \cdot (1 - p) \cdot (\frac{1}{n1} + \frac{1}{n2})}} $$
+   where \( p \) is the pooled proportion:
+   $$ p = \frac{x1 + x2}{n1 + n2} $$
 
-    where p is the proportion of the pooled sample calculated as:
+6. **Using the Data**:
+   $$ p1 = \frac{100}{200} = 0.5 $$
+   $$ p2 = \frac{150}{300} = 0.5 $$
+   
+   $$ p = \frac{100 + 150}{200 + 300} = 0.4167 $$
 
-    p = (x1 + x2) / (n1 + n2)
+7. **Test Statistic**:
+   $$ Z = \frac{0.5 - 0.5}{\sqrt{0.4167 \cdot (1 - 0.4167) \cdot (\frac{1}{200} + \frac{1}{300})}} = 0 $$
 
-    where x1 and x2 represent the success rates for each sample and n1 and n2 represent the sample sizes.
+8. **Conclusion**:
+   Since \( |Z| < 1.96 \), we fail to reject the null hypothesis, suggesting no significant difference in the purchase proportions of men and women.
 
-6.  Using the data provided, we have:
+9. **Interpretation**:
+   We are 95% confident that the purchasing behavior does not differ significantly between men and women.
 
-    p1 = 100 / 200 = 0.5
+### Running Independent Samples Z-Test in R
 
-    p2 = 150 / 300 = 0.5
+**Example with mtcars Dataset**:
 
-    n1 = 200
-
-    p = (100 + 150) / (200 + 300) = 0.4167
-
-7.  The test statistic is thus:
-
-    Z = (0.5 - 0.5) / sqrt(0.4167 \* (1 - 0.4167) \* (1 / 200 + 1 / 300)) = 0
-
-8.  Due to the fact that the absolute value of the test statistic is less than the critical value (\|0\| \< 1.96), we fail to reject the null hypothesis and conclude that there is insufficient evidence to suggest that the proportion of men and women who purchase the product differs.
-
-9.  Therefore, we can conclude with 95% level of confidence that the proportion of men and women who purchase the product does not differ significantly.
-
-### Running Independent samples Z-test in R
-
-1.  Suppose we wish to compare the proportion of cars in the mtcars dataset with automatic transmission (am = 1) to those with V-shaped engines (vs = 1).
+1. **Objective**:
+   Compare the proportion of cars with automatic transmission (am = 1) to those with V-shaped engines (vs = 1) in the `mtcars` dataset.
 
 ```{r}
 # Load the mtcars dataset
 data(mtcars)
 
-# Create two vectors representing the two samples
-sample1 <- mtcars$am # Sample 1: cars with automatic transmission
-sample2 <- mtcars$vs # Sample 2: cars with v-shaped engines
+# Create vectors for the two samples
+sample1 <- mtcars$am  # Cars with automatic transmission
+sample2 <- mtcars$vs  # Cars with V-shaped engines
 
-# Conduct a two-sample test for equality of proportions
+# Conduct the Z-test for proportions
 prop.test(x = c(sum(sample1 == 1), sum(sample2 == 1)),
           n = c(length(sample1), length(sample2)),
           alternative = "two.sided")
+
 ```
 
-2.  The code generates two vectors, sample1 and sample2, representing the two samples for which the proportion of successes is to be compared.
-3.  In this example, sample1 represents the percentage of automobiles with automatic transmission (am = 1) and sample2 represents the percentage of automobiles with V-shaped engines (vs = 1).
-4.  The final code block uses the prop.test() function to conduct a two-sample test for proportional equality. x is a vector of the counts of successes (cars with automatic transmission or cars with v-shaped engines) for each sample, while n is a vector of the total number of trials (the total number of cars) for each sample.
-5.  The alternative argument specifies the two-sidedness of the alternative hypothesis.
-6.  The function prop.test() returns the test statistic, degrees of freedom, p-value, and confidence interval as its output.
-7.  The null hypothesis states that the proportion of automobiles with automatic transmissions and those with V-shaped engines are equal. If the p-value is less than the significance level (typically 0.05), we can reject the null hypothesis and conclude that the proportions of successes in the two samples differ significantly.
-8.  The output includes the test name (Two-sample test for equality of proportions with continuity correction), the sample proportions (prop 1 and prop 2), the test statistic (X-squared), the degrees of freedom (df), the p-value (p-value), the alternative hypothesis, and the 95% confidence interval (95 percent confidence interval).
-9.  In this instance, the p-value is less than 0.05, indicating that we can reject the null hypothesis of equal proportions and conclude that the proportions of cars with automatic transmission and V-shaped engines are significantly different.
-10. The sample proportion estimates for am and vs are respectively 0.666667 and 0.1250000. The 95% confidence interval for the difference in proportions is (0.09437123, 0.31162877), which indicates that we are 95% confident that the true difference in proportions lies within this interval. \[8\]
+2. **Explanation**:
+   `sample1` and `sample2` represent cars with automatic transmissions and V-shaped engines, respectively. The `prop.test` function in R is used for the test, where `x` and `n` are vectors of success counts and total counts.
+
+3. **Interpretation**:
+   The test results include the test statistic, p-value, and confidence interval. A p-value less than 0.05 indicates a significant difference between the proportions.
+
+4. **Output Analysis**:
+   The output provides the test name, sample proportions, test statistic, degrees of freedom, p-value, alternative hypothesis, and 95% confidence interval. A significant p-value suggests a difference in proportions between the two groups.
+
+5. **Conclusion**:
+   Based on the p-value, if less than 0.05, we conclude that the proportions of cars with automatic transmission and V-shaped engines differ significantly. The confidence interval provides a range within which the true difference in proportions lies with 95% confidence. \[8\]
+
+
+
+
+
+
 
 ## References
 
-\[1\]
+\[1\] Agresti, A. (2002). Categorical data analysis (2nd ed.). Wiley.
 
-Agresti, A. (2002). Categorical data analysis (2nd ed.). Wiley.
-
-\[2\]
-
-Hair Jr, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2010). Multivariate data analysis: A global perspective (7th ed.). Pearson Education.
+\[2\] Hair Jr, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2010). Multivariate data analysis: A global perspective (7th ed.). Pearson Education.
 
 Churchill Jr, G. A., & Iacobucci, D. (2010). Marketing research: Methodological foundations (10th ed.). Cengage Learning.
 
@@ -281,9 +317,7 @@ Babin, B. J., & Zikmund, W. G. (2016). Essentials of marketing research (5th ed.
 
 Malhotra, N. K., & Peterson, M. (2006). Basic marketing research (3rd ed.). Prentice-Hall.
 
-\[3\]
-
-Altman, E. I. (2008). Evaluating credit risk models. Journal of Banking & Finance, 32(8), 1544-1558.
+\[3\] Altman, E. I. (2008). Evaluating credit risk models. Journal of Banking & Finance, 32(8), 1544-1558.
 
 Nofsinger, J. R. (2012). The psychology of investing (5th ed.). Pearson Education.
 
@@ -293,9 +327,7 @@ French, K. R., Schwert, G. W., & Stambaugh, R. F. (1987). Expected stock returns
 
 Tsay, R. S., & Chen, T. H. (2012). Financial time series analysis (2nd ed.). Wiley.
 
-\[4\]
-
-Judge, T. A., & Watanabe, S. (1994). Another look at the job satisfaction-life satisfaction relationship. Journal of Applied Psychology, 79(6), 939-948.
+\[4\] Judge, T. A., & Watanabe, S. (1994). Another look at the job satisfaction-life satisfaction relationship. Journal of Applied Psychology, 79(6), 939-948.
 
 Roberson, Q. M. (2019). Race and ethnicity in the workplace. Annual Review of Organizational Psychology and Organizational Behavior, 6, 413-438.
 
@@ -305,29 +337,21 @@ Phillips, J. J. (2016). Handbook of training evaluation and measurement methods 
 
 Mobley, W. H., Horner, S. O., & Hollingsworth, A. T. (1978). An evaluation of precursors of hospital employee turnover. Journal of Applied Psychology, 63(4), 408-414.
 
-\[5\]
-
-Arsham, H. (2019). Statistical thinking for management (2nd ed.). Prentice-Hall.
+\[5\] Arsham, H. (2019). Statistical thinking for management (2nd ed.). Prentice-Hall.
 
 Hogg, R. V., McKean, J. W., & Craig, A. T. (2019). Introduction to mathematical statistics (8th ed.). Pearson Education.
 
 Sullivan, L. M., & Artino Jr, A. R. (2013). Analyzing and interpreting data from Likert-type scales. Journal of Graduate Medical Education, 5(4), 541-542.
 
-\[6\]
-
-Arsham, H. (2019). Statistical thinking for management (2nd ed.). Prentice-Hall.
+\[6\] Arsham, H. (2019). Statistical thinking for management (2nd ed.). Prentice-Hall.
 
 Hogg, R. V., McKean, J. W., & Craig, A. T. (2019). Introduction to mathematical statistics (8th ed.). Pearson Education.
 
-\[7\]
-
-Venables, W. N., & Ripley, B. D. (2002). Modern applied statistics with S (4th ed.). Springer.
+\[7\] Venables, W. N., & Ripley, B. D. (2002). Modern applied statistics with S (4th ed.). Springer.
 
 R Core Team. (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing. [**https://www.R-project.org/**](https://www.r-project.org/)
 
-\[8\]
-
-Arsham, H. (2019). Statistical thinking for management (2nd ed.). Prentice-Hall.
+\[8\] Arsham, H. (2019). Statistical thinking for management (2nd ed.). Prentice-Hall.
 
 Hogg, R. V., McKean, J. W., & Craig, A. T. (2019). Introduction to mathematical statistics (8th ed.). Pearson Education.
 
