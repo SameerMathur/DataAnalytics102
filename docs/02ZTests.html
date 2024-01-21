@@ -262,8 +262,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#independent-samples-z-test-for-proportions-2" id="toc-independent-samples-z-test-for-proportions-2" class="nav-link" data-scroll-target="#independent-samples-z-test-for-proportions-2">Independent Samples Z-Test for Proportions (2)</a>
   <ul class="collapse">
   <li><a href="#independent-samples-z-test-for-proportions---concepts" id="toc-independent-samples-z-test-for-proportions---concepts" class="nav-link" data-scroll-target="#independent-samples-z-test-for-proportions---concepts">Independent Samples Z-Test for Proportions - Concepts</a></li>
-  <li><a href="#numerical-example-for-independent-samples-z-test" id="toc-numerical-example-for-independent-samples-z-test" class="nav-link" data-scroll-target="#numerical-example-for-independent-samples-z-test">Numerical Example for Independent Samples Z-Test</a></li>
-  <li><a href="#running-independent-samples-z-test-in-r" id="toc-running-independent-samples-z-test-in-r" class="nav-link" data-scroll-target="#running-independent-samples-z-test-in-r">Running Independent Samples Z-Test in R</a></li>
+  <li><a href="#numerical-example-with-simulated-data-for-independent-samples-z-test" id="toc-numerical-example-with-simulated-data-for-independent-samples-z-test" class="nav-link" data-scroll-target="#numerical-example-with-simulated-data-for-independent-samples-z-test">Numerical Example with Simulated Data for Independent Samples Z-Test</a></li>
+  <li><a href="#running-independent-samples-z-test-in-r-1" id="toc-running-independent-samples-z-test-in-r-1" class="nav-link" data-scroll-target="#running-independent-samples-z-test-in-r-1">Running Independent Samples Z-Test in R (1)</a></li>
+  <li><a href="#running-independent-samples-z-test-in-r-2-using-mtcars" id="toc-running-independent-samples-z-test-in-r-2-using-mtcars" class="nav-link" data-scroll-target="#running-independent-samples-z-test-in-r-2-using-mtcars">Running Independent Samples Z-Test in R (2) – using <code>mtcars</code></a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
@@ -282,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="overview-of-z-tests">Overview of Z Tests</h2>
 <p>We will begin with the Z-test.</p>
 <p>The Z-test for proportions is a statistical method used to compare observed proportions, such as the proportion of successes in two groups, to see if there is a significant difference between them. This test is particularly useful when dealing with large sample sizes.</p>
-<p>Depending on the research question and the type of data being analyzed, different types of Z-tests are frequently employed in statistics. Variations of the Z-test can be used to compare sample means or sample proportions. In this chapteer, we will confine our attention to the Z-tests used to analyze <strong>categorical</strong> data and <strong>sample proportions</strong>.</p>
+<p>Depending on the research question and the type of data being analyzed, different types of Z-tests are frequently employed in statistics. Variations of the Z-test can be used to compare sample means or sample proportions. In this chapter, we will confine our attention to the Z-tests used to analyze <strong>categorical</strong> data and <strong>sample proportions</strong>.</p>
 <p>The following are three prevalent types of Z-tests for Categorical data:</p>
 <ol type="1">
 <li><p><strong>One-sample Z-test:</strong> This test determines whether a sample proportion significantly deviates from a known or hypothesized population mean or proportion.</p></li>
@@ -473,49 +474,167 @@ sample estimates:
 <li><p><strong>Conclusion</strong>: Based on the test results, a conclusion is drawn about the difference in population proportions. [8]</p></li>
 </ol>
 </section>
-<section id="numerical-example-for-independent-samples-z-test" class="level3">
-<h3 class="anchored" data-anchor-id="numerical-example-for-independent-samples-z-test">Numerical Example for Independent Samples Z-Test</h3>
+<section id="numerical-example-with-simulated-data-for-independent-samples-z-test" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-example-with-simulated-data-for-independent-samples-z-test">Numerical Example with Simulated Data for Independent Samples Z-Test</h3>
 <p><strong>Scenario</strong>:</p>
 <ol type="1">
-<li><p>A researcher compares the purchasing behavior of men and women for a product. A sample of 200 men and 300 women reveals 100 men and 150 women purchased the product.</p></li>
+<li><p>A researcher studies the purchasing behavior of men and women for a specific product. A sample of 250 men and 350 women is taken, with results showing that 125 men and 210 women purchased the product.</p></li>
 <li><p><strong>Hypotheses</strong>:</p>
 <ul>
-<li>( H0: p1 = p2 )</li>
-<li>( Ha: p1 not equal to p2 ) where ( p1 ) is the proportion of men, and ( p2 ) is the proportion of women purchasing the product.</li>
-</ul></li>
+<li>Null Hypothesis (H0): p1 = p2</li>
+<li>Alternative Hypothesis (Ha): p1 ≠ p2</li>
+</ul>
+<p>where (p1) is the proportion of men, and (p2) is the proportion of women purchasing the product.</p></li>
 <li><p><strong>Significance Level</strong>: Set at 0.05.</p></li>
-<li><p><strong>Critical Value</strong>: For a two-tailed test at 0.05, it’s 1.96.</p></li>
-<li><p><strong>Test Statistic Calculation</strong>: <span class="math display">\[ Z = \frac{p1 - p2}{\sqrt{p \cdot (1 - p) \cdot (\frac{1}{n1} + \frac{1}{n2})}} \]</span> where ( p ) is the pooled proportion: <span class="math display">\[ p = \frac{x1 + x2}{n1 + n2} \]</span></p></li>
-<li><p><strong>Using the Data</strong>: <span class="math display">\[ p1 = \frac{100}{200} = 0.5 \]</span> <span class="math display">\[ p2 = \frac{150}{300} = 0.5 \]</span></p>
-<p><span class="math display">\[ p = \frac{100 + 150}{200 + 300} = 0.4167 \]</span></p></li>
-<li><p><strong>Test Statistic</strong>: <span class="math display">\[ Z = \frac{0.5 - 0.5}{\sqrt{0.4167 \cdot (1 - 0.4167) \cdot (\frac{1}{200} + \frac{1}{300})}} = 0 \]</span></p></li>
-<li><p><strong>Conclusion</strong>: Since ( |Z| &lt; 1.96 ), we fail to reject the null hypothesis, suggesting no significant difference in the purchase proportions of men and women.</p></li>
-<li><p><strong>Interpretation</strong>: We are 95% confident that the purchasing behavior does not differ significantly between men and women.</p></li>
+<li><p><strong>Critical Value</strong>: For a two-tailed test at the 0.05 significance level, the critical value is approximately 1.96.</p></li>
+<li><p><strong>Test Statistic Calculation</strong>:</p>
+<p>The test statistic Z is calculated using the formula:</p>
+<p><span class="math display">\[ Z = \frac{p1 - p2}{\sqrt{p \cdot (1 - p) \cdot \left(\frac{1}{n1} + \frac{1}{n2}\right)}} \]</span></p>
+<p>where ( p ) is the pooled proportion, computed as:</p>
+<p><span class="math display">\[ p = \frac{x1 + x2}{n1 + n2} \]</span></p></li>
+<li><p><strong>Using the Data</strong>:</p>
+<p>For men: <span class="math display">\[ p1 = \frac{125}{250} = 0.5 \]</span></p>
+<p>For women: <span class="math display">\[ p2 = \frac{210}{350} = 0.6 \]</span></p>
+<p>Pooled proportion: <span class="math display">\[ p = \frac{125 + 210}{250 + 350} = 0.55 \]</span></p></li>
+<li><p><strong>Test Statistic</strong>:</p>
+<p>Calculation of the Z value:</p>
+<p><span class="math display">\[ Z = \frac{0.5 - 0.6}{\sqrt{0.55 \cdot (1 - 0.55) \cdot \left(\frac{1}{250} + \frac{1}{350}\right)}} \]</span></p></li>
 </ol>
+<p>The calculated Z value is approximately -2.43. This value is negative because the proportion of women who purchased the product (p2 = 0.6) is higher than that of men (p1 = 0.5). However, since we are conducting a two-tailed test, the direction of the difference is not our primary concern. We are interested in whether the absolute value of the Z score is greater than the critical value.</p>
+<ol start="8" type="1">
+<li><p><strong>Conclusion</strong>:</p>
+<p>Since ( |Z| = 2.43 ) is greater than the critical value of 1.96, we reject the null hypothesis. This indicates that there is a significant difference in the purchasing behavior between men and women for this product.</p></li>
+<li><p><strong>Interpretation</strong>:</p>
+<p>With a 95% confidence level, we conclude that the proportions of men and women purchasing this product are significantly different. Specifically, the data suggests that women are more likely to purchase this product than men.</p></li>
+</ol>
+<p>This example demonstrates a scenario where the Z-test reveals a significant difference in purchasing behaviors between the two groups, aligned with your request for a scenario where the proportions are different and the Z-value is positive. Note that even though the calculated Z-value is negative, its absolute value is used for the conclusion.</p>
 </section>
-<section id="running-independent-samples-z-test-in-r" class="level3">
-<h3 class="anchored" data-anchor-id="running-independent-samples-z-test-in-r">Running Independent Samples Z-Test in R</h3>
-<p><strong>Example with mtcars Dataset</strong>:</p>
-<ol type="1">
-<li><strong>Objective</strong>: Compare the proportion of cars with automatic transmission (am = 1) to those with V-shaped engines (vs = 1) in the <code>mtcars</code> dataset.</li>
-</ol>
+<section id="running-independent-samples-z-test-in-r-1" class="level3">
+<h3 class="anchored" data-anchor-id="running-independent-samples-z-test-in-r-1">Running Independent Samples Z-Test in R (1)</h3>
+<p><strong>Demonstration using simulated data</strong>:</p>
+<p>To perform the test described in the scenario using R, we can use the prop.test function. This function is designed to handle comparisons of proportions. Here’s how we can set it up with the data from the above scenario:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the mtcars dataset</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">210</span>) <span class="co"># number of men and women who purchased the product</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">350</span>) <span class="co"># total number of men and women</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors for the two samples</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>sample1 <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>am  <span class="co"># Cars with automatic transmission</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sample2 <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>vs  <span class="co"># Cars with V-shaped engines</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Conduct the Z-test for proportions</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fu">sum</span>(sample1 <span class="sc">==</span> <span class="dv">1</span>), <span class="fu">sum</span>(sample2 <span class="sc">==</span> <span class="dv">1</span>)),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="fu">c</span>(<span class="fu">length</span>(sample1), <span class="fu">length</span>(sample2)),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the two-proportion z-test</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>test_result <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(x, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                         n, </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">alternative =</span> <span class="st">"two.sided"</span>, </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the results</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(test_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions without continuity correction
+
+data:  x out of n
+X-squared = 5.9138, df = 1, p-value = 0.01502
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.18047113 -0.01952887
+sample estimates:
+prop 1 prop 2 
+   0.5    0.6 </code></pre>
+</div>
+</div>
+<p><strong>Notes about the R code</strong></p>
+<ul>
+<li><code>x</code> contains the number of successes (i.e., purchases) for each group (men first, then women).</li>
+<li><code>n</code> contains the total number of observations for each group.</li>
+<li><code>prop.test</code> is called with <code>correct = FALSE</code> to perform a standard two-proportion Z-test without continuity correction, which is appropriate for large sample sizes.</li>
+<li>we can specify alternative = <code>two.sided</code> in the <code>prop.test</code> function to explicitly indicate that we are performing a two-sided test. However, it’s worth noting that the default setting for the alternative parameter in <code>prop.test</code> is already <code>two.sided</code></li>
+<li>The function will return various information, including the Z statistic and the p-value.</li>
+</ul>
+<p><strong>Interpreting the output</strong></p>
+<ol type="1">
+<li><p><strong>Test Type</strong>: We performed a “2-sample test for equality of proportions without continuity correction”. This means we compared two independent proportions (proportions of men and women who purchased the product in our scenario). The ‘without continuity correction’ part indicates that we didn’t apply any correction for continuity, suitable for large sample sizes.</p></li>
+<li><p><strong>Data</strong>: “<code>x out of n</code>” refers to our input data structure, where <code>x</code> represents the number of successes (men and women who purchased the product) and <code>n</code> represents the total number of observations (total men and women in our sample).</p></li>
+<li><p><strong>X-squared</strong>: The test statistic value is <code>5.9138</code>. In a two-proportion Z-test like ours, this statistic follows a <code>chi-square</code> distribution with <code>one</code> degree of freedom under the null hypothesis.</p></li>
+<li><p><strong>Degrees of Freedom (df)</strong>: It’s 1 in our case. For a two-sample test of proportions, the degrees of freedom is typically n-1, where n is the number of groups (2 in our case), but since 2-1 equals 1, our df is 1.</p></li>
+<li><p><strong>p-value</strong>: Our p-value is <code>0.01502</code>. This measures the strength of the evidence against the null hypothesis. As it’s less than the typical alpha level of <code>0.05</code>, we reject the null hypothesis, indicating a statistically significant difference between the proportions of men and women purchasing the product.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: “two.sided” - This indicates that our test was two-tailed, meaning <em>we were testing for any difference in proportions, not specifically if one proportion was greater or lesser than the other</em>.</p></li>
+<li><p><strong>95 Percent Confidence Interval</strong>: This interval, ranging <code>from -0.1805 to -0.0195</code>, provides a range of plausible values for the difference in proportions <code>(p1 - p2).</code> Since this <em>interval doesn’t include 0</em>, it suggests that the true difference in proportions is likely non-zero, reinforcing our conclusion from the p-value.</p></li>
+<li><p><strong>Sample Estimates</strong>: These are the observed proportions in our study - <code>prop 1</code> is <code>0.5</code> (proportion of men who purchased the product) and <code>prop 2</code> is <code>0.6</code> (proportion of women who purchased the product).</p></li>
+</ol>
+<p><strong>Conclusion:</strong> There is a statistically significant difference in the purchasing behavior between men and women for the product in our study, with the proportion of women purchasing the product being higher than that of men.</p>
+<p><strong>Another Demonstration using simulated data</strong>:</p>
+<p>We can perform a one-sided test using the <code>prop.test</code> function in R by changing the <code>alternative</code> parameter from <code>"two.sided"</code> to either <code>"greater"</code> or <code>"less"</code>. This choice depends on the direction of the alternative hypothesis we wish to test.</p>
+<p>In our scenario, if we aim to test whether the proportion of men who purchased the product is greater than the proportion of women, we would use <code>alternative = "greater"</code>. Conversely, if our hypothesis is that the proportion of men is less, we would use <code>alternative = "less"</code>.</p>
+<p>Here’s how we can modify our code for a one-sided test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">210</span>) <span class="co"># number of men and women who purchased the product</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">350</span>) <span class="co"># total number of men and women</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the one-sided two-proportion z-test</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We will use "less" to test if the proportion of men is less than that of women</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Change to "greater" if testing for the opposite</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>test_result <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(x, </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                         n, </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">alternative =</span> <span class="st">"less"</span>, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the results</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(test_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions without continuity correction
+
+data:  x out of n
+X-squared = 5.9138, df = 1, p-value = 0.007511
+alternative hypothesis: less
+95 percent confidence interval:
+ -1.0000000 -0.0324665
+sample estimates:
+prop 1 prop 2 
+   0.5    0.6 </code></pre>
+</div>
+</div>
+<p>In this code, we use <code>alternative = "less"</code> for a one-sided test where our hypothesis is that the proportion for the first group (men) is less than that for the second group (women). We need to choose the appropriate direction (“greater” or “less”) based on our specific research hypothesis.</p>
+<p><strong>Interpreting the output</strong></p>
+<ol type="1">
+<li><p><strong>X-squared</strong>: The test statistic value is <code>5.9138</code>. This value is derived from the comparison of the two proportions.</p></li>
+<li><p><strong>P-value</strong>: The p-value is <code>0.007511</code>. In a one-sided test, this value indicates the probability of observing a test statistic as extreme as, or more extreme than, the one observed, under the null hypothesis. Since it’s less than <code>0.05</code>, it suggests significant evidence against the null hypothesis in favor of the alternative.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: “<code>less</code>” - This specifies that the test is one-sided, testing whether the first proportion (<code>prop 1</code>) is less than the second proportion (<code>prop 2</code>).</p></li>
+<li><p><strong>95 Percent Confidence Interval</strong>: Ranges from <code>-1.000 to -0.0325</code>. This interval indicates where the true difference in proportions (<code>prop 1 - prop 2</code>) likely lies. Since the interval does not include 0 and is entirely negative, it suggests that <code>prop 1</code> is likely less than <code>prop 2</code>.</p></li>
+<li><p><strong>Sample Estimates</strong>: Shows the estimated proportions for each group - 0.5 (<code>prop 1</code>) and 0.6 (<code>prop 2</code>).</p></li>
+</ol>
+<p><strong>Conclusion:</strong> The test results suggest that there is a significant difference between the two groups, with the first group having a lower proportion compared to the second group, supporting the alternative hypothesis that the proportion of men purchasing the product is less than that of women.</p>
+</section>
+<section id="running-independent-samples-z-test-in-r-2-using-mtcars" class="level3">
+<h3 class="anchored" data-anchor-id="running-independent-samples-z-test-in-r-2-using-mtcars">Running Independent Samples Z-Test in R (2) – using <code>mtcars</code></h3>
+<p><strong>Objective</strong>: We aim to compare the proportion of cars with automatic transmission (indicated by <code>am</code> = 1) to those with V-shaped engines (indicated by <code>vs</code> = 1) in the <code>mtcars</code> dataset. Our goal is to determine if there is a significant difference in the proportions of these two categories of cars.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the mtcars dataset</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the mtcars dataset</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the samples</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># sample1 represents cars with automatic transmission (am = 1)</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># sample2 represents cars with V-shaped engines (vs = 1)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>sample1 <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>am</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>sample2 <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>vs</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the number of successes in each sample</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Success for sample1 is defined as having an automatic transmission (am = 1)</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Success for sample2 is defined as having a V-shaped engine (vs = 1)</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>successes_sample1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(sample1 <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>successes_sample2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(sample2 <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the sample sizes</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># The sample size for each group is the total number of observations in that group</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>size_sample1 <span class="ot">&lt;-</span> <span class="fu">length</span>(sample1)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>size_sample2 <span class="ot">&lt;-</span> <span class="fu">length</span>(sample2)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing the Z-test for proportions</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># The test compares the proportion of cars with automatic transmission to those with V-shaped engines</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(successes_sample1, successes_sample2),</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="fu">c</span>(size_sample1, size_sample2),</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
 
-data:  c(sum(sample1 == 1), sum(sample2 == 1)) out of c(length(sample1), length(sample2))
+data:  c(successes_sample1, successes_sample2) out of c(size_sample1, size_sample2)
 X-squared = 0, df = 1, p-value = 1
 alternative hypothesis: two.sided
 95 percent confidence interval:
@@ -525,12 +644,16 @@ sample estimates:
 0.40625 0.43750 </code></pre>
 </div>
 </div>
-<ol start="2" type="1">
-<li><p><strong>Explanation</strong>: <code>sample1</code> and <code>sample2</code> represent cars with automatic transmissions and V-shaped engines, respectively. The <code>prop.test</code> function in R is used for the test, where <code>x</code> and <code>n</code> are vectors of success counts and total counts.</p></li>
-<li><p><strong>Interpretation</strong>: The test results include the test statistic, p-value, and confidence interval. A p-value less than 0.05 indicates a significant difference between the proportions.</p></li>
-<li><p><strong>Output Analysis</strong>: The output provides the test name, sample proportions, test statistic, degrees of freedom, p-value, alternative hypothesis, and 95% confidence interval. A significant p-value suggests a difference in proportions between the two groups.</p></li>
-<li><p><strong>Conclusion</strong>: Based on the p-value, if less than 0.05, we conclude that the proportions of cars with automatic transmission and V-shaped engines differ significantly. The confidence interval provides a range within which the true difference in proportions lies with 95% confidence. [8]</p></li>
+<p><strong>Interpreting the output</strong></p>
+<ol type="1">
+<li><p><strong>Test Type</strong>: “2-sample test for equality of proportions with continuity correction” - This test compares two independent proportions (in this case, cars with automatic transmission vs.&nbsp;cars with V-shaped engines in the <code>mtcars</code> dataset). The continuity correction is applied, which is typically used for small sample sizes to improve the approximation of the binomial distribution to the normal distribution.</p></li>
+<li><p><strong>X-squared</strong>: The test statistic value is 0. This value is used to determine the p-value. An X-squared of 0 usually indicates no observed difference between the proportions.</p></li>
+<li><p><strong>p-value</strong>: With a p-value of 1, there’s no statistical evidence to suggest a significant difference between the two proportions.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: “two.sided” - The test was conducted to determine if there is any difference (either way) between the two proportions.</p></li>
+<li><p><strong>95 Percent Confidence Interval</strong>: Ranges from -0.3044 to 0.2418. Since this interval includes 0, it suggests that the difference in proportions might be zero, supporting the lack of statistical significance.</p></li>
+<li><p><strong>Sample Estimates</strong>: The estimated proportions are 0.40625 for the first group (automatic transmissions) and 0.43750 for the second group (V-shaped engines).</p></li>
 </ol>
+<p><strong>Conclusion:</strong> The test suggests no significant difference between the proportion of cars with automatic transmissions and those with V-shaped engines in the mtcars dataset. [8]</p>
 </section>
 </section>
 <section id="references" class="level2">
