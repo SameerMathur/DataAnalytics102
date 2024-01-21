@@ -1,6 +1,6 @@
 # Z Tests
 
-*July 26, 2023*
+*January 21, 2024.*
 
 ## Overview of Z Tests
 

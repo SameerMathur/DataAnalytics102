@@ -1,6 +1,6 @@
 # t-tests
 
-*July 26, 2023*
+*January 21, 2024.*
 
 1.  To evaluate whether there is a significant difference between the means of two groups, a t-test is a statistical test that is employed. T-tests come in a variety of forms, including:
 

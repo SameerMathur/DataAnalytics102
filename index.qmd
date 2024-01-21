@@ -1,6 +1,6 @@
 # Preface {.unnumbered}
 
-*January 21, 2024.*
+*January 21, 2024*
 
 Welcome to "Data Analytics 102 -- Applied Statistics and Regression Using R". This book is your guiding light in the complex world of data analysis and is designed for those who have already dipped their toes into the vast ocean of data analytics and wish to dive deeper. This book follows "Data Analytics 101" and expands on the fundamental statistical concepts, focusing on linear regression and its myriad applications.
 

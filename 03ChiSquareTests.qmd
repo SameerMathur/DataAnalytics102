@@ -1,6 +1,6 @@
 # Chi-Square Tests
 
-*July 26, 2023*
+*January 21, 2024.*
 
 1.  The chi-square test is a statistical test used to determine if there is a significant difference between the **observed values** and the **expected values** in a categorical data set.
 2.  It measures the **deviation** between the expected and observed frequencies in one or more categories and assesses whether this deviation is statistically significant.
