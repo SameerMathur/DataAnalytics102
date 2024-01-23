@@ -261,6 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#chi-square-test-of-independence-technicalities" id="toc-chi-square-test-of-independence-technicalities" class="nav-link" data-scroll-target="#chi-square-test-of-independence-technicalities">Chi-Square Test of Independence – Technicalities</a></li>
   <li><a href="#running-the-chi-square-test-of-independence-test-in-r" id="toc-running-the-chi-square-test-of-independence-test-in-r" class="nav-link" data-scroll-target="#running-the-chi-square-test-of-independence-test-in-r">Running the Chi-Square Test of Independence Test in R</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03ChiSquareTests.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -286,8 +287,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <table class="table">
 <colgroup>
-<col style="width: 31%">
-<col style="width: 68%">
+<col style="width: 36%">
+<col style="width: 63%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -388,16 +389,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="numerical-illustration" class="level3">
 <h3 class="anchored" data-anchor-id="numerical-illustration">Numerical Illustration</h3>
 <p><strong>Business Scenario</strong></p>
-<p>We work for an e-commerce company that sells electronic gadgets, and we want to determine whether the distribution of the company’s most popular product categories among customers follows the expected distribution based on market research conducted last year. The expected distribution from the research is as follows:</p>
+<p>We work for an e-commerce company that sells electronic gadgets. Our goal is to determine if the distribution of the company’s most popular product categories among customers aligns with the expected distribution based on last year’s market research. The expected distribution percentages are as follows:</p>
 <ul>
 <li>Smartphones: 30%</li>
 <li>Laptops: 40%</li>
 <li>Accessories: 20%</li>
 <li>Wearables: 10%</li>
 </ul>
-<p>We want to test whether the observed distribution of product categories sold in a recent month matches the expected distribution.</p>
+<p>We aim to test if the observed distribution of product categories sold in a recent month matches this expected distribution.</p>
 <p><strong>Simulated Observed Data</strong></p>
-<p>In the recent month, we collected sales data, and we found the following distribution of product categories sold:</p>
+<p>The distribution of product categories sold in the recent month was observed as:</p>
 <ul>
 <li>Smartphones: 25</li>
 <li>Laptops: 42</li>
@@ -429,20 +430,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><em>Step 3: Calculate Expected Frequencies</em></p>
 <ul>
-<li>Calculate the expected frequencies by applying the expected percentages to the total number of products sold:
+<li>First, calculate the total number of products sold, which is the sum of the observed sales for all categories: 100.</li>
+<li>Then, calculate the expected frequencies:
 <ul>
-<li>Expected Smartphones: 105 (total * 30%)</li>
-<li>Expected Laptops: 140 (total * 40%)</li>
-<li>Expected Accessories: 70 (total * 20%)</li>
-<li>Expected Wearables: 35 (total * 10%)</li>
+<li>Expected Smartphones: 30 (100 * 30%)</li>
+<li>Expected Laptops: 40 (100 * 40%)</li>
+<li>Expected Accessories: 20 (100 * 20%)</li>
+<li>Expected Wearables: 10 (100 * 10%)</li>
 </ul></li>
 </ul>
 <p><em>Step 4: Calculate the Chi-Square Statistic</em></p>
 <ul>
-<li>Use the formula: χ² = Σ ((O - E)² / E) for each category and then sum them up.</li>
-<li>χ² = [(25 - 105)² / 105] + [(42 - 140)² / 140] + [(18 - 70)² / 70] + [(15 - 35)² / 35]</li>
-<li>χ² = (6560 / 105) + (6560 / 140) + (3132 / 70) + (400 / 35)</li>
-<li>χ² ≈ 62.48 (rounded to two decimal places)</li>
+<li>Use the formula: <strong>χ² = Σ ((O - E)² / E)</strong> for each category and then sum them up.</li>
+<li>χ² = [(25 - 30)² / 30] + [(42 - 40)² / 40] + [(18 - 20)² / 20] + [(15 - 10)² / 10]</li>
+<li>χ² = (25 / 30) + (4 / 40) + (4 / 20) + (25 / 10)</li>
+<li>χ² ≈ 3.63 (rounded to two decimal places)</li>
 </ul>
 <p><em>Step 5: Determine Degrees of Freedom (df)</em></p>
 <ul>
@@ -456,21 +458,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Using a Chi-Square distribution table or calculator for df = 3 and α = 0.05, the critical value is approximately 7.815.</li>
 </ul>
+<p><strong>Critical Value</strong>: This is a point on the scale of the test statistic beyond which we reject the null hypothesis, and it’s dependent on the chosen significance level (alpha, α) and the degrees of freedom in the test. In this case, χ² (critical) ≈ 7.815 is the critical value for a Chi-Square test with a significance level of 0.05 (5%) and degrees of freedom (df) equal to 3. This critical value is derived from the Chi-Square distribution table, which provides critical values for different levels of α and df.</p>
 <p><em>Step 8: Compare Statistic to Critical Value</em></p>
 <ul>
-<li>χ² (calculated) ≈ 62.48 &gt; χ² (critical) ≈ 7.815</li>
+<li>χ² (calculated) ≈ 3.63 &lt; χ² (critical) ≈ 7.815</li>
 </ul>
 <p><em>Step 9: Make a Decision</em></p>
 <ul>
-<li>Since the calculated Chi-Square statistic (62.48) is greater than the critical value (7.815), we reject the null hypothesis.</li>
+<li>Since the calculated Chi-Square statistic (3.63) is less than the critical value (7.815), we fail to reject the null hypothesis.</li>
 </ul>
 <p><em>Step 10: Interpretation</em></p>
 <ul>
-<li>We conclude that there is a significant difference between the observed distribution of product categories sold and the expected distribution based on market research. In other words, the product categories sold do not match the expected distribution.</li>
+<li>We conclude that there is no significant difference between the observed distribution of product categories sold and the expected distribution based on market research. In other words, the product categories sold match the expected distribution.</li>
 </ul>
 </section>
 <section id="running-the-chi-square-goodness-of-fit-test-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="running-the-chi-square-goodness-of-fit-test-in-r">Running the Chi-Square Goodness of Fit Test in R</h3>
+<p>We present another example of running this test, this time using the <code>mtcars</code> data in R.</p>
+<p>The primary goal is to use statistical methods to assess whether the actual distribution of gears in cars (as observed in the <code>mtcars</code> dataset) matches a set of expected probabilities, thereby validating or refuting assumptions about gear distribution in the dataset.</p>
+<p>The set of expected probabilities for each gear category is as follows:</p>
+<ul>
+<li><p>0.5 or 50% for cars with 3 gears</p></li>
+<li><p>0.3 or 30% for cars with 4 gears</p></li>
+<li><p>0.2 or 20% for cars with 5 gears</p></li>
+</ul>
+<p>This test is used to determine if there is a significant difference between observed frequencies (in this case, the number of cars with different gears) and expected frequencies.</p>
 <p><strong>1. Data Preparation</strong></p>
 <p>We start with the <code>mtcars</code> dataset, which contains information about 32 cars, each categorized with 3, 4, or 5 gears.</p>
 <div class="cell">
@@ -527,11 +539,14 @@ Attaching package: 'gplots'</code></pre>
 <p>We specify the expected probabilities for each gear category and perform the chi-square goodness-of-fit test:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the expected probabilities for each gear category</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>expected_probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the chi-square goodness-of-fit test using observed proportions and expected probabilities</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>chisq_test_result <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(gear_proportions, <span class="at">p=</span>expected_probs)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>chisq_test_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>expected_probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fl">0.3</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fl">0.2</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the chi-square goodness-of-fit test using observed proportions and expected probabilities</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>chisq_test_result <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(gear_proportions, </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                                <span class="at">p=</span>expected_probs)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>chisq_test_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Chi-squared test for given probabilities
@@ -547,17 +562,16 @@ X-squared = 0.030273, df = 2, p-value = 0.985</code></pre>
 <li><p><strong>data: gear_proportions</strong>: This line specifies the dataset used for the test, which is the <code>gear_proportions</code> dataset. This dataset contains the observed proportions of cars in different gear categories.</p></li>
 <li><p><strong>X-squared = 0.030273</strong>: This value represents the chi-square statistic (X²), which is a measure of how closely the observed proportions align with the expected probabilities. In this case, the calculated chi-square statistic is approximately 0.030273.</p></li>
 <li><p><strong>df = 2</strong>: This indicates the degrees of freedom (df) associated with the chi-square distribution. In a goodness-of-fit test like this one, the df is calculated as one less than the number of categories being analyzed. Here, since there are three gear categories (3, 4, and 5), df equals 2.</p></li>
-<li><p><strong>p-value = 0.985</strong>: The p-value is a crucial result of the test. It represents the probability of observing a chi-square statistic as extreme as the calculated value (0.030273) under the assumption that there is no significant difference between the observed and expected proportions. In this case, the high p-value of 0.985 suggests that the observed data aligns well with the expected probabilities. A high p-value implies that there is no strong evidence to reject the null hypothesis, which means that the data does not provide significant grounds to believe that the observed proportions are different from what was expected.</p></li>
+<li><p><strong>p-value = 0.985</strong>: The p-value is a crucial result of the test. It represents <strong>the probability of observing a chi-square statistic as extreme as the calculated value (0.030273)</strong> under the assumption that there is no significant difference between the observed and expected proportions. In this case, the high p-value of 0.985 suggests that the observed data aligns well with the expected probabilities. <strong>A high p-value implies that there is no strong evidence to reject the null hypothesis</strong>, which means that the data does not provide significant grounds to believe that the observed proportions are different from what was expected.</p></li>
 </ul>
-<p>In summary, this output tells us that the chi-square goodness-of-fit test was conducted using the observed proportions of cars in different gear categories and the specified expected probabilities. The resulting high p-value (0.985) indicates that there is no strong reason to conclude that the observed proportions significantly differ from the expected probabilities, thus failing to reject the null hypothesis.</p>
+<p>In summary, this output tells us that the chi-square goodness-of-fit test was conducted using the observed proportions of cars in different gear categories and the specified expected probabilities. <strong>The resulting high p-value (0.985) indicates that there is no strong reason to conclude that the observed proportions significantly differ from the expected probabilities, thus failing to reject the null hypothesis.</strong></p>
 </section>
 <section id="comparison-of-chi-square-goodness-of-fit-test-with-z-test-for-proportions" class="level3">
 <h3 class="anchored" data-anchor-id="comparison-of-chi-square-goodness-of-fit-test-with-z-test-for-proportions">Comparison of Chi-Square Goodness of Fit test with Z-test for Proportions</h3>
-<p>Certainly, here’s a concise comparison of the Chi-Square Goodness of Fit test and the Z-test for Proportions:</p>
 <p>The Chi-Square Goodness of Fit test is employed to assess whether observed data conforms to an expected distribution, particularly when dealing with categorical data. It evaluates the similarity between observed and expected frequencies across different categories, typically through a chi-square statistic and follows a chi-square distribution.</p>
-<p>The Chi-Square Goodness of Fit test is used when you have categories or groups, and it helps determine if the observed data matches an expected distribution within those categories. It’s like checking if things are divided as you’d expect.</p>
+<p>It is used when you have categories or groups, and it helps determine if the observed data matches an expected distribution within those categories. <em>It’s like checking if things are divided as you’d expect.</em></p>
 <p>In contrast, the Z-test for Proportions focuses on comparing a sample proportion with a known population proportion, typically in binary data scenarios. It uses a Z-score to measure the difference and follows a standard normal distribution.</p>
-<p>The Z-test helps you assess if the proportion of “yes” responses in your sample significantly differs from a known or expected proportion. It’s like comparing one group to a known standard.</p>
+<p>It helps us assess if the proportion of “yes” responses in our sample significantly differs from a known or expected proportion. <em>It’s like comparing one group to a known standard.</em></p>
 </section>
 </section>
 <section id="chi-square-test-of-independence" class="level2">
@@ -576,16 +590,19 @@ X-squared = 0.030273, df = 2, p-value = 0.985</code></pre>
 <section id="chi-square-test-of-independence-technicalities" class="level3">
 <h3 class="anchored" data-anchor-id="chi-square-test-of-independence-technicalities">Chi-Square Test of Independence – Technicalities</h3>
 <ol type="1">
-<li>The Chi-square test of independence is a statistical test used to determine if there is a significant association between two categorical variables.</li>
+<li>The Chi-square test of independence is a statistical test used to determine if there is a <strong>significant association between two categorical variables</strong>.</li>
 <li>The test evaluates the <strong>null hypothesis</strong> that the <strong>two variables are independent</strong> and <strong>calculates a test statistic (chi-square)</strong> based on the difference between the observed and expected frequencies of the two variables.</li>
 <li>If the calculated test statistic is larger than the <strong>critical value from a chi-square distribution table</strong>, then the null hypothesis is rejected and it can be concluded that there is a significant association between the two variables.</li>
 </ol>
 </section>
 <section id="running-the-chi-square-test-of-independence-test-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="running-the-chi-square-test-of-independence-test-in-r">Running the Chi-Square Test of Independence Test in R</h3>
+<p>The overall objective of this test is to qualitatively and quantitatively analyze and understand the interrelationships between different categorical variables in the <code>mtcars</code> dataset.</p>
+<p>Specifically, in this illustration, the test aims to explore the association between the number of cylinders (<code>cyl</code>) and transmission type (<code>am</code>), in the dataset.</p>
 <ol type="1">
-<li>Convert the categorical variables into factor variables in the dataset mtcars</li>
+<li>Convert the categorical variables into factor variables in the dataset <code>mtcars</code>.</li>
 </ol>
+<p>This step ensures that R treats these variables as categorical data, which is necessary for a Chi-Square test.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>cyl)</span>
@@ -596,8 +613,9 @@ X-squared = 0.030273, df = 2, p-value = 0.985</code></pre>
 <li>Creating a Contingency Table:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ctab <span class="ot">&lt;-</span> <span class="fu">table</span>(mtcars<span class="sc">$</span>am, mtcars<span class="sc">$</span>cyl)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ctab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ctab <span class="ot">&lt;-</span> <span class="fu">table</span>(mtcars<span class="sc">$</span>am, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>              mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>ctab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
      4  6  8
@@ -605,17 +623,23 @@ X-squared = 0.030273, df = 2, p-value = 0.985</code></pre>
   1  8  3  2</code></pre>
 </div>
 </div>
+<p>A contingency table (<code>ctab</code>) is created to summarize the relationship between two categorical variables.</p>
 <ol start="3" type="1">
 <li>Graphical display of Contingency table:</li>
 </ol>
+<p>The <code>balloonplot</code> function from the <code>gplots</code> library is used to visually represent the contingency table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gplots"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. convert the data as a table</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">as.table</span>(<span class="fu">as.matrix</span>(ctab))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Graph</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">balloonplot</span>(<span class="fu">t</span>(dt), <span class="at">main =</span><span class="st">"Contingency Table"</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span><span class="st">"cyl"</span>, <span class="at">ylab=</span><span class="st">"am"</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="cn">FALSE</span>, <span class="at">show.margins =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">as.table</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(ctab))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Graph</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">balloonplot</span>(<span class="fu">t</span>(dt), </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span><span class="st">"Contingency Table"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span><span class="st">"cyl"</span>, <span class="at">ylab=</span><span class="st">"am"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.margins =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="03ChiSquareTests_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -638,7 +662,7 @@ X-squared = 8.7407, df = 2, p-value = 0.01265</code></pre>
 </div>
 </div>
 <ol start="5" type="1">
-<li><p>In our example, the row and the column variables are statistically significantly associated (p-value = 0.01265).</p></li>
+<li><p>In our example, the row and the column variables are statistically significantly associated (p-value = 0.01265). This indicates a statistically significant association between the variables at common alpha levels (like 0.05).</p></li>
 <li><p>The observed and the expected counts can be extracted from the result of the test as follows:</p></li>
 </ol>
 <div class="cell">
@@ -660,8 +684,10 @@ X-squared = 8.7407, df = 2, p-value = 0.01265</code></pre>
 </div>
 </div>
 <ol start="7" type="1">
-<li>Pearson Residuals: <strong>Positive residuals</strong> are positive values in cells specify an attraction (positive association) between the corresponding row and column variables. <strong>Negative residuals</strong> implies a repulsion (negative association) between the corresponding row and column variables.</li>
+<li>Pearson Residuals:</li>
 </ol>
+<p><strong>Positive residuals</strong> are positive values in cells specify an attraction (positive association) between the corresponding row and column variables.</p>
+<p><strong>Negative residuals</strong> implies a repulsion (negative association) between the corresponding row and column variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(chisq<span class="sc">$</span>residuals, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -671,13 +697,24 @@ X-squared = 8.7407, df = 2, p-value = 0.01265</code></pre>
   1  1.670  0.093 -1.546</code></pre>
 </div>
 </div>
-<p>##References</p>
+<p>The overall qualitative objective of running the Chi-Square Test of Independence, as described in the example using the <code>mtcars</code> dataset in R, is to determine whether there is a statistically significant relationship between different categorical variables in the dataset. Specifically, the test aims to explore the association between variables like the number of cylinders (<code>cyl</code>), transmission type (<code>am</code>), in the dataset. The key goals and insights sought from this test include:</p>
+<ol type="1">
+<li><p><strong>Understanding Relationships Between Variables</strong>: To identify if there is a statistically significant association between different categorical variables in the dataset. For instance, it might reveal whether the type of transmission (automatic or manual) is associated with the number of cylinders or gears in the cars.</p></li>
+<li><p><strong>Testing Hypotheses About Associations</strong>: The Chi-Square Test of Independence is essentially a hypothesis test. The null hypothesis states that there is no association between the variables (they are independent), while the alternative hypothesis suggests there is an association (they are not independent).</p></li>
+<li><p><strong>Guiding Data-Driven Decisions</strong>: By understanding the relationships between variables, businesses, analysts, or data scientists can make informed decisions. For example, if a significant association is found between certain car features, it might influence marketing strategies or product development.</p></li>
+<li><p><strong>Visualizing Data Relationships</strong>: Through graphical representation like balloon plots, the test provides a visual understanding of the strength and nature of the relationships between categorical variables.</p></li>
+<li><p><strong>Quantitative Analysis of Associations</strong>: Beyond just identifying if an association exists, the test provides measures like the chi-square statistic, p-value, observed and expected counts, and Pearson residuals. These measures quantify the strength of association and help in understanding the nature of the relationship (whether it’s positive or negative).</p></li>
+</ol>
+<p>The overall objective of this test is to qualitatively and quantitatively analyze and understand the interrelationships between different categorical variables in the <code>mtcars</code> dataset.</p>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 <p>[1] Agresti, A. (2002). Categorical data analysis (2nd ed.). Wiley.</p>
 <p>Hair Jr, J. F., Black, W. C., Babin, B. J., &amp; Anderson, R. E. (2010). Multivariate data analysis: A global perspective (7th ed.). Pearson Education.</p>
 <p>Everitt, B. S. (1992). The analysis of contingency tables (2nd ed.). Chapman and Hall.</p>
 
 
-</section>
 </section>
 </section>
 

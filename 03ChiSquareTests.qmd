@@ -12,7 +12,7 @@
 1.  There are several types of chi-square tests. The most popular tests are as follows.
 
 | Test                        | Use                                                                        |
-|-----------------------|-------------------------------------------------|
+|--------------------------|----------------------------------------------|
 | **A. Goodness-of-fit test** | determine if a sample of data **fits a specified distribution**            |
 | **B. Independence test**    | determine if there is a **relationship between two categorical variables** |
 
@@ -39,139 +39,139 @@ The Chi-Square Goodness-of-Fit test is a statistical tool used to determine if t
 
 Here are the essential steps and concepts involved in carrying out a Chi-Square Goodness-of-Fit test:
 
-1. Hypotheses:
-   - Null Hypothesis (H0): The observed data conforms to a specific theoretical distribution.
-   - Alternative Hypothesis (Ha): The observed data does not conform to the specified theoretical distribution.
+1.  Hypotheses:
+    -   Null Hypothesis (H0): The observed data conforms to a specific theoretical distribution.
+    -   Alternative Hypothesis (Ha): The observed data does not conform to the specified theoretical distribution.
+2.  Categorical Data:
+    -   The data should be categorical, divided into distinct categories or groups.
+    -   We need both observed (actual) and expected frequencies for each category.
+3.  Expected Frequencies:
+    -   Calculate the expected frequencies for each category based on the null hypothesis or the theoretical distribution. These expected values represent what we would anticipate seeing if the null hypothesis were accurate.
+    -   Expected frequencies can be computed using a formula or by multiplying the total sample size by the probabilities associated with each category according to the theoretical distribution.
+4.  Chi-Square Statistic:
+    -   Determine the Chi-Square statistic using this formula:
 
-2. Categorical Data:
-   - The data should be categorical, divided into distinct categories or groups.
-   - We need both observed (actual) and expected frequencies for each category.
+        χ² = Σ ((O - E)² / E)
 
-3. Expected Frequencies:
-   - Calculate the expected frequencies for each category based on the null hypothesis or the theoretical distribution. These expected values represent what we would anticipate seeing if the null hypothesis were accurate.
-   - Expected frequencies can be computed using a formula or by multiplying the total sample size by the probabilities associated with each category according to the theoretical distribution.
-
-4. Chi-Square Statistic:
-   - Determine the Chi-Square statistic using this formula:
-   
-     χ² = Σ ((O - E)² / E)
-
-     - χ²: Chi-Square statistic
-     - O: Observed frequency for a category
-     - E: Expected frequency for the same category
-     - Σ: The sum symbol, signifying that we should perform this calculation for all categories
-
-5. Degrees of Freedom (df):
-   - The degrees of freedom for a Chi-Square Goodness-of-Fit test is equal to the number of categories minus one, or df = (number of categories - 1).
-
-6. Chi-Square Distribution:
-   - The Chi-Square statistic follows a specific distribution known as the Chi-Square distribution, with df degrees of freedom.
-
-7. Critical Value and Significance Level:
-   - Identify the critical value for the Chi-Square test at a chosen significance level (usually denoted as alpha). The critical value is typically derived from a Chi-Square distribution table or statistical software.
-   - Common significance levels include 0.05 or 0.01.
-
-8. Statistic vs. Critical Value Comparison:
-   - If the calculated Chi-Square statistic exceeds the critical value, we reject the null hypothesis.
-   - If the calculated Chi-Square statistic is less than or equal to the critical value, we do not reject the null hypothesis.
-
-9. Interpretation:
-   - Rejecting the null hypothesis implies a significant discrepancy between the observed data and the expected distribution, suggesting that the data does not adhere to the specified theoretical model.
-   - Failing to reject the null hypothesis suggests no significant difference, indicating that the observed data aligns with the expected distribution.
+        -   χ²: Chi-Square statistic
+        -   O: Observed frequency for a category
+        -   E: Expected frequency for the same category
+        -   Σ: The sum symbol, signifying that we should perform this calculation for all categories
+5.  Degrees of Freedom (df):
+    -   The degrees of freedom for a Chi-Square Goodness-of-Fit test is equal to the number of categories minus one, or df = (number of categories - 1).
+6.  Chi-Square Distribution:
+    -   The Chi-Square statistic follows a specific distribution known as the Chi-Square distribution, with df degrees of freedom.
+7.  Critical Value and Significance Level:
+    -   Identify the critical value for the Chi-Square test at a chosen significance level (usually denoted as alpha). The critical value is typically derived from a Chi-Square distribution table or statistical software.
+    -   Common significance levels include 0.05 or 0.01.
+8.  Statistic vs. Critical Value Comparison:
+    -   If the calculated Chi-Square statistic exceeds the critical value, we reject the null hypothesis.
+    -   If the calculated Chi-Square statistic is less than or equal to the critical value, we do not reject the null hypothesis.
+9.  Interpretation:
+    -   Rejecting the null hypothesis implies a significant discrepancy between the observed data and the expected distribution, suggesting that the data does not adhere to the specified theoretical model.
+    -   Failing to reject the null hypothesis suggests no significant difference, indicating that the observed data aligns with the expected distribution.
 
 In summary, the Chi-Square Goodness-of-Fit test serves to evaluate whether categorical data conforms to a particular theoretical distribution. It helps us assess whether any deviations from the expected distribution are statistically meaningful or simply due to chance.
-
-
-
-
 
 ### Numerical Illustration
 
 **Business Scenario**
 
-We work for an e-commerce company that sells electronic gadgets, and we want to determine whether the distribution of the company's most popular product categories among customers follows the expected distribution based on market research conducted last year. The expected distribution from the research is as follows:
+We work for an e-commerce company that sells electronic gadgets. Our goal is to determine if the distribution of the company's most popular product categories among customers aligns with the expected distribution based on last year's market research. The expected distribution percentages are as follows:
 
-- Smartphones: 30%
-- Laptops: 40%
-- Accessories: 20%
-- Wearables: 10%
+-   Smartphones: 30%
+-   Laptops: 40%
+-   Accessories: 20%
+-   Wearables: 10%
 
-We want to test whether the observed distribution of product categories sold in a recent month matches the expected distribution.
+We aim to test if the observed distribution of product categories sold in a recent month matches this expected distribution.
 
 **Simulated Observed Data**
 
-In the recent month, we collected sales data, and we found the following distribution of product categories sold:
+The distribution of product categories sold in the recent month was observed as:
 
-- Smartphones: 25
-- Laptops: 42
-- Accessories: 18
-- Wearables: 15
+-   Smartphones: 25
+-   Laptops: 42
+-   Accessories: 18
+-   Wearables: 15
 
 **Chi-Square Goodness-of-Fit Test**
 
 *Step 1: Set up Hypotheses*
 
-- Null Hypothesis (H0): The observed distribution matches the expected distribution.
-- Alternative Hypothesis (Ha): The observed distribution does not match the expected distribution.
+-   Null Hypothesis (H0): The observed distribution matches the expected distribution.
+-   Alternative Hypothesis (Ha): The observed distribution does not match the expected distribution.
 
 *Step 2: Organize Data*
 
-- Expected Distribution:
-  - Smartphones: 30%
-  - Laptops: 40%
-  - Accessories: 20%
-  - Wearables: 10%
-  
-- Observed Distribution:
-  - Smartphones: 25
-  - Laptops: 42
-  - Accessories: 18
-  - Wearables: 15
+-   Expected Distribution:
+    -   Smartphones: 30%
+    -   Laptops: 40%
+    -   Accessories: 20%
+    -   Wearables: 10%
+-   Observed Distribution:
+    -   Smartphones: 25
+    -   Laptops: 42
+    -   Accessories: 18
+    -   Wearables: 15
 
 *Step 3: Calculate Expected Frequencies*
 
-- Calculate the expected frequencies by applying the expected percentages to the total number of products sold:
-  - Expected Smartphones: 105 (total * 30%)
-  - Expected Laptops: 140 (total * 40%)
-  - Expected Accessories: 70 (total * 20%)
-  - Expected Wearables: 35 (total * 10%)
+-   First, calculate the total number of products sold, which is the sum of the observed sales for all categories: 100.
+-   Then, calculate the expected frequencies:
+    -   Expected Smartphones: 30 (100 \* 30%)
+    -   Expected Laptops: 40 (100 \* 40%)
+    -   Expected Accessories: 20 (100 \* 20%)
+    -   Expected Wearables: 10 (100 \* 10%)
 
 *Step 4: Calculate the Chi-Square Statistic*
 
-- Use the formula: χ² = Σ ((O - E)² / E) for each category and then sum them up.
-- χ² = [(25 - 105)² / 105] + [(42 - 140)² / 140] + [(18 - 70)² / 70] + [(15 - 35)² / 35]
-- χ² = (6560 / 105) + (6560 / 140) + (3132 / 70) + (400 / 35)
-- χ² ≈ 62.48 (rounded to two decimal places)
+-   Use the formula: **χ² = Σ ((O - E)² / E)** for each category and then sum them up.
+-   χ² = \[(25 - 30)² / 30\] + \[(42 - 40)² / 40\] + \[(18 - 20)² / 20\] + \[(15 - 10)² / 10\]
+-   χ² = (25 / 30) + (4 / 40) + (4 / 20) + (25 / 10)
+-   χ² ≈ 3.63 (rounded to two decimal places)
 
 *Step 5: Determine Degrees of Freedom (df)*
 
-- df = (Number of Categories - 1) = 4 - 1 = 3
+-   df = (Number of Categories - 1) = 4 - 1 = 3
 
 *Step 6: Set Significance Level*
 
-- Choose a significance level (alpha), e.g., 0.05.
+-   Choose a significance level (alpha), e.g., 0.05.
 
 *Step 7: Find Critical Value*
 
-- Using a Chi-Square distribution table or calculator for df = 3 and α = 0.05, the critical value is approximately 7.815.
+-   Using a Chi-Square distribution table or calculator for df = 3 and α = 0.05, the critical value is approximately 7.815.
+
+**Critical Value**: This is a point on the scale of the test statistic beyond which we reject the null hypothesis, and it's dependent on the chosen significance level (alpha, α) and the degrees of freedom in the test. In this case, χ² (critical) ≈ 7.815 is the critical value for a Chi-Square test with a significance level of 0.05 (5%) and degrees of freedom (df) equal to 3. This critical value is derived from the Chi-Square distribution table, which provides critical values for different levels of α and df.
 
 *Step 8: Compare Statistic to Critical Value*
 
-- χ² (calculated) ≈ 62.48 > χ² (critical) ≈ 7.815
+-   χ² (calculated) ≈ 3.63 \< χ² (critical) ≈ 7.815
 
 *Step 9: Make a Decision*
 
-- Since the calculated Chi-Square statistic (62.48) is greater than the critical value (7.815), we reject the null hypothesis.
+-   Since the calculated Chi-Square statistic (3.63) is less than the critical value (7.815), we fail to reject the null hypothesis.
 
 *Step 10: Interpretation*
 
-- We conclude that there is a significant difference between the observed distribution of product categories sold and the expected distribution based on market research. In other words, the product categories sold do not match the expected distribution.
-
-
-
+-   We conclude that there is no significant difference between the observed distribution of product categories sold and the expected distribution based on market research. In other words, the product categories sold match the expected distribution.
 
 ### Running the Chi-Square Goodness of Fit Test in R
 
+We present another example of running this test, this time using the `mtcars` data in R.
+
+The primary goal is to use statistical methods to assess whether the actual distribution of gears in cars (as observed in the `mtcars` dataset) matches a set of expected probabilities, thereby validating or refuting assumptions about gear distribution in the dataset.
+
+The set of expected probabilities for each gear category is as follows:
+
+-   0.5 or 50% for cars with 3 gears
+
+-   0.3 or 30% for cars with 4 gears
+
+-   0.2 or 20% for cars with 5 gears
+
+This test is used to determine if there is a significant difference between observed frequencies (in this case, the number of cars with different gears) and expected frequencies.
 
 **1. Data Preparation**
 
@@ -219,10 +219,13 @@ We specify the expected probabilities for each gear category and perform the chi
 
 ```{r warning=FALSE}
 # Specify the expected probabilities for each gear category
-expected_probs <- c(0.5, 0.3, 0.2)
+expected_probs <- c(0.5, 
+                    0.3, 
+                    0.2)
 
 # Perform the chi-square goodness-of-fit test using observed proportions and expected probabilities
-chisq_test_result <- chisq.test(gear_proportions, p=expected_probs)
+chisq_test_result <- chisq.test(gear_proportions, 
+                                p=expected_probs)
 chisq_test_result
 ```
 
@@ -230,41 +233,27 @@ chisq_test_result
 
 After running the chi-square goodness-of-fit test using the provided expected probabilities, the output provides important information:
 
-- **Chi-squared test for given probabilities**: This line indicates that the test conducted is specifically a chi-square goodness-of-fit test. It's designed to assess whether the observed data fits the expected probabilities we've provided.
+-   **Chi-squared test for given probabilities**: This line indicates that the test conducted is specifically a chi-square goodness-of-fit test. It's designed to assess whether the observed data fits the expected probabilities we've provided.
 
-- **data: gear_proportions**: This line specifies the dataset used for the test, which is the `gear_proportions` dataset. This dataset contains the observed proportions of cars in different gear categories.
+-   **data: gear_proportions**: This line specifies the dataset used for the test, which is the `gear_proportions` dataset. This dataset contains the observed proportions of cars in different gear categories.
 
-- **X-squared = 0.030273**: This value represents the chi-square statistic (X²), which is a measure of how closely the observed proportions align with the expected probabilities. In this case, the calculated chi-square statistic is approximately 0.030273.
+-   **X-squared = 0.030273**: This value represents the chi-square statistic (X²), which is a measure of how closely the observed proportions align with the expected probabilities. In this case, the calculated chi-square statistic is approximately 0.030273.
 
-- **df = 2**: This indicates the degrees of freedom (df) associated with the chi-square distribution. In a goodness-of-fit test like this one, the df is calculated as one less than the number of categories being analyzed. Here, since there are three gear categories (3, 4, and 5), df equals 2.
+-   **df = 2**: This indicates the degrees of freedom (df) associated with the chi-square distribution. In a goodness-of-fit test like this one, the df is calculated as one less than the number of categories being analyzed. Here, since there are three gear categories (3, 4, and 5), df equals 2.
 
-- **p-value = 0.985**: The p-value is a crucial result of the test. It represents the probability of observing a chi-square statistic as extreme as the calculated value (0.030273) under the assumption that there is no significant difference between the observed and expected proportions. In this case, the high p-value of 0.985 suggests that the observed data aligns well with the expected probabilities. A high p-value implies that there is no strong evidence to reject the null hypothesis, which means that the data does not provide significant grounds to believe that the observed proportions are different from what was expected.
+-   **p-value = 0.985**: The p-value is a crucial result of the test. It represents **the probability of observing a chi-square statistic as extreme as the calculated value (0.030273)** under the assumption that there is no significant difference between the observed and expected proportions. In this case, the high p-value of 0.985 suggests that the observed data aligns well with the expected probabilities. **A high p-value implies that there is no strong evidence to reject the null hypothesis**, which means that the data does not provide significant grounds to believe that the observed proportions are different from what was expected.
 
-In summary, this output tells us that the chi-square goodness-of-fit test was conducted using the observed proportions of cars in different gear categories and the specified expected probabilities. The resulting high p-value (0.985) indicates that there is no strong reason to conclude that the observed proportions significantly differ from the expected probabilities, thus failing to reject the null hypothesis.
-
-
+In summary, this output tells us that the chi-square goodness-of-fit test was conducted using the observed proportions of cars in different gear categories and the specified expected probabilities. **The resulting high p-value (0.985) indicates that there is no strong reason to conclude that the observed proportions significantly differ from the expected probabilities, thus failing to reject the null hypothesis.**
 
 ### Comparison of Chi-Square Goodness of Fit test with Z-test for Proportions
 
-Certainly, here's a concise comparison of the Chi-Square Goodness of Fit test and the Z-test for Proportions:
+The Chi-Square Goodness of Fit test is employed to assess whether observed data conforms to an expected distribution, particularly when dealing with categorical data. It evaluates the similarity between observed and expected frequencies across different categories, typically through a chi-square statistic and follows a chi-square distribution.
 
-The Chi-Square Goodness of Fit test is employed to assess whether observed data conforms to an expected distribution, particularly when dealing with categorical data. It evaluates the similarity between observed and expected frequencies across different categories, typically through a chi-square statistic and follows a chi-square distribution. 
+It is used when you have categories or groups, and it helps determine if the observed data matches an expected distribution within those categories. *It's like checking if things are divided as you'd expect.*
 
-The Chi-Square Goodness of Fit test is used when you have categories or groups, and it helps determine if the observed data matches an expected distribution within those categories. It's like checking if things are divided as you'd expect.
+In contrast, the Z-test for Proportions focuses on comparing a sample proportion with a known population proportion, typically in binary data scenarios. It uses a Z-score to measure the difference and follows a standard normal distribution.
 
-In contrast, the Z-test for Proportions focuses on comparing a sample proportion with a known population proportion, typically in binary data scenarios. It uses a Z-score to measure the difference and follows a standard normal distribution. 
-
-The Z-test  helps you assess if the proportion of "yes" responses in your sample significantly differs from a known or expected proportion. It's like comparing one group to a known standard.
-
-
-
-
-
-
-
-
-
-
+It helps us assess if the proportion of "yes" responses in our sample significantly differs from a known or expected proportion. *It's like comparing one group to a known standard.*
 
 ## Chi-Square Test of Independence
 
@@ -279,13 +268,19 @@ The Z-test  helps you assess if the proportion of "yes" responses in your sample
 
 ### Chi-Square Test of Independence -- Technicalities
 
-1.  The Chi-square test of independence is a statistical test used to determine if there is a significant association between two categorical variables.
+1.  The Chi-square test of independence is a statistical test used to determine if there is a **significant association between two categorical variables**.
 2.  The test evaluates the **null hypothesis** that the **two variables are independent** and **calculates a test statistic (chi-square)** based on the difference between the observed and expected frequencies of the two variables.
 3.  If the calculated test statistic is larger than the **critical value from a chi-square distribution table**, then the null hypothesis is rejected and it can be concluded that there is a significant association between the two variables.
 
 ### Running the Chi-Square Test of Independence Test in R
 
-1.  Convert the categorical variables into factor variables in the dataset mtcars
+The overall objective of this test is to qualitatively and quantitatively analyze and understand the interrelationships between different categorical variables in the `mtcars` dataset.
+
+Specifically, in this illustration, the test aims to explore the association between the number of cylinders (`cyl`) and transmission type (`am`), in the dataset. 
+
+1.  Convert the categorical variables into factor variables in the dataset `mtcars`.
+
+This step ensures that R treats these variables as categorical data, which is necessary for a Chi-Square test.
 
 ```{r echo=TRUE, eval=TRUE}
 data(mtcars)
@@ -297,20 +292,30 @@ mtcars$gear  <- as.factor(mtcars$gear)
 2.  Creating a Contingency Table:
 
 ```{r echo=TRUE, eval=TRUE}
-ctab <- table(mtcars$am, mtcars$cyl)
+ctab <- table(mtcars$am, 
+              mtcars$cyl)
 ctab
 ```
 
+A contingency table (`ctab`) is created to summarize the relationship between two categorical variables.
+
+
 3.  Graphical display of Contingency table:
 
-```{r echo=TRUE, eval=TRUE}
+The `balloonplot` function from the `gplots` library is used to visually represent the contingency table.
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE}
 library("gplots")
 # 1. convert the data as a table
-dt <- as.table(as.matrix(ctab))
+dt <- as.table(
+  as.matrix(ctab))
+
 # 2. Graph
-balloonplot(t(dt), main ="Contingency Table",
+balloonplot(t(dt), 
+            main ="Contingency Table",
             xlab ="cyl", ylab="am",
-            label = FALSE, show.margins = FALSE)
+            label = FALSE, 
+            show.margins = FALSE)
 ```
 
 4.  Compute Chi-Square test: The Chi-square statistic can be easily computed using the function `chisq.test()` as follow:
@@ -321,6 +326,7 @@ chisq
 ```
 
 5.  In our example, the row and the column variables are statistically significantly associated (p-value = 0.01265).
+This indicates a statistically significant association between the variables at common alpha levels (like 0.05).
 
 6.  The observed and the expected counts can be extracted from the result of the test as follows:
 
@@ -332,22 +338,36 @@ chisq$observed
 round(chisq$expected, 2)
 ```
 
-7.  Pearson Residuals: **Positive residuals** are positive values in cells specify an attraction (positive association) between the corresponding row and column variables. **Negative residuals** implies a repulsion (negative association) between the corresponding row and column variables.
+7.  Pearson Residuals:
+
+**Positive residuals** are positive values in cells specify an attraction (positive association) between the corresponding row and column variables.
+
+**Negative residuals** implies a repulsion (negative association) between the corresponding row and column variables.
 
 ```{r echo=TRUE, eval=TRUE}
 round(chisq$residuals, 3)
 ```
 
+The overall qualitative objective of running the Chi-Square Test of Independence, as described in the example using the `mtcars` dataset in R, is to determine whether there is a statistically significant relationship between different categorical variables in the dataset. Specifically, the test aims to explore the association between variables like the number of cylinders (`cyl`), transmission type (`am`), in the dataset. The key goals and insights sought from this test include:
+
+1. **Understanding Relationships Between Variables**: To identify if there is a statistically significant association between different categorical variables in the dataset. For instance, it might reveal whether the type of transmission (automatic or manual) is associated with the number of cylinders or gears in the cars.
+
+2. **Testing Hypotheses About Associations**: The Chi-Square Test of Independence is essentially a hypothesis test. The null hypothesis states that there is no association between the variables (they are independent), while the alternative hypothesis suggests there is an association (they are not independent).
+
+3. **Guiding Data-Driven Decisions**: By understanding the relationships between variables, businesses, analysts, or data scientists can make informed decisions. For example, if a significant association is found between certain car features, it might influence marketing strategies or product development.
+
+4. **Visualizing Data Relationships**: Through graphical representation like balloon plots, the test provides a visual understanding of the strength and nature of the relationships between categorical variables.
+
+5. **Quantitative Analysis of Associations**: Beyond just identifying if an association exists, the test provides measures like the chi-square statistic, p-value, observed and expected counts, and Pearson residuals. These measures quantify the strength of association and help in understanding the nature of the relationship (whether it's positive or negative).
+
+The overall objective of this test is to qualitatively and quantitatively analyze and understand the interrelationships between different categorical variables in the `mtcars` dataset.
 
 
 
-##References
+## References
 
-[1] Agresti, A. (2002). Categorical data analysis (2nd ed.). Wiley.
+\[1\] Agresti, A. (2002). Categorical data analysis (2nd ed.). Wiley.
 
 Hair Jr, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2010). Multivariate data analysis: A global perspective (7th ed.). Pearson Education.
 
 Everitt, B. S. (1992). The analysis of contingency tables (2nd ed.). Chapman and Hall.
-
-
-
