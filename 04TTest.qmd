@@ -1,8 +1,10 @@
-# t-tests
+# T-tests
 
-*January 21, 2024.*
+*February 04, 2024.*
 
-1.  To evaluate whether there is a significant difference between the means of two groups, a t-test is a statistical test that is employed. T-tests come in a variety of forms, including:
+# Overview of t-tests
+
+1.  The purpose of a t-test is to evaluate whether there is a significant difference between the means of two groups, a t-test is a statistical test that is employed. T-tests come in a variety of forms, including:
 
 -   One-sample t-test
 -   Independent samples t-test
@@ -144,7 +146,7 @@ res
 
 -   H1: The mean weight of the cars having am = 0 is significantly different from mean weight of the cars having am = 1
 
-```{r echo=FALSE, eval=TRUE}
+```{r echo=TRUE, eval=TRUE}
 # Computing t-test
 tst <- t.test(wt~am, var.equal = TRUE)
 tst
