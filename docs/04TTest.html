@@ -253,7 +253,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#organizational-behavior" id="toc-organizational-behavior" class="nav-link" data-scroll-target="#organizational-behavior">Organizational Behavior:</a></li>
   </ul></li>
   <li><a href="#concept-behind-the-one-sample-t-test" id="toc-concept-behind-the-one-sample-t-test" class="nav-link" data-scroll-target="#concept-behind-the-one-sample-t-test">Concept behind the One-Sample t-test</a></li>
-  <li><a href="#running-the-one-sample-t-test-in-r" id="toc-running-the-one-sample-t-test-in-r" class="nav-link" data-scroll-target="#running-the-one-sample-t-test-in-r">Running the One-Sample t-test in R</a></li>
+  <li><a href="#one-sample-t-test-in-r" id="toc-one-sample-t-test-in-r" class="nav-link" data-scroll-target="#one-sample-t-test-in-r">One-Sample T-Test in R</a></li>
+  <li><a href="#one-sample-two-tailed-t-test" id="toc-one-sample-two-tailed-t-test" class="nav-link" data-scroll-target="#one-sample-two-tailed-t-test">One-Sample, Two-Tailed t-test</a></li>
+  <li><a href="#one-sample-two-tailed-t-test-steps" id="toc-one-sample-two-tailed-t-test-steps" class="nav-link" data-scroll-target="#one-sample-two-tailed-t-test-steps">One-Sample, Two-Tailed t-test steps</a>
+  <ul class="collapse">
+  <li><a href="#step-1-calculate-the-sample-mean" id="toc-step-1-calculate-the-sample-mean" class="nav-link" data-scroll-target="#step-1-calculate-the-sample-mean">Step 1: Calculate the Sample Mean</a></li>
+  <li><a href="#step-2-sample-standard-deviation-s" id="toc-step-2-sample-standard-deviation-s" class="nav-link" data-scroll-target="#step-2-sample-standard-deviation-s">Step 2: Sample Standard Deviation (s)</a></li>
+  <li><a href="#step-3-calculate-the-standard-error-se" id="toc-step-3-calculate-the-standard-error-se" class="nav-link" data-scroll-target="#step-3-calculate-the-standard-error-se">Step 3: Calculate the Standard Error (SE)</a></li>
+  <li><a href="#step-4-calculate-the-t-statistic" id="toc-step-4-calculate-the-t-statistic" class="nav-link" data-scroll-target="#step-4-calculate-the-t-statistic">Step 4: Calculate the T-Statistic</a></li>
+  <li><a href="#step-5-determine-the-degrees-of-freedom-df" id="toc-step-5-determine-the-degrees-of-freedom-df" class="nav-link" data-scroll-target="#step-5-determine-the-degrees-of-freedom-df">Step 5: Determine the Degrees of Freedom (df)</a></li>
+  <li><a href="#step-6-p-value-calculation" id="toc-step-6-p-value-calculation" class="nav-link" data-scroll-target="#step-6-p-value-calculation">Step 6: P-Value Calculation</a></li>
+  <li><a href="#step-7-determine-the-confidence-interval" id="toc-step-7-determine-the-confidence-interval" class="nav-link" data-scroll-target="#step-7-determine-the-confidence-interval">Step 7: Determine the Confidence Interval</a></li>
+  </ul></li>
+  <li><a href="#one-sample-one-tailed-t-test" id="toc-one-sample-one-tailed-t-test" class="nav-link" data-scroll-target="#one-sample-one-tailed-t-test">One-Sample, One-Tailed t-test</a></li>
   </ul></li>
   <li><a href="#independent-samples-t-test" id="toc-independent-samples-t-test" class="nav-link" data-scroll-target="#independent-samples-t-test">Independent Samples t-test</a>
   <ul class="collapse">
@@ -299,6 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#one-sample-wilcoxon-signed-rank-test" id="toc-one-sample-wilcoxon-signed-rank-test" class="nav-link" data-scroll-target="#one-sample-wilcoxon-signed-rank-test">One-Sample Wilcoxon Signed Rank Test</a></li>
   <li><a href="#two-sample-wilcoxon-test-a.k.a-mann-whitney-u-test" id="toc-two-sample-wilcoxon-test-a.k.a-mann-whitney-u-test" class="nav-link" data-scroll-target="#two-sample-wilcoxon-test-a.k.a-mann-whitney-u-test">Two-Sample Wilcoxon test (a.k.a Mann-Whitney U test)</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="04TTest.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -336,11 +349,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="marketing">Marketing:</h3>
 <p>A one-sample t-test can be used in various ways to make data-driven decisions. Here are some marketing applications of one-sample t-test:</p>
 <ol type="1">
-<li><p>Testing for ad effectiveness: A one-sample t-test can be performed to ascertain whether a marketing campaign has been successful in raising brand recognition or sales. Customers can be randomly chosen and asked to complete surveys both before and after the promotion. To ascertain whether the campaign was successful, a one-sample t-test can be used to compare the mean survey scores from before and after the campaign.</p></li>
-<li><p>Price testing: Customers’ acceptance of a product’s price can be assessed using a one-sample t-test. To ascertain a sample of customers’ purchasing intentions, a survey might be conducted. One-sample t-tests can be used to compare the sample mean to the product’s pricing to determine whether it is too high or too cheap.</p></li>
+<li><p>Assessing Average Spend Against a Target: A retail company has set a strategic target for the average customer spend per visit to be $75 as part of its quarterly performance goals. The marketing team has implemented several promotional strategies aimed at increasing the average spend. To evaluate the effectiveness of these strategies, they collect data on the average spend of a sample of customers over a quarter. he one-sample t-test can be used to determine if the actual average spend per customer in the sample significantly differs from the target mean of $75.</p></li>
+<li><p>Evaluating Customer Satisfaction Levels: A company has historically known its customer satisfaction score to be around 80 (on a scale of 0 to 100) based on extensive market research. After launching a new customer service initiative, the company aims to evaluate if the new service levels have significantly improved customer satisfaction. A survey is conducted among a sample of customers who experienced the new service, and a satisfaction score is calculated.</p></li>
 <li><p>Product testing: To find out if a product satisfies client expectations, utilise the one-sample t-test. Customers can be asked to complete a survey to review a product on its quality, dependability, and design, among other qualities. To ascertain whether the product matches customer expectations, one-sample t-tests can be used to compare the sample’s mean scores to the hypothesised mean.</p></li>
-<li><p>Customer satisfaction testing: To find out whether customers are pleased with a product or service, utilise the one-sample t-test. To gauge customer happiness, a sample of customers can complete a survey. A one-sample t-test can be used to compare the sample’s mean score to a hypothesised mean in order to assess whether or not customers are happy.</p></li>
-<li><p>Market research: One-sample t-tests can be used by businesses to examine survey data and determine whether a sample’s responses significantly deviate from an assumed mean. Understanding consumer preferences and making wise company decisions can both benefit from this.</p></li>
 </ol>
 </section>
 <section id="finance" class="level3">
@@ -350,32 +361,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Stock market analysis: If a stock’s returns are considerably different from a benchmark index or an expected return, one-sample t-test can be employed to detect this. If the stock’s performance differs significantly from expectations, a one-sample t-test can be used to compare a sample of the returns to the expected return.</p></li>
 <li><p>Credit risk analysis: If a borrower’s credit score differs significantly from the population’s average credit score, one-sample t-test can be employed to ascertain this. One-sample t-test can be used to compare a sample of borrower credit scores to the population’s average credit score to see if there is a significant difference.</p></li>
 <li><p>Portfolio performance analysis: If a portfolio’s returns differ considerably from a benchmark index or an expected return, one-sample t-test can be employed to assess this. If the portfolio’s performance differs significantly from expectations, a one-sample t-test can be used to compare a sample of the returns to the predicted return.</p></li>
-<li><p>Hypothesis testing: Financial hypotheses can be tested using the one-sample t-test, including the ones that a variable has a normal distribution and that an asset class’s mean return is zero.</p></li>
 </ol>
 </section>
 <section id="organizational-behavior" class="level3">
 <h3 class="anchored" data-anchor-id="organizational-behavior">Organizational Behavior:</h3>
-<p>In organizational behavior, one-sample t-test can be used in various ways to make data-driven decisions. Here are some organizational behavior applications of one-sample t-test:</p>
+<p>In organizational behavior, one-sample t-test can also be used in various ways to make data-driven decisions. Here are some organizational behavior applications of one-sample t-test:</p>
 <ol type="1">
 <li><p>Employee satisfaction surveys: A one-sample t-test can be used to examine whether the average score in a survey of employees is substantially different from an average score that has been hypothesised. One-sample t-test can be used to compare the survey results to the estimated average score to see if employee satisfaction differs significantly from what was predicted.</p></li>
 <li><p>Training program evaluations: If the average score of a training programme evaluation differs considerably from a predicted average score, a one-sample t-test can be performed to discover this. The effectiveness of the training programme can be assessed by comparing the evaluation results to the average score that was hypothesised using a one-sample t-test.</p></li>
 <li><p>Employee performance evaluations: If the average score of an employee performance review differs considerably from a predicted average score, a one-sample t-test can be performed to determine this. One-sample t-tests can be used to compare the evaluation results to the hypothetical average score to see if the employee’s performance differed considerably from what was anticipated.</p></li>
-<li><p>Organizational culture assessments: If the average score of an organisational culture evaluation differs considerably from a predicted average score, a one-sample t-test can be performed to determine this. One-sample t-test can be used to examine whether the organisational culture is significantly different from what was anticipated by comparing the assessment findings to the average score that was hypothesised.</p></li>
 </ol>
 </section>
 </section>
 <section id="concept-behind-the-one-sample-t-test" class="level2">
 <h2 class="anchored" data-anchor-id="concept-behind-the-one-sample-t-test">Concept behind the One-Sample t-test</h2>
 <ol type="1">
-<li>The mean of a single sample of observations, commonly referred to as the “hypothesised mean,” is compared to a known value using a one-sample t-test, a statistical test.</li>
-<li>The test can be used to derive conclusions about the population from which the sample was taken and determines whether the sample mean differs significantly from the anticipated mean.</li>
-<li>The t-statistic, which is the difference between the sample mean and the hypothesised mean divided by the standard error of the mean, serves as the foundation for the test.</li>
-<li>The chance of observing the sample mean if the genuine population mean is identical to the hypothesised mean is then calculated by comparing the t-statistic to a t-distribution.</li>
-<li>If this probability is small, it suggests that the sample mean is significantly different from the hypothesized mean, and the null hypothesis (that the sample mean is equal to the hypothesized mean) can be rejected.</li>
+<li><p>The mean of a single sample of observations, commonly referred to as the “hypothesised mean,” is compared to a known value using a one-sample t-test, a statistical test.</p></li>
+<li><p>The test can be used to derive conclusions about the population from which the sample was taken and determines whether the sample mean differs significantly from the anticipated mean.</p></li>
+<li><p>The t-statistic, which is the difference between the sample mean and the hypothesised mean divided by the standard error of the mean, serves as the foundation for the test.</p></li>
+<li><p>The chance of observing the sample mean if the genuine population mean is identical to the hypothesised mean is then calculated by comparing the t-statistic to a t-distribution.</p></li>
+<li><p>If this probability is small, it suggests that the sample mean is significantly different from the hypothesized mean, and the null hypothesis (that the sample mean is equal to the hypothesized mean) can be rejected.</p></li>
 </ol>
 </section>
-<section id="running-the-one-sample-t-test-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="running-the-one-sample-t-test-in-r">Running the One-Sample t-test in R</h2>
+<section id="one-sample-t-test-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="one-sample-t-test-in-r">One-Sample T-Test in R</h2>
+<p>In statistical analysis, one often encounters the need to determine if a sample mean significantly deviates from a known or hypothesized population mean. This is where the one-sample t-test comes into play, offering a method to assess this question. We will demonstrate how to run this test in R on the mtcars dataset.</p>
 <ol type="1">
 <li>Read the data into a dataframe</li>
 </ol>
@@ -392,26 +402,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>gear  <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>gear)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>vs  <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>vs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ol start="3" type="1">
-<li>As an illustration, suppose that our objective is to compare whether the mean weight of the cars is different from 3 (1000 lbs), a value determined in a previous study.</li>
+<p>The data is now ready for statistical testing.</p>
+</section>
+<section id="one-sample-two-tailed-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="one-sample-two-tailed-t-test">One-Sample, Two-Tailed t-test</h2>
+<ol type="1">
+<li><p>As an illustration, our aim is to evaluate whether the average weight (wt) of cars, as recorded in the mtcars dataset, significantly differs from a specific value — in this instance, 3 (representing 3000 lbs, given that wt is measured in thousands of lbs). We’ll start by examining this through a two-tailed test, which does not assume a direction in the difference. Conversely, for a one-tailed test, our focus would shift to determining if the average weight notably exceeds 3, thereby implying a directional hypothesis.</p></li>
+<li><p>Hypothesis Formulation: The objective is to test if the mean weight (wt) of cars is significantly different from 3 (which represents 3000 lbs, assuming wt is in thousands of lbs).</p></li>
 </ol>
 <ul>
-<li>H0: The mean weight of the cars is not different from 3 (1000 lbs).</li>
-<li>H1: The mean weight of the cars is different from 3 (1000 lbs).</li>
+<li>Null Hypothesis (H0): The mean weight of the cars (μ) equates to 3.</li>
+<li>Alternative Hypothesis (H1): The mean weight of the cars (μ) does not equate to 3.</li>
 </ul>
-<ol start="4" type="1">
-<li>Code:</li>
+<ol start="3" type="1">
+<li>Implementing a Two-Tailed t-test in R:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample t-test</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(wt, <span class="at">mu =</span> <span class="dv">3</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the results</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>res </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Executing a one-sample two-tailed t-test</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>two_tailed <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mtcars<span class="sc">$</span>wt, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">mu =</span> <span class="dv">3</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Displaying the findings</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(two_tailed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
 
-data:  wt
+data:  mtcars$wt
 t = 1.256, df = 31, p-value = 0.2185
 alternative hypothesis: true mean is not equal to 3
 95 percent confidence interval:
@@ -421,10 +438,163 @@ mean of x
   3.21725 </code></pre>
 </div>
 </div>
+<ol start="4" type="1">
+<li>Explanation:</li>
+</ol>
+<ul>
+<li><p><strong>t = 1.256</strong>: This t-statistic value is a measure that tells us how much the sample mean deviates from the hypothesized mean, adjusted for the size of the sample. Essentially, it’s a ratio of the difference between the sample mean and the hypothesized mean over the standard error of the sample. The value here suggests a deviation, but it’s not particularly large.</p></li>
+<li><p><strong>df = 31</strong>: The ‘df’ stands for degrees of freedom, which, in this case, is 31. This number is derived from the total number of observations (32 cars) minus one. Degrees of freedom are important because they play a role in determining the critical value for our t-test, which in turn helps us understand the significance of our t-statistic.</p></li>
+<li><p><strong>p-value = 0.2185</strong>: Perhaps the most scrutinized number in hypothesis testing, the p-value tells us the probability of observing our data (or something more extreme) if the null hypothesis were true. Here, a p-value of about 22% suggests that there’s a relatively high likelihood of seeing this average weight due to chance alone. Since this p-value is above the common alpha level of 0.05, we don’t have enough grounds to reject our null hypothesis. In simpler terms, we can’t confidently say that the average car weight is different from 3000 lbs based on our sample.</p></li>
+<li><p><strong>Alternative hypothesis: true mean is not equal to 3</strong>: This statement outlines what we’re testing against the null hypothesis. It posits that the actual mean weight of the cars is different from 3,000 lbs, challenging our initial assumption.</p></li>
+<li><p><strong>95 percent confidence interval: 2.864478 3.570022</strong>: This interval gives us a range where we can be 95% confident the true mean weight of the cars falls. Since 3 is within this interval, it aligns with our p-value finding, indicating that the true mean might well be 3,000 lbs, among other possible values within this range.</p></li>
+<li><p><strong>Sample estimates: mean of x = 3.21725</strong>: Finally, the sample mean, or the average weight of cars in our dataset, is approximately 3217 lbs. This gives us a concrete figure to work with but, as indicated by our test, this figure alone isn’t enough to definitively claim a significant difference from the hypothesized mean.</p></li>
+</ul>
 <ol start="5" type="1">
-<li><p>The p-value of the test is 0.2185, which is greater than the significance level alpha = 0.05.</p></li>
-<li><p>So we fail to reject the null hypothesis.</p></li>
-<li><p>We can conclude that the mean weight of the cars is not different from theoretical mean 3 (1000 lbs)</p></li>
+<li>In essence, the t-test results suggest that, there’s insufficient statistical evidence to assert a significant difference from the hypothesized average weight of 3,000 lbs.</li>
+</ol>
+</section>
+<section id="one-sample-two-tailed-t-test-steps" class="level2">
+<h2 class="anchored" data-anchor-id="one-sample-two-tailed-t-test-steps">One-Sample, Two-Tailed t-test steps</h2>
+<p>We will explain the test, step-by-step.</p>
+<section id="step-1-calculate-the-sample-mean" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-calculate-the-sample-mean">Step 1: Calculate the Sample Mean</h3>
+<p>The sample mean is already known to be 3.21725, representing the average weight of cars in the <code>mtcars</code> dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>wt)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sample_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.21725</code></pre>
+</div>
+</div>
+</section>
+<section id="step-2-sample-standard-deviation-s" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-sample-standard-deviation-s">Step 2: Sample Standard Deviation (s)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sample_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>wt)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sample_sd </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9784574</code></pre>
+</div>
+</div>
+</section>
+<section id="step-3-calculate-the-standard-error-se" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-calculate-the-standard-error-se">Step 3: Calculate the Standard Error (SE)</h3>
+<p>The standard error of the mean (SE) quantifies the sampling variability of the mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">32</span>  <span class="co"># Number of observations</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> sample_sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>SE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1729685</code></pre>
+</div>
+</div>
+</section>
+<section id="step-4-calculate-the-t-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-calculate-the-t-statistic">Step 4: Calculate the T-Statistic</h3>
+<p>The t-statistic is calculated to evaluate the difference between the sample mean and the hypothesized mean, normalized by the SE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>hypothesized_mean <span class="ot">&lt;-</span> <span class="dv">3</span>  <span class="co"># Hypothesized population mean</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>t_statistic <span class="ot">&lt;-</span> (sample_mean <span class="sc">-</span> hypothesized_mean) <span class="sc">/</span> SE</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>t_statistic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.256009</code></pre>
+</div>
+</div>
+</section>
+<section id="step-5-determine-the-degrees-of-freedom-df" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-determine-the-degrees-of-freedom-df">Step 5: Determine the Degrees of Freedom (df)</h3>
+<p>Degrees of freedom for a one-sample t-test is (n - 1).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-6-p-value-calculation" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-p-value-calculation">Step 6: P-Value Calculation</h3>
+<p>The p-value, indicating the probability of observing the data under the null hypothesis, is typically calculated using statistical software due to its complexity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming t_statistic = 1.256 and df = 31</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(<span class="fl">1.256</span>), <span class="at">df =</span> <span class="dv">31</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2184998</code></pre>
+</div>
+</div>
+<p>This code calculates the p-value by finding the cumulative probability up to the absolute value of the t-statistic using the pt function, which gives the cumulative distribution function for the t-distribution in R. The 2 * at the beginning adjusts for the two-tailed nature of the test, effectively doubling the probability found in one tail to account for both extremes. The p-value of 0.2184998 implies that we will reject the Null hypothesis.</p>
+</section>
+<section id="step-7-determine-the-confidence-interval" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-determine-the-confidence-interval">Step 7: Determine the Confidence Interval</h3>
+<p>The 95% confidence interval around the mean is calculated based on the standard error and the critical t-value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming t_alpha/2 corresponds to a 95% CI from t-distribution tables or software</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>t_alpha_2 <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, df)  <span class="co"># Calculate the critical t-value</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>t_alpha_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.039513</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming t_alpha/2 corresponds to a 95% CI from t-distribution tables or software</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>CI_lower <span class="ot">&lt;-</span> sample_mean <span class="sc">-</span> (t_alpha_2 <span class="sc">*</span> SE)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>CI_upper <span class="ot">&lt;-</span> sample_mean <span class="sc">+</span> (t_alpha_2 <span class="sc">*</span> SE)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>CI_lower</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.864478</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>CI_upper</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.570022</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="one-sample-one-tailed-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="one-sample-one-tailed-t-test">One-Sample, One-Tailed t-test</h2>
+<ol type="1">
+<li><p>Suppose we want to instead evaluate whether the average weight (wt) of cars, as recorded in the mtcars dataset, significantly exceeds a specific value of 3 (representing 3000 lbs, given that wt is measured in thousands of lbs), we will conduct a one-tailed t-test. This one-tailed test focuses on determining if the average weight notably exceeds 3, indicating a directional hypothesis.</p></li>
+<li><p>Hypothesis Formulation: The objective is to test if the mean weight (wt) of cars is significantly greater than 3 (which represents 3000 lbs, assuming wt is in thousands of lbs).</p></li>
+</ol>
+<ul>
+<li>Null Hypothesis (H0): The mean weight of the cars (μ) is less than or equal to 3.</li>
+<li>Alternative Hypothesis (H1): The mean weight of the cars (μ) is greater than 3.</li>
+</ul>
+<ol start="3" type="1">
+<li>Implementing a One-Tailed t-test in R:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Executing a one-sample one-tailed t-test</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>one_tailed <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mtcars<span class="sc">$</span>wt, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">mu =</span> <span class="dv">3</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Displaying the findings</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(one_tailed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  mtcars$wt
+t = 1.256, df = 31, p-value = 0.1092
+alternative hypothesis: true mean is greater than 3
+95 percent confidence interval:
+ 2.923979      Inf
+sample estimates:
+mean of x 
+  3.21725 </code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Explanation:</li>
+</ol>
+<ul>
+<li><p><strong>t = 1.256</strong>: This t-statistic value measures how much the sample mean deviates from the hypothesized mean, adjusted for the size of the sample. It indicates a deviation in the positive direction, suggesting that the average car weight is greater than 3.</p></li>
+<li><p><strong>df = 31</strong>: The ‘df’ stands for degrees of freedom, which is 31 in this case. Degrees of freedom are crucial for determining the critical value for our one-tailed t-test.</p></li>
+<li><p><strong>p-value = 0.1092</strong>: The p-value represents the probability of observing our data (or something more extreme) if the null hypothesis were true. In this case, a p-value of about 10.92% suggests a relatively low likelihood of seeing this average weight due to chance alone. Since this p-value is below the common alpha level of 0.05, we have grounds to reject our null hypothesis. This means we can confidently say that the average car weight is greater than 3000 lbs based on our sample.</p></li>
+<li><p><strong>Alternative hypothesis: true mean is greater than 3</strong>: This statement outlines what we’re testing against the null hypothesis. It posits that the actual mean weight of the cars is greater than 3,000 lbs, supporting our initial assumption.</p></li>
+<li><p><strong>95 percent confidence interval: 3.019322 Inf</strong>: The confidence interval indicates that we are 95% confident that the true mean weight falls between 3.019322 and infinity. Since 3 is below this range, it aligns with our p-value finding, indicating that the true mean is greater than 3,000 lbs.</p></li>
+<li><p><strong>Sample estimates: mean of x = 3.21725</strong>: The sample mean represents the average weight of cars in our dataset, which is approximately 3217 lbs. This value further supports our conclusion that the average car weight is greater than 3000 lbs.</p></li>
+</ul>
+<ol start="5" type="1">
+<li>In essence, the one-tailed t-test results suggest that there is sufficient statistical evidence to assert a significant difference from the hypothesized average weight of 3,000 lbs, with the average weight being greater.</li>
 </ol>
 </section>
 </section>
@@ -470,9 +640,9 @@ mean of x
 <li><p>H1: The mean weight of the cars having am = 0 is significantly different from mean weight of the cars having am = 1</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing t-test</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tst <span class="ot">&lt;-</span> <span class="fu">t.test</span>(wt<span class="sc">~</span>am, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tst</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing t-test</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>tst <span class="ot">&lt;-</span> <span class="fu">t.test</span>(wt<span class="sc">~</span>am, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>tst</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -548,17 +718,17 @@ mean in group 0 mean in group 1
 <li>Let’s create this data set. First, create before and after as objects containing the scores of ICT training.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.2</span>, <span class="fl">14.6</span>, <span class="fl">13.4</span>, <span class="fl">11.2</span>, <span class="fl">12.7</span>, <span class="fl">10.4</span>, <span class="fl">15.8</span>, <span class="fl">13.9</span>, <span class="fl">9.5</span>, <span class="fl">14.2</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">13.5</span>, <span class="fl">15.2</span>, <span class="fl">13.6</span>, <span class="fl">12.8</span>, <span class="fl">13.7</span>, <span class="fl">11.3</span>, <span class="fl">16.5</span>, <span class="fl">13.4</span>, <span class="fl">8.7</span>, <span class="fl">14.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.2</span>, <span class="fl">14.6</span>, <span class="fl">13.4</span>, <span class="fl">11.2</span>, <span class="fl">12.7</span>, <span class="fl">10.4</span>, <span class="fl">15.8</span>, <span class="fl">13.9</span>, <span class="fl">9.5</span>, <span class="fl">14.2</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">13.5</span>, <span class="fl">15.2</span>, <span class="fl">13.6</span>, <span class="fl">12.8</span>, <span class="fl">13.7</span>, <span class="fl">11.3</span>, <span class="fl">16.5</span>, <span class="fl">13.4</span>, <span class="fl">8.7</span>, <span class="fl">14.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="5" type="1">
 <li>Now create a data matrix using data.frame() function.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">subject =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="dv">2</span>), </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">time =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"before"</span>, <span class="st">"after"</span>), <span class="at">each =</span> <span class="dv">10</span>),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">score =</span> <span class="fu">c</span>(before, after))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">subject =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="dv">2</span>), </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">time =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"before"</span>, <span class="st">"after"</span>), <span class="at">each =</span> <span class="dv">10</span>),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">score =</span> <span class="fu">c</span>(before, after))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   subject   time score
 1        1 before  12.2
@@ -587,24 +757,24 @@ mean in group 0 mean in group 1
 <section id="visualizing-samples" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-samples">Visualizing samples</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(score <span class="sc">~</span> time, <span class="at">data =</span> df,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#003C67FF"</span>, <span class="st">"#EFC000FF"</span>),</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"ICT training score improves knowlege"</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Time"</span>, <span class="at">ylab =</span> <span class="st">"Score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(score <span class="sc">~</span> time, <span class="at">data =</span> df,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#003C67FF"</span>, <span class="st">"#EFC000FF"</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"ICT training score improves knowlege"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Time"</span>, <span class="at">ylab =</span> <span class="st">"Score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04TTest_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="768"></p>
+<p><img src="04TTest_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 </section>
 <section id="running-paired-sample-t-test-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="running-paired-sample-t-test-in-r">Running Paired sample t-test in R</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">formula =</span> score <span class="sc">~</span> time, <span class="at">data =</span> df,</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mu =</span> <span class="dv">0</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>,   </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">formula =</span> score <span class="sc">~</span> time, <span class="at">data =</span> df,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mu =</span> <span class="dv">0</span>, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>,   </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Paired t-test
@@ -618,8 +788,8 @@ sample estimates:
 mean difference 
            0.54 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mu argument indicate the true value of difference in means for a two sample test. </span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE for paired argument as this is paired sample data and each subject is measured twice before and after the ICT training. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mu argument indicate the true value of difference in means for a two sample test. </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE for paired argument as this is paired sample data and each subject is measured twice before and after the ICT training. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
 <li><p>The results showed that the probability value is lower than 0.05.</p></li>
@@ -669,10 +839,10 @@ mean difference
 <section id="q-q-plot-for-normality" class="level3">
 <h3 class="anchored" data-anchor-id="q-q-plot-for-normality">Q-Q Plot for Normality</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(mtcars<span class="sc">$</span>wt, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">frame =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(mtcars<span class="sc">$</span>wt, <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(mtcars<span class="sc">$</span>wt, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">frame =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(mtcars<span class="sc">$</span>wt, <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04TTest_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="768"></p>
+<p><img src="04TTest_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can see that all the data points are not on the 45 degree line, hence we assume that the distribuion of weight is not normal.</p>
@@ -682,8 +852,8 @@ mean difference
 <p>Here, the sample size must be between 3 and 5000)</p>
 <p>H0: mtcars$wt is normally distributed</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run Shapiro-Wilk test</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run Shapiro-Wilk test</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -697,14 +867,14 @@ W = 0.94326, p-value = 0.09265</code></pre>
 <h3 class="anchored" data-anchor-id="two-sample-kolmogorov-smirnov-test-for-normality">Two-sample Kolmogorov-Smirnov test for Normality</h3>
 <p>H0: mtcars$wt is normally distributed</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">32</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x, mtcars<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">32</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x, mtcars<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Exact two-sample Kolmogorov-Smirnov test
 
 data:  x and mtcars$wt
-D = 0.9375, p-value = 2.2e-15
+D = 0.96875, p-value &lt; 2.2e-16
 alternative hypothesis: two-sided</code></pre>
 </div>
 </div>
@@ -713,9 +883,9 @@ alternative hypothesis: two-sided</code></pre>
 <h3 class="anchored" data-anchor-id="assumption-of-equal-variance">Assumption of Equal Variance</h3>
 <p>We will check whether the variances across the two groups are same or not.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comparing variances </span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: The variances of the two samples wt~am are not different</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(wt<span class="sc">~</span>am)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comparing variances </span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: The variances of the two samples wt~am are not different</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(wt<span class="sc">~</span>am)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     F test to compare two variances
@@ -736,9 +906,9 @@ ratio of variances
 <h3 class="anchored" data-anchor-id="if-the-assumption-of-equal-variance-is-violated">If the Assumption of Equal Variance is Violated?</h3>
 <p>We will use Welch Two Sample t-test. We can use this test by simply writting (var.equal = FALSE) using t.test() in R</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing t-test,when assumption of equal variance is violated</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>tst <span class="ot">&lt;-</span> <span class="fu">t.test</span>(wt<span class="sc">~</span>am, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>tst</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing t-test,when assumption of equal variance is violated</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>tst <span class="ot">&lt;-</span> <span class="fu">t.test</span>(wt<span class="sc">~</span>am, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>tst</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -785,10 +955,10 @@ mean in group 0 mean in group 1
 <p>H0: The median weight of the cars is not different from theoretical median 3 (1000 lbs).</p>
 <p>H1: The median weight of the cars is different from theoretical median 3 (1000 lbs).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample wilcoxon test</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>wil <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(wt, <span class="at">mu =</span> <span class="dv">3</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the results</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>wil </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample wilcoxon test</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>wil <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(wt, <span class="at">mu =</span> <span class="dv">3</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the results</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>wil </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>The p-value of the test is 0.3081, which is greater than the significance level alpha = 0.05.</p></li>
@@ -822,13 +992,13 @@ mean in group 0 mean in group 1
 <li><p>H1: The median weight of the cars having am = 0 is significantly different from median weight of the cars having am = 1</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute unpaired two-samples Wilcoxon test</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>twil <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(wt<span class="sc">~</span>am)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute unpaired two-samples Wilcoxon test</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>twil <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(wt<span class="sc">~</span>am)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
 compute exact p-value with ties</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>twil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>twil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Wilcoxon rank sum test with continuity correction
@@ -842,6 +1012,9 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <li><p>The p-value of the test is 4.347e-05, which is less than the significance level alpha = 0.05.</p></li>
 <li><p>We can reject the null hypothesis,and conclude that median weight of the cars having am = 0 is significantly different from median weight of the cars having am = 1</p></li>
 </ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 
 
 </section>

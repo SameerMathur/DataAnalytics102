@@ -24,15 +24,12 @@
 
 A one-sample t-test can be used in various ways to make data-driven decisions. Here are some marketing applications of one-sample t-test:
 
-1.  Testing for ad effectiveness: A one-sample t-test can be performed to ascertain whether a marketing campaign has been successful in raising brand recognition or sales. Customers can be randomly chosen and asked to complete surveys both before and after the promotion. To ascertain whether the campaign was successful, a one-sample t-test can be used to compare the mean survey scores from before and after the campaign.
+1. Assessing Average Spend Against a Target:
+A retail company has set a strategic target for the average customer spend per visit to be \$75 as part of its quarterly performance goals. The marketing team has implemented several promotional strategies aimed at increasing the average spend. To evaluate the effectiveness of these strategies, they collect data on the average spend of a sample of customers over a quarter. he one-sample t-test can be used to determine if the actual average spend per customer in the sample significantly differs from the target mean of \$75. 
 
-2.  Price testing: Customers' acceptance of a product's price can be assessed using a one-sample t-test. To ascertain a sample of customers' purchasing intentions, a survey might be conducted. One-sample t-tests can be used to compare the sample mean to the product's pricing to determine whether it is too high or too cheap.
+2. Evaluating Customer Satisfaction Levels: A company has historically known its customer satisfaction score to be around 80 (on a scale of 0 to 100) based on extensive market research. After launching a new customer service initiative, the company aims to evaluate if the new service levels have significantly improved customer satisfaction. A survey is conducted among a sample of customers who experienced the new service, and a satisfaction score is calculated.
 
 3.  Product testing: To find out if a product satisfies client expectations, utilise the one-sample t-test. Customers can be asked to complete a survey to review a product on its quality, dependability, and design, among other qualities. To ascertain whether the product matches customer expectations, one-sample t-tests can be used to compare the sample's mean scores to the hypothesised mean.
-
-4.  Customer satisfaction testing: To find out whether customers are pleased with a product or service, utilise the one-sample t-test. To gauge customer happiness, a sample of customers can complete a survey. A one-sample t-test can be used to compare the sample's mean score to a hypothesised mean in order to assess whether or not customers are happy.
-
-5.  Market research: One-sample t-tests can be used by businesses to examine survey data and determine whether a sample's responses significantly deviate from an assumed mean. Understanding consumer preferences and making wise company decisions can both benefit from this.
 
 ### Finance:
 
@@ -44,11 +41,9 @@ In finance, one-sample t-test can be used in various ways to make data-driven de
 
 3.  Portfolio performance analysis: If a portfolio's returns differ considerably from a benchmark index or an expected return, one-sample t-test can be employed to assess this. If the portfolio's performance differs significantly from expectations, a one-sample t-test can be used to compare a sample of the returns to the predicted return.
 
-4.  Hypothesis testing: Financial hypotheses can be tested using the one-sample t-test, including the ones that a variable has a normal distribution and that an asset class's mean return is zero.
-
 ### Organizational Behavior:
 
-In organizational behavior, one-sample t-test can be used in various ways to make data-driven decisions. Here are some organizational behavior applications of one-sample t-test:
+In organizational behavior, one-sample t-test can also be used in various ways to make data-driven decisions. Here are some organizational behavior applications of one-sample t-test:
 
 1.  Employee satisfaction surveys: A one-sample t-test can be used to examine whether the average score in a survey of employees is substantially different from an average score that has been hypothesised. One-sample t-test can be used to compare the survey results to the estimated average score to see if employee satisfaction differs significantly from what was predicted.
 
@@ -56,17 +51,21 @@ In organizational behavior, one-sample t-test can be used in various ways to mak
 
 3.  Employee performance evaluations: If the average score of an employee performance review differs considerably from a predicted average score, a one-sample t-test can be performed to determine this. One-sample t-tests can be used to compare the evaluation results to the hypothetical average score to see if the employee's performance differed considerably from what was anticipated.
 
-4.  Organizational culture assessments: If the average score of an organisational culture evaluation differs considerably from a predicted average score, a one-sample t-test can be performed to determine this. One-sample t-test can be used to examine whether the organisational culture is significantly different from what was anticipated by comparing the assessment findings to the average score that was hypothesised.
-
 ## Concept behind the One-Sample t-test
 
 1.  The mean of a single sample of observations, commonly referred to as the "hypothesised mean," is compared to a known value using a one-sample t-test, a statistical test.
+
 2.  The test can be used to derive conclusions about the population from which the sample was taken and determines whether the sample mean differs significantly from the anticipated mean.
+
 3.  The t-statistic, which is the difference between the sample mean and the hypothesised mean divided by the standard error of the mean, serves as the foundation for the test.
+
 4.  The chance of observing the sample mean if the genuine population mean is identical to the hypothesised mean is then calculated by comparing the t-statistic to a t-distribution.
+
 5.  If this probability is small, it suggests that the sample mean is significantly different from the hypothesized mean, and the null hypothesis (that the sample mean is equal to the hypothesized mean) can be rejected.
 
-## Running the One-Sample t-test in R
+## One-Sample T-Test in R
+
+In statistical analysis, one often encounters the need to determine if a sample mean significantly deviates from a known or hypothesized population mean. This is where the one-sample t-test comes into play, offering a method to assess this question. We will demonstrate how to run this test in R on the mtcars dataset.
 
 1.  Read the data into a dataframe
 
@@ -84,25 +83,171 @@ mtcars$gear  <- as.factor(mtcars$gear)
 mtcars$vs  <- as.factor(mtcars$vs)
 ```
 
-3.  As an illustration, suppose that our objective is to compare whether the mean weight of the cars is different from 3 (1000 lbs), a value determined in a previous study.
+The data is now ready for statistical testing.
 
--   H0: The mean weight of the cars is not different from 3 (1000 lbs).
--   H1: The mean weight of the cars is different from 3 (1000 lbs).
+## One-Sample, Two-Tailed t-test
 
-4.  Code:
+1.  As an illustration, our aim is to evaluate whether the average weight (wt) of cars, as recorded in the mtcars dataset, significantly differs from a specific value — in this instance, 3 (representing 3000 lbs, given that wt is measured in thousands of lbs). We'll start by examining this through a two-tailed test, which does not assume a direction in the difference. Conversely, for a one-tailed test, our focus would shift to determining if the average weight notably exceeds 3, thereby implying a directional hypothesis.
+
+2. Hypothesis Formulation: The objective is to test if the mean weight (wt) of cars is significantly different from 3 (which represents 3000 lbs, assuming wt is in thousands of lbs).
+
+-   Null Hypothesis (H0): The mean weight of the cars (μ) equates to 3.
+-   Alternative Hypothesis (H1): The mean weight of the cars (μ) does not equate to 3.
+
+3.  Implementing a Two-Tailed t-test in R:
 
 ```{r echo=TRUE, eval=TRUE}
-# One-sample t-test
-res <- t.test(wt, mu = 3)
-# Printing the results
-res 
+# Executing a one-sample two-tailed t-test
+two_tailed <- t.test(mtcars$wt, 
+                     mu = 3)
+
+# Displaying the findings
+print(two_tailed)
 ```
 
-5.  The p-value of the test is 0.2185, which is greater than the significance level alpha = 0.05.
+4. Explanation:
 
-6.  So we fail to reject the null hypothesis.
+- **t = 1.256**: This t-statistic value is a measure that tells us how much the sample mean deviates from the hypothesized mean, adjusted for the size of the sample. Essentially, it's a ratio of the difference between the sample mean and the hypothesized mean over the standard error of the sample. The value here suggests a deviation, but it's not particularly large.
 
-7.  We can conclude that the mean weight of the cars is not different from theoretical mean 3 (1000 lbs)
+- **df = 31**: The 'df' stands for degrees of freedom, which, in this case, is 31. This number is derived from the total number of observations (32 cars) minus one. Degrees of freedom are important because they play a role in determining the critical value for our t-test, which in turn helps us understand the significance of our t-statistic.
+
+- **p-value = 0.2185**: Perhaps the most scrutinized number in hypothesis testing, the p-value tells us the probability of observing our data (or something more extreme) if the null hypothesis were true. Here, a p-value of about 22% suggests that there's a relatively high likelihood of seeing this average weight due to chance alone. Since this p-value is above the common alpha level of 0.05, we don't have enough grounds to reject our null hypothesis. In simpler terms, we can't confidently say that the average car weight is different from 3000 lbs based on our sample.
+
+- **Alternative hypothesis: true mean is not equal to 3**: This statement outlines what we're testing against the null hypothesis. It posits that the actual mean weight of the cars is different from 3,000 lbs, challenging our initial assumption.
+
+- **95 percent confidence interval: 2.864478 3.570022**: This interval gives us a range where we can be 95% confident the true mean weight of the cars falls. Since 3 is within this interval, it aligns with our p-value finding, indicating that the true mean might well be 3,000 lbs, among other possible values within this range.
+
+- **Sample estimates: mean of x = 3.21725**: Finally, the sample mean, or the average weight of cars in our dataset, is approximately 3217 lbs. This gives us a concrete figure to work with but, as indicated by our test, this figure alone isn't enough to definitively claim a significant difference from the hypothesized mean.
+
+5. In essence, the t-test results suggest that, there's insufficient statistical evidence to assert a significant difference from the hypothesized average weight of 3,000 lbs.
+
+
+
+## One-Sample, Two-Tailed t-test steps
+
+We will explain the test, step-by-step.
+
+### Step 1: Calculate the Sample Mean 
+
+The sample mean is already known to be 3.21725, representing the average weight of cars in the `mtcars` dataset.
+
+```{r}
+sample_mean <- mean(mtcars$wt)
+sample_mean
+```
+### Step 2: Sample Standard Deviation (s)
+
+```{r}
+sample_sd <- sd(mtcars$wt)
+sample_sd 
+```
+### Step 3: Calculate the Standard Error (SE)
+
+The standard error of the mean (SE) quantifies the sampling variability of the mean.
+
+```{r}
+n <- 32  # Number of observations
+SE <- sample_sd / sqrt(n)
+SE
+```
+### Step 4: Calculate the T-Statistic
+
+The t-statistic is calculated to evaluate the difference between the sample mean and the hypothesized mean, normalized by the SE.
+
+```{r}
+hypothesized_mean <- 3  # Hypothesized population mean
+t_statistic <- (sample_mean - hypothesized_mean) / SE
+t_statistic
+```
+### Step 5: Determine the Degrees of Freedom (df)
+
+Degrees of freedom for a one-sample t-test is \(n - 1\).
+
+```{r}
+df <- n - 1
+```
+
+### Step 6: P-Value Calculation
+
+The p-value, indicating the probability of observing the data under the null hypothesis, is typically calculated using statistical software due to its complexity.
+
+```{r echo=TRUE, eval=TRUE}
+# Assuming t_statistic = 1.256 and df = 31
+p_value <- 2 * (1 - pt(abs(1.256), df = 31))
+p_value
+```
+This code calculates the p-value by finding the cumulative probability up to the absolute value of the t-statistic using the pt function, which gives the cumulative distribution function for the t-distribution in R. The 2 * at the beginning adjusts for the two-tailed nature of the test, effectively doubling the probability found in one tail to account for both extremes. The p-value of 0.2184998 implies that we will reject the Null hypothesis.
+
+### Step 7: Determine the Confidence Interval
+
+The 95% confidence interval around the mean is calculated based on the standard error and the critical t-value.
+
+```{r echo=TRUE, eval=TRUE}
+# Assuming t_alpha/2 corresponds to a 95% CI from t-distribution tables or software
+t_alpha_2 <- qt(0.975, df)  # Calculate the critical t-value
+t_alpha_2
+```
+
+```{r echo=TRUE, eval=TRUE}
+# Assuming t_alpha/2 corresponds to a 95% CI from t-distribution tables or software
+CI_lower <- sample_mean - (t_alpha_2 * SE)
+CI_upper <- sample_mean + (t_alpha_2 * SE)
+CI_lower
+CI_upper
+```
+
+
+
+
+
+
+
+
+## One-Sample, One-Tailed t-test
+
+1. Suppose we want to instead evaluate whether the average weight (wt) of cars, as recorded in the mtcars dataset, significantly exceeds a specific value of 3 (representing 3000 lbs, given that wt is measured in thousands of lbs), we will conduct a one-tailed t-test. This one-tailed test focuses on determining if the average weight notably exceeds 3, indicating a directional hypothesis.
+
+2. Hypothesis Formulation: The objective is to test if the mean weight (wt) of cars is significantly greater than 3 (which represents 3000 lbs, assuming wt is in thousands of lbs).
+
+-   Null Hypothesis (H0): The mean weight of the cars (μ) is less than or equal to 3.
+-   Alternative Hypothesis (H1): The mean weight of the cars (μ) is greater than 3.
+
+3. Implementing a One-Tailed t-test in R:
+
+```{r echo=TRUE, eval=TRUE}
+# Executing a one-sample one-tailed t-test
+one_tailed <- t.test(mtcars$wt, 
+                     mu = 3,
+                     alternative = "greater")
+
+# Displaying the findings
+print(one_tailed)
+```
+
+4. Explanation:
+
+- **t = 1.256**: This t-statistic value measures how much the sample mean deviates from the hypothesized mean, adjusted for the size of the sample. It indicates a deviation in the positive direction, suggesting that the average car weight is greater than 3.
+
+- **df = 31**: The 'df' stands for degrees of freedom, which is 31 in this case. Degrees of freedom are crucial for determining the critical value for our one-tailed t-test.
+
+- **p-value = 0.1092**: The p-value represents the probability of observing our data (or something more extreme) if the null hypothesis were true. In this case, a p-value of about 10.92% suggests a relatively low likelihood of seeing this average weight due to chance alone. Since this p-value is below the common alpha level of 0.05, we have grounds to reject our null hypothesis. This means we can confidently say that the average car weight is greater than 3000 lbs based on our sample.
+
+- **Alternative hypothesis: true mean is greater than 3**: This statement outlines what we're testing against the null hypothesis. It posits that the actual mean weight of the cars is greater than 3,000 lbs, supporting our initial assumption.
+
+- **95 percent confidence interval: 3.019322 Inf**: The confidence interval indicates that we are 95% confident that the true mean weight falls between 3.019322 and infinity. Since 3 is below this range, it aligns with our p-value finding, indicating that the true mean is greater than 3,000 lbs.
+
+- **Sample estimates: mean of x = 3.21725**: The sample mean represents the average weight of cars in our dataset, which is approximately 3217 lbs. This value further supports our conclusion that the average car weight is greater than 3000 lbs.
+
+5. In essence, the one-tailed t-test results suggest that there is sufficient statistical evidence to assert a significant difference from the hypothesized average weight of 3,000 lbs, with the average weight being greater.
+
+
+
+
+
+
+
+
+
 
 # Independent Samples t-test
 
@@ -434,3 +579,9 @@ twil
 -   The p-value of the test is 4.347e-05, which is less than the significance level alpha = 0.05.
 
 -   We can reject the null hypothesis,and conclude that median weight of the cars having am = 0 is significantly different from median weight of the cars having am = 1
+
+
+## References
+
+
+
