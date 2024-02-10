@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -191,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04TTest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">t-tests</span></a>
+ <span class="menu-text">T-tests</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -245,6 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#anova" id="toc-anova" class="nav-link active" data-scroll-target="#anova">ANOVA</a>
   <ul class="collapse">
   <li><a href="#business-applications-of-one-way-anova" id="toc-business-applications-of-one-way-anova" class="nav-link" data-scroll-target="#business-applications-of-one-way-anova">Business Applications of One-Way ANOVA</a></li>
+  <li><a href="#business-applications-of-two-way-anova" id="toc-business-applications-of-two-way-anova" class="nav-link" data-scroll-target="#business-applications-of-two-way-anova">Business Applications of Two-Way ANOVA</a></li>
   <li><a href="#anova-versus-t-test" id="toc-anova-versus-t-test" class="nav-link" data-scroll-target="#anova-versus-t-test">ANOVA versus t-test</a></li>
   </ul></li>
   <li><a href="#one-way-anova" id="toc-one-way-anova" class="nav-link" data-scroll-target="#one-way-anova">One-Way ANOVA</a>
@@ -254,9 +255,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova">Two-Way ANOVA</a>
   <ul class="collapse">
-  <li><a href="#running-the-two-way-anova-in-r" id="toc-running-the-two-way-anova-in-r" class="nav-link" data-scroll-target="#running-the-two-way-anova-in-r">Running the Two-Way ANOVA in R</a></li>
-  <li><a href="#two-way-anova-and-interactions" id="toc-two-way-anova-and-interactions" class="nav-link" data-scroll-target="#two-way-anova-and-interactions">Two-Way ANOVA and Interactions</a></li>
-  <li><a href="#running-the-two-way-anova-with-interaction-in-r" id="toc-running-the-two-way-anova-with-interaction-in-r" class="nav-link" data-scroll-target="#running-the-two-way-anova-with-interaction-in-r">Running the Two-Way ANOVA With Interaction in R</a></li>
+  <li><a href="#two-way-anova-withwithout-interactions" id="toc-two-way-anova-withwithout-interactions" class="nav-link" data-scroll-target="#two-way-anova-withwithout-interactions">Two-Way ANOVA With/Without Interactions</a></li>
+  <li><a href="#running-the-two-way-anova-without-interaction-in-r" id="toc-running-the-two-way-anova-without-interaction-in-r" class="nav-link" data-scroll-target="#running-the-two-way-anova-without-interaction-in-r">Running the Two-Way ANOVA <em>Without</em> Interaction, in R</a></li>
+  <li><a href="#running-the-two-way-anova-with-interaction-in-r" id="toc-running-the-two-way-anova-with-interaction-in-r" class="nav-link" data-scroll-target="#running-the-two-way-anova-with-interaction-in-r">Running the Two-Way ANOVA <em>With</em> Interaction, in R</a></li>
   <li><a href="#pairwise-comparision-using-tuckys-post-hoc-test-1" id="toc-pairwise-comparision-using-tuckys-post-hoc-test-1" class="nav-link" data-scroll-target="#pairwise-comparision-using-tuckys-post-hoc-test-1">Pairwise comparision using Tucky’s Post-Hoc test</a></li>
   <li><a href="#limitations-of-anova" id="toc-limitations-of-anova" class="nav-link" data-scroll-target="#limitations-of-anova">Limitations of ANOVA</a></li>
   <li><a href="#levenes-test-for-homogeneity-of-variance" id="toc-levenes-test-for-homogeneity-of-variance" class="nav-link" data-scroll-target="#levenes-test-for-homogeneity-of-variance">Levene’s Test for Homogeneity Of Variance</a></li>
@@ -278,14 +279,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="anova" class="level1">
 <h1>ANOVA</h1>
-<p><em>July 26, 2023</em></p>
+<p><strong>Feb 10, 2024</strong></p>
 <ol type="1">
-<li><p>ANOVA (Analysis of Variance) is a statistical technique used to determine whether the means of two or more groups differ significantly from one another. It is employed to establish whether the mean difference is actually different or merely the result of chance.</p></li>
+<li><p>ANOVA (Analysis of Variance) is a statistical technique used to determine whether the means of two or more groups differ significantly from one another. It is employed to establish <strong>whether the mean difference is actually different or merely the result of chance.</strong></p></li>
 <li><p>There are several types of ANOVA, including One-Way ANOVA, Two-Way ANOVA, and Multi-Way ANOVA.</p></li>
 </ol>
 <ul>
-<li>One-Way ANOVA is used to compare the means of two or more groups.</li>
-<li>Two-Way ANOVA is used to compare the means of two or more groups while taking the influence of two independent factors into account.</li>
+<li><strong>One-Way ANOVA</strong> is used to compare the means of two or more groups, based on <strong>one independent factor</strong>.</li>
+<li><strong>Two-Way ANOVA</strong> is used to compare the means of two or more groups while taking the influence of <strong>two independent factors</strong> into account.</li>
 <li>Multi-Way ANOVA is used to compare the means of two or more groups while taking the influence of more than two factors into account.</li>
 </ul>
 <ol start="3" type="1">
@@ -296,24 +297,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>the variance <strong>within</strong> the groups (within-group variance).</li>
 </ul>
 <ol start="4" type="1">
-<li><p>Calculating the F-ratio, which is the ratio of the between-group variance to the within-group variance, reveals whether there is a significant difference between the group averages.</p></li>
+<li><p>Calculating the <strong>F-ratio</strong>, which is the ratio of the <strong>between-group variance</strong> to the <strong>within-group variance</strong>, reveals whether there is a significant difference between the group averages.</p></li>
 <li><p>ANOVA is frequently used to compare means and draw conclusions about populations from sample data in various disciplines, including economics, psychology, and marketing. Making data-driven, educated judgements based on statistical evidence is possible with this useful tool for spotting significant variations across groups.</p></li>
 </ol>
 <section id="business-applications-of-one-way-anova" class="level2">
 <h2 class="anchored" data-anchor-id="business-applications-of-one-way-anova">Business Applications of One-Way ANOVA</h2>
 <p>It can be applied in various business applications such as:</p>
 <ol type="1">
-<li><p>Comparing the average sales of a product across various geographies or demographic groups to determine which group has the greatest average.</p></li>
-<li><p>Human resource management: To assess whether there is a substantial variance in the median employee salary across various departments or job positions.</p></li>
-<li><p>Quality control: Quality control involves comparing the average number of product flaws across various production lines or manufacturing procedures in order to identify the one that results in the fewest flaws.</p></li>
-<li><p>Customer satisfaction: To analyse the average customer satisfaction scores across several product or service offerings and identify which one is producing the most positive feedback from customers.Business Applications of Two-Way ANOVA</p></li>
+<li><p><strong>Sales</strong>: Comparing the average sales of a product across various geographies or demographic groups to determine which group has the greatest average.</p></li>
+<li><p><strong>Quality control</strong>: Quality control involves comparing the average number of product flaws across various production lines or manufacturing procedures in order to identify the one that results in the fewest flaws.</p></li>
+<li><p><strong>Customer satisfaction</strong>: To analyse the average customer satisfaction scores across several product or service offerings and identify which one is producing the most positive feedback from customers.</p></li>
+<li><p><strong>Employee Salary</strong>: To assess whether there is a substantial variance in the employee salary across various departments or job positions.</p></li>
 </ol>
-<p>It can also be applied in various business applications such as:</p>
+</section>
+<section id="business-applications-of-two-way-anova" class="level2">
+<h2 class="anchored" data-anchor-id="business-applications-of-two-way-anova">Business Applications of Two-Way ANOVA</h2>
 <ol type="1">
-<li><p>Market research: To assess the impact on sales of two independent variables, such as product and location, and to ascertain whether the two variables interact.</p></li>
-<li><p>Human resource management: To investigate whether there is an interaction between two independent variables—such as job position and training program—and employee performance.</p></li>
-<li><p>Manufacturing: Assess whether there is an interaction between the two factors by examining the impact of two independent variables, such as the production process and the source of raw materials, on product quality.</p></li>
-<li><p>Customer satisfaction: To investigate whether there is an interaction between two independent variables, such as product line and mode of customer service (online, phone, in-person), on customer satisfaction.</p></li>
+<li><p><strong>Sales</strong>: To assess the impact on sales of two independent variables, such as product and location, and to ascertain whether the two variables interact.</p></li>
+<li><p><strong>Product Quality and Manufacturing</strong>: Assess whether there is an interaction between the two factors by examining the impact of two independent variables, such as the <strong>production process</strong> and the <strong>source of raw materials</strong>, on <strong>product quality</strong>.</p></li>
+<li><p><strong>Customer Satisfaction:</strong> To investigate whether there is an interaction between two independent variables, such as <strong>product line</strong> and <strong>mode of customer service</strong> (online, phone, in-person), on customer satisfaction.</p></li>
+<li><p><strong>Employee Performance</strong>: To investigate whether there is an interaction between two independent variables—such as <strong>job position</strong> and <strong>training program</strong>—on <strong>employee performance</strong>.</p></li>
 </ol>
 <p>By using ANOVA, businesses can gain deeper insights into the relationships between one or more independent variables and the dependent variable, allowing them to make data-driven decisions and improve their business.</p>
 </section>
@@ -321,22 +324,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="anova-versus-t-test">ANOVA versus t-test</h2>
 <p>Both the t-test and the analysis of variance (ANOVA) are statistical techniques that are used to compare the means of two or more groups and ascertain whether there is a statistically significant difference between them. ANOVA and t-test, however, differ significantly in the following ways:</p>
 <ol type="1">
-<li><p><strong>Number of groups</strong>: The t-test is used to compare the means of just two groups, whereas ANOVA can be used to compare the means of two or more groups.</p></li>
-<li><p><strong>Assumptions</strong>: ANOVA makes the assumptions that the data are independent, normally distributed, and have similar variances across groups. The T-test presumes that the data are independent but not necessarily normally distributed with equal variances.</p></li>
-<li><p><strong>Multiple comparisons</strong>: ANOVA permits numerous comparisons of the means of different groups, whereas the t-test necessitates several tests and is hence more prone to Type I errors.</p></li>
-<li><p><strong>Power</strong>: When there are more than two groups, ANOVA has greater potential to identify significant differences between group means. When there are more than two groups, the T-test has lower power.</p></li>
+<li><p><strong>Number of groups</strong>: The t-test is used to compare the means of just two groups, whereas ANOVA can be used to compare the means of <em>two or more</em> groups.</p></li>
+<li><p><strong><em>Assumptions</em></strong>: ANOVA makes the assumptions that the data are independent, normally distributed, and have similar variances across groups. The t-test presumes that the data are independent but not necessarily normally distributed with equal variances.</p></li>
+<li><p><strong>Multiple comparisons</strong>: ANOVA permits numerous comparisons of the means of different groups, whereas the t-test necessitates several tests and is hence <em>more prone to Type I errors</em>.</p></li>
+<li><p><strong>Power</strong>: When there are <em>more than two groups</em>, ANOVA has greater potential to identify significant differences between group means. When there are more than two groups, the T-test has lower power.</p></li>
 </ol>
 </section>
 </section>
 <section id="one-way-anova" class="level1">
 <h1>One-Way ANOVA</h1>
 <ol type="1">
-<li>One-way A statistical technique called ANOVA (Analysis of Variance) is used to determine whether the means of two or more groups are identical.</li>
-<li>When comparing multiple levels (categories) of an independent variable, it is used to assess whether there is a significant variation in the mean of the dependent variable (response variable) (explanatory variable).</li>
-<li>One-way ANOVA is a method of hypothesis testing used to compare the means of various groups to determine if any group differs significantly from the others.</li>
+<li>One-Way ANOVA (Analysis of Variance) is used to determine whether the means of two or more groups are identical, based on one-factor.</li>
+<li>When comparing multiple levels (categories) of an independent variable, it is used to assess whether there is a significant variation in the mean of the dependent variable, also called response variable or explanatory variable.</li>
 </ol>
 <section id="running-the-one-way-anova-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="running-the-one-way-anova-in-r">Running the One-Way ANOVA in R</h2>
+<p><strong>Data Setup</strong></p>
 <ol type="1">
 <li>Reading the Data</li>
 </ol>
@@ -353,11 +356,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>gear <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>gear)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>vs <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>vs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><strong>Null Hypothesis</strong></p>
 <ol start="3" type="1">
-<li>Null Hypothesis</li>
+<li>Frame the Null Hypothesis</li>
 </ol>
-<p>To compare whether the mean weight of the cars for cylinders (cyl=4,6,8) is significantly different or not.</p>
-<p>H0: The mean weight of cars having different cylinders (cyl=4,6,8) are not significantly different</p>
+<p>Suppose we want to compare whether the average weight of cylinders (cyl=4,6,8) cars is significantly different or not.</p>
+<p>H0: The mean weight of cars having different cylinders (cyl=4,6,8) are not significantly different H1: The mean weight of cars having different cylinders (cyl=4,6,8) are significantly different</p>
 <ol start="4" type="1">
 <li>Running the One-Way ANOVA in R</li>
 </ol>
@@ -375,16 +379,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <ul>
 <li><p>The p-value of the test is 1.22e-07, which is less than the significance level alpha = 0.05.</p></li>
-<li><p>We can REJECT the null hypothesis,and conclude that mean weight of the cars for different cylinders (cyl=4,6,8) are significantly different.</p></li>
+<li><p>We <strong>reject the null hypothesis</strong>, and conclude that mean weight of the cars for different cylinders (cyl=4,6,8) are significantly different.</p></li>
 </ul>
 </section>
 <section id="pairwise-comparision-using-tuckys-post-hoc-test" class="level2">
 <h2 class="anchored" data-anchor-id="pairwise-comparision-using-tuckys-post-hoc-test">Pairwise comparision using Tucky’s Post-Hoc test</h2>
 <ol type="1">
-<li><p>After running an ANOVA, the Tukey’s post-hoc test is performed to discover which pairs of group means are substantially different from one another (Analysis of Variance).</p></li>
-<li><p>It is a strategy for reducing the likelihood of at least one Type I error (false positive) among all comparisons, also known as the family-wise error rate.</p></li>
+<li><p>After running an ANOVA, the Tukey’s post-hoc test is performed to discover <strong>which pairs of group means are substantially different</strong> from one another (Analysis of Variance).</p></li>
+<li><p>It is a strategy for reducing the likelihood of at least one <strong>Type I error</strong> (false positive) among all comparisons.</p></li>
 <li><p>The Tukey test compares the means of all potential group pairs and modifies the significance level based on the number of comparisons.</p></li>
-<li><p>It provides a confidence interval for the difference between the means of the two groups as well as a p-value for each pairwise comparison. The difference between the means is deemed significant if the p-value is smaller than the significance level (for example, 0.05).</p></li>
+<li><p>It provides a <strong>confidence interval</strong> for the difference between the means of the two groups as well as a <strong>p-value for each pairwise comparison</strong>. The difference between the means is deemed significant if the p-value is smaller than the significance level (for example, 0.05).</p></li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tukey multiple comparisons of means</span></span>
@@ -408,27 +412,51 @@ $cyl
 <section id="two-way-anova" class="level1">
 <h1>Two-Way ANOVA</h1>
 <ol type="1">
-<li>A statistical technique called two-way ANOVA (Analysis of Variance) is used to examine the impact of two independent factors on a dependent variable.</li>
-<li>It is employed to ascertain whether the interactions between the two independent variables and the dependent variable are meaningful.</li>
-<li>An improvement over one-way ANOVA, two-way ANOVA enables the analysis of the effects of two independent factors on the dependent variable.</li>
+<li>A statistical technique called two-way ANOVA (Analysis of Variance) is used to examine the impact of <strong>two independent factors</strong> on a dependent variable.</li>
+<li>It is also employed to ascertain whether the <strong>interactions</strong> between the two independent variables and the dependent variable are meaningful.</li>
 </ol>
-<section id="running-the-two-way-anova-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="running-the-two-way-anova-in-r">Running the Two-Way ANOVA in R</h2>
-<p>We shall be using mtcars data set to demonstrate Two-Way ANOVA. We will compare whether the mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmission Type (am = 0,1) are significantly different or not.</p>
+<section id="two-way-anova-withwithout-interactions" class="level2">
+<h2 class="anchored" data-anchor-id="two-way-anova-withwithout-interactions">Two-Way ANOVA With/Without Interactions</h2>
 <ol type="1">
-<li>Hypothesis</li>
+<li><p>To determine whether there is an interaction between the variables, the investigator <strong>manipulates two independent variables, each with numerous levels</strong>.</p></li>
+<li><p>After measuring the dependent variable, the <strong>means of the groups created by the combination of the two independent variables</strong> are assessed.</p></li>
+<li><p>This enables the experimenter to assess whether there is a meaningful interaction between the two independent factors and whether the magnitude of one independent variable’s impact on the dependent variable is reliant upon the magnitude of the other independent variable</p></li>
+<li><p>The main difference between two-way ANOVA with and without interactions is the way that the effects of the independent variables are analyzed.</p></li>
+<li><p><strong>Two-way ANOVA, WITHOUT interactions:</strong></p></li>
 </ol>
 <ul>
-<li><p>H0: The mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmission Type (am = 0,1) is not significantly different</p></li>
-<li><p>H1: The mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmission Type (am = 0,1) is significantly different</p></li>
+<li>The <strong>main effects of each independent variable are examined separately</strong> in this particular two-way ANOVA, without taking into account any potential interactions between the two independent variables.</li>
+<li>This is also known as a <strong>main effects model</strong>.</li>
+<li>The main purpose of this type of analysis is to <strong>determine if there is a significant effect of each independent variable on the dependent variable</strong>.</li>
+</ul>
+<ol start="6" type="1">
+<li><strong>Two-way ANOVA, WITH interactions:</strong></li>
+</ol>
+<ul>
+<li>In this type of two-way ANOVA, the possible interaction between the two independent variables is taken into account.</li>
+<li><strong>When two independent variables interact, the impact of one on the dependent variable is influenced by the level of the other independent variable.</strong></li>
+<li>This form of analysis is used to assess if there is a significant interaction between the independent variables and if the level of one independent variable affects the level of the other independent variable when it comes to its impact on the dependent variable.</li>
+</ul>
+</section>
+<section id="running-the-two-way-anova-without-interaction-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-two-way-anova-without-interaction-in-r">Running the Two-Way ANOVA <em>Without</em> Interaction, in R</h2>
+<p>We shall use <code>mtcars</code> data set to demonstrate Two-Way ANOVA. We will compare whether the mean weight of the cars for different cylinders (cyl=4,6,8) &amp; transmission type (automatic or am=0, manual or am=1) are significantly different or not.</p>
+<ol type="1">
+<li>Frame Null Hypothesis</li>
+</ol>
+<ul>
+<li><p>H0: The mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmission Type (am = 0,1) are not significantly different</p></li>
+<li><p>H1: The mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmission Type (am = 0,1) are significantly different</p></li>
 </ul>
 <ol start="2" type="1">
 <li>Two-Way ANOVA</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing two way ANOVA</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>AnovaTwoWay <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt <span class="sc">~</span> am <span class="sc">+</span> cyl, <span class="at">data =</span> mtcars)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaTwoWay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing two way ANOVA, WITHOUT Interaction</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>AnovaTwoWay <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt <span class="sc">~</span> am <span class="sc">+</span> cyl, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> mtcars)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaTwoWay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 am           1 14.232  14.232   48.49 1.43e-07 ***
@@ -440,10 +468,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <ol start="3" type="1">
 <li>The p-value of the test is 0.000146, which is less than the significance level alpha = 0.05.</li>
-<li>We can reject the null hypothesis</li>
+<li>We <strong>reject the Null hypothesis</strong></li>
 <li>We conclude that mean weight of the cars for different cylinders (cyl=4,6,8) &amp; Transmissions (am = 0,1) are significantly different</li>
 </ol>
-<p>Pairwise comparison using Tukey Post-Hoc test</p>
+<p><strong>Pairwise comparison using Tukey Post-Hoc test</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tukey multiple comparisons of means</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tukey.test <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(AnovaTwoWay)</span>
@@ -466,35 +494,14 @@ $cyl
 </div>
 </div>
 </section>
-<section id="two-way-anova-and-interactions" class="level2">
-<h2 class="anchored" data-anchor-id="two-way-anova-and-interactions">Two-Way ANOVA and Interactions</h2>
-<ol type="1">
-<li><p>To determine whether there is an interaction between the variables, the investigator manipulates two independent variables, each with numerous levels.</p></li>
-<li><p>After measuring the dependent variable, the means of the groups created by the combination of the two independent variables are assessed.</p></li>
-<li><p>This enables the experimenter to assess whether there is a meaningful interaction between the two independent factors and whether the magnitude of one independent variable’s impact on the dependent variable is reliant upon the magnitude of the other independent variable</p></li>
-<li><p>The main difference between two-way ANOVA with and without interactions is the way that the effects of the independent variables are analyzed.</p></li>
-<li><p>Two-way ANOVA without interactions:</p></li>
-</ol>
-<ul>
-<li>The main effects of each independent variable are examined separately in this particular sort of two-way ANOVA, without taking into account any potential interactions between the two independent variables.</li>
-<li>This is also known as a <strong>main effects model</strong>.</li>
-<li>The main purpose of this type of analysis is to <strong>determine if there is a significant effect of each independent variable on the dependent variable</strong>.</li>
-</ul>
-<ol start="6" type="1">
-<li>Two-way ANOVA with interactions:</li>
-</ol>
-<ul>
-<li>In this type of two-way ANOVA, the possible interaction between the two independent variables is taken into account.</li>
-<li><strong>When two independent variables interact, the impact of one on the dependent variable is influenced by the level of the other independent variable.</strong></li>
-<li>This form of analysis is used to assess if there is a significant interaction between the independent variables and if the level of one independent variable affects the level of the other independent variable when it comes to its impact on the dependent variable.</li>
-</ul>
-</section>
 <section id="running-the-two-way-anova-with-interaction-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="running-the-two-way-anova-with-interaction-in-r">Running the Two-Way ANOVA With Interaction in R</h2>
+<h2 class="anchored" data-anchor-id="running-the-two-way-anova-with-interaction-in-r">Running the Two-Way ANOVA <em>With</em> Interaction, in R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing two way ANOVA</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>AnovaTwoWayInt <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt <span class="sc">~</span> am<span class="sc">*</span>cyl, <span class="at">data =</span> mtcars)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaTwoWayInt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing two way ANOVA with Interaction</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>AnovaTwoWayInt <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt <span class="sc">~</span> am<span class="sc">*</span>cyl, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> mtcars)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaTwoWayInt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 am           1 14.232  14.232  45.394 3.78e-07 ***
@@ -505,6 +512,9 @@ Residuals   26  8.152   0.314
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+<ul>
+<li>Notice the subtle difference in the code for ANOVA without Interaction <code>aov(wt ~ am + cyl, data = mtcars)</code> and ANOVA with Interaction <code>aov(wt ~ am * cyl, data = mtcars)</code></li>
+</ul>
 </section>
 <section id="pairwise-comparision-using-tuckys-post-hoc-test-1" class="level2">
 <h2 class="anchored" data-anchor-id="pairwise-comparision-using-tuckys-post-hoc-test-1">Pairwise comparision using Tucky’s Post-Hoc test</h2>
@@ -551,22 +561,21 @@ $`am:cyl`
 <section id="limitations-of-anova" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-of-anova">Limitations of ANOVA</h2>
 <ol type="1">
-<li><p><strong>Assumptions</strong>: ANOVA makes the assumptions that the data are independent, normally distributed, and have similar variances across groups. The ANOVA results could be suspect if these presumptions are not true.</p></li>
-<li><p><strong>Limited to comparing means</strong>: ANOVA cannot be used to draw conclusions about other measures of central tendency, such as medians or modes, and is only capable of comparing the means of two or more groups.</p></li>
+<li><p><strong>Assumptions</strong>: ANOVA makes the assumptions that the data are <strong>(i) independent, (ii) normally distributed,</strong> and have <strong>(iii) similar variances across groups</strong>. The ANOVA results could be suspect if these presumptions are not true.</p></li>
+<li><p><strong>Limited to comparing means</strong>: ANOVA cannot be used to draw conclusions about other measures of central tendency, such as <strong>medians</strong>, and is only capable of comparing the means of two or more groups.</p></li>
 <li><p><strong>Non-linear relationships</strong>: ANOVA presupposes that the independent and dependent variables have a linear relationship. ANOVA might not be appropriate if there is a non-linear relationship.</p></li>
-<li><p><strong>Type I and Type II errors:</strong> ANOVA is sensitive to Type I (false positive) and Type II (false negative) mistakes, like all statistical tests. It is crucial to select the proper level of significance and interpret the findings in light of the sample size and data variability.</p></li>
-<li><p><strong>Multiple comparisons</strong>: Multiple comparisons can raise the possibility of Type I errors when comparing the means of more than two groups. Adjustments to the significance level, like the Bonferroni correction, can be applied to overcome this problem.</p></li>
+<li><p><strong>Type I and Type II errors:</strong> ANOVA is sensitive to Type I (false positive) errors and Type II (false negative) errors, like all statistical tests. It is crucial to select the proper level of significance and interpret the findings in light of the sample size and data variability.</p></li>
+<li><p><strong>Multiple comparisons</strong>: Multiple comparisons can raise the possibility of Type I errors when comparing the means of more than two groups. Adjustments to the significance level, like the <em>Bonferroni correction</em>, can be applied to overcome this problem.</p></li>
 </ol>
 </section>
 <section id="levenes-test-for-homogeneity-of-variance" class="level2">
 <h2 class="anchored" data-anchor-id="levenes-test-for-homogeneity-of-variance">Levene’s Test for Homogeneity Of Variance</h2>
 <ol type="1">
-<li><p>ANOVA makes the assumption that the data are normally distributed and that there is homogeneous variation between groups.</p></li>
-<li><p>A statistical test called the Levene’s test is used to evaluate the equality of variances between two or more groups.</p></li>
+<li><p>ANOVA makes the assumption that there is <strong>homogeneous variation between groups</strong>.</p></li>
+<li><p>A statistical test called the Levene’s test is used to <strong>evaluate the equality of variances</strong> between two or more groups.</p></li>
 <li><p>The validity of the ANOVA results may be affected if there are appreciable variance differences across groups, which can be found using Levene’s test.</p></li>
-<li><p>The null hypothesis is that the variances are equal across all groups, and the test statistic is computed from the absolute deviations of the data from their group averages.</p></li>
-<li><p>The null hypothesis is rejected and it is concluded that the variances are not equal if the test’s p-value is less than a predetermined level of significance. The Welch’s ANOVA or the Brown-Forsythe test should be used as alternatives to analysis of variance in this situation.</p></li>
-<li><p>Running the Levene’s Test for Homogeneity of Variance in R</p></li>
+<li><p>The <strong>Null Hypothesis</strong> is that the variances are equal across all groups. The <strong>Alternate Hypothesis</strong> is that the variances are not equal across all groups.</p></li>
+<li><p><strong>Running the Levene’s Test for Homogeneity of Variance, in R</strong></p></li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -574,7 +583,8 @@ $`am:cyl`
 <pre><code>Loading required package: carData</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Levene's test</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(wt<span class="sc">~</span>cyl, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(wt <span class="sc">~</span> cyl, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Levene's Test for Homogeneity of Variance (center = median)
       Df F value Pr(&gt;F)
@@ -583,22 +593,28 @@ group  2  0.4995  0.612
 </div>
 </div>
 <ul>
+<li><p>We <strong>Fail to Reject</strong> the Null Hypothesis</p></li>
 <li><p>From the output above we can see that the p-value is more than the significance level of 0.05.</p></li>
 <li><p>This means that there is no evidence to suggest that the variance in weights of the cars across three type of cylinder cars are statistically significantly different.</p></li>
 <li><p>Therefore, we can assume the homogeneity of variance in weights across three type of cylinder cars.</p></li>
 </ul>
+<ol start="5" type="1">
+<li>In the alternate scenario, we would <strong>Reject The Null</strong> hypothesis if the p-value had been less than 0.05. In this scenario, we would have concluded that the variances are not equal. The <strong>Welch’s ANOVA</strong> or the <strong>Brown-Forsythe</strong> test should be used as alternatives to analysis of variance in this situation.</li>
+</ol>
 </section>
 <section id="welch-one-way-test" class="level2">
 <h2 class="anchored" data-anchor-id="welch-one-way-test">Welch One-Way Test</h2>
 <ol type="1">
-<li><p>When the assumption of equal variances (homogeneity of variance) across groups is not met, the Welch One-Way Test, a variation of the one-way ANOVA (Analysis of Variance) test, is utilised.</p></li>
+<li><p>When the assumption of equal variances (homogeneity of variance) across groups is not met, the Welch One-Way Test, a variation of the one-way ANOVA (Analysis of Variance) test, can be used.</p></li>
 <li><p>The Welch test modifies the degrees of freedom and the test statistic to take into account unequal variances, in contrast to the conventional one-way ANOVA, which assumes equal variances.</p></li>
-<li><p>When the assumption of equal variances is not fulfilled, the Welch test provides a helpful substitute for the conventional one-way ANOVA. It can improve test power and yield more accurate results.</p></li>
-<li><p>The Welch test involves dividing the sum of squares of the variance-adjusted variance between the group means and the overall mean. The difference between the means is regarded as significant if the test statistic is higher than the critical value.Running the Welch One-Way Test in R</p></li>
+<li><p>It can improve test power and yield more accurate results.</p></li>
+<li><p>The Welch test involves dividing the sum of squares of the variance-adjusted variance between the group means and the overall mean. The difference between the means is regarded as significant if the test statistic is higher than the critical value.</p></li>
+<li><p><strong>Running the Welch One-Way Test, in R</strong></p></li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA test with no assumption of equal variances</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(wt <span class="sc">~</span> cyl, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(wt <span class="sc">~</span> cyl, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One-way analysis of means (not assuming equal variances)
@@ -613,30 +629,38 @@ F = 20.249, num df = 2.000, denom df = 18.974, p-value = 1.963e-05</code></pre>
 <h1>Non-Parametric Tests</h1>
 <section id="normal-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="normal-distribution">Normal Distribution</h2>
-<p>ANOVA assumes that, the data are normally distributed and the variance across groups are homogeneous.</p>
-<ol type="1">
-<li>Normality plot of residuals</li>
-</ol>
+<p>ANOVA assumes that, the data are normally distributed.</p>
+<p>1.<strong>Normality plot of residuals</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># normality</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AnovaOneWay, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing one way ANOVA</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>AnovaOneWay <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt<span class="sc">~</span>cyl, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> mtcars)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for Normality</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AnovaOneWay, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05ANOVA_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <ol start="2" type="1">
-<li>Shapiro-Wilk Test</li>
+<li><strong>Shapiro-Wilk Test</strong></li>
 </ol>
 <ul>
 <li><p>The Shapiro-Wilk test is a statistical test used to <strong>determine whether a sample of data comes from a normally distributed population</strong>.</p></li>
-<li><p>If the test’s p-value is less than a set significance level, the null hypothesis is rejected and it can be inferred that the data did not come from a normal distribution. This procedure tests the null hypothesis that the data were taken from a normal distribution.</p></li>
+<li><p><strong>Null Hypothesis:</strong> The data comes from a Normal distribution; <strong>Alternate Hypothesis:</strong> The data does not come froma Normal distribution.</p></li>
+<li><p>If the test’s p-value is less than a set significance level, the null hypothesis is rejected and it can be inferred that the data did not come from a normal distribution.</p></li>
 <li><p>The Shapiro-Wilk test is widely used due to its relatively high power in detecting deviations from normality, especially for small sample sizes.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the residuals</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>aov_residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(<span class="at">object =</span> AnovaOneWay )</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># run Shapiro-Wilk test</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> aov_residuals )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing One Way ANOVA</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>AnovaOneWay <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt<span class="sc">~</span>cyl, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> mtcars)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the residuals</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>aov_residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(<span class="at">object =</span> AnovaOneWay)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Shapiro-Wilk test</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> aov_residuals )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -645,19 +669,24 @@ data:  aov_residuals
 W = 0.9025, p-value = 0.007175</code></pre>
 </div>
 </div>
+<ul>
+<li>We <strong>Reject The Null</strong> hypothesis, since we note that p-value &lt; 0.05.</li>
+<li>We conclude that the data is not Normally distributed.</li>
+<li>We should prefer to use a non-parametric test insead of regular ANOVA.</li>
+</ul>
 </section>
 <section id="kruskal-wallis-rank-sum-test" class="level2">
 <h2 class="anchored" data-anchor-id="kruskal-wallis-rank-sum-test">Kruskal-Wallis Rank Sum Test</h2>
 <ul>
-<li><p>A non-parametric statistical test called the Kruskal-Wallis rank sum test is used to examine if the population medians of two or more distinct groups are equal.</p></li>
-<li><p>The Kruskal-Wallis test can be used to evaluate data that is not regularly distributed because, unlike the parametric one-way ANOVA, it does not assume that the underlying populations are normally distributed.</p></li>
-<li><p>It is a distribution-free test since the test statistic is dependent on the ranking of the observations rather than their actual values.</p></li>
+<li><p>The Kruskal-Wallis Rank Sum test can be used to evaluate data that is not regularly distributed because, unlike the parametric One-way ANOVA, it does not assume that the underlying populations are normally distributed.</p></li>
+<li><p>It is used to <strong>examine if the population medians of two or more distinct groups are equal</strong>.</p></li>
+<li><p>It is a <strong>distribution-free</strong> test since the test statistic is dependent on the ranking of the observations rather than their actual values.</p></li>
 <li><p>It can be assumed that at least one of the groups has a difference median from the other groups if the p-value produced from the test is less than a predefined significance level.</p></li>
-<li><p>When the normality assumption cannot be met, a strong and popular substitute for the one-way ANOVA is the Kruskal-Wallis test.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kruskal-Wallis Rank Sum test</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(wt <span class="sc">~</span> cyl, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(wt <span class="sc">~</span> cyl, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Kruskal-Wallis rank sum test
@@ -672,7 +701,7 @@ Kruskal-Wallis chi-squared = 22.807, df = 2, p-value = 1.116e-05</code></pre>
 <ol type="1">
 <li><p>The Friedman test is a non-parametric alternative to the two-way ANOVA for repeated measures, and is used to test for differences among several related samples or repeated measurements on a single sample.</p></li>
 <li><p>The Friedman test assumes that the response variable is ordinal.</p></li>
-<li><p>In that it examines differences between groups, the Friedman test is comparable to a two-way ANOVA, but unlike the latter, it does not rely on any presumptions regarding the distribution of the response variable. Since the data are not normally distributed, the Friedman test becomes a helpful substitute.</p></li>
+<li><p>The Friedman test is comparable to a two-way ANOVA, but unlike the latter, it does not rely on any presumptions regarding the distribution of the response variable. Since the data are not normally distributed, the Friedman test becomes a helpful substitute.</p></li>
 </ol>
 
 
