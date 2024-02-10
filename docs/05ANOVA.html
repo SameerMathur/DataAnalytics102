@@ -259,13 +259,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#running-the-two-way-anova-without-interaction-in-r" id="toc-running-the-two-way-anova-without-interaction-in-r" class="nav-link" data-scroll-target="#running-the-two-way-anova-without-interaction-in-r">Running the Two-Way ANOVA <em>Without</em> Interaction, in R</a></li>
   <li><a href="#running-the-two-way-anova-with-interaction-in-r" id="toc-running-the-two-way-anova-with-interaction-in-r" class="nav-link" data-scroll-target="#running-the-two-way-anova-with-interaction-in-r">Running the Two-Way ANOVA <em>With</em> Interaction, in R</a></li>
   <li><a href="#pairwise-comparision-using-tuckys-post-hoc-test-1" id="toc-pairwise-comparision-using-tuckys-post-hoc-test-1" class="nav-link" data-scroll-target="#pairwise-comparision-using-tuckys-post-hoc-test-1">Pairwise comparision using Tucky’s Post-Hoc test</a></li>
-  <li><a href="#limitations-of-anova" id="toc-limitations-of-anova" class="nav-link" data-scroll-target="#limitations-of-anova">Limitations of ANOVA</a></li>
+  </ul></li>
+  <li><a href="#limitations-of-anova" id="toc-limitations-of-anova" class="nav-link" data-scroll-target="#limitations-of-anova">Limitations of ANOVA</a>
+  <ul class="collapse">
   <li><a href="#levenes-test-for-homogeneity-of-variance" id="toc-levenes-test-for-homogeneity-of-variance" class="nav-link" data-scroll-target="#levenes-test-for-homogeneity-of-variance">Levene’s Test for Homogeneity Of Variance</a></li>
   <li><a href="#welch-one-way-test" id="toc-welch-one-way-test" class="nav-link" data-scroll-target="#welch-one-way-test">Welch One-Way Test</a></li>
   </ul></li>
   <li><a href="#non-parametric-tests" id="toc-non-parametric-tests" class="nav-link" data-scroll-target="#non-parametric-tests">Non-Parametric Tests</a>
   <ul class="collapse">
-  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal Distribution</a></li>
+  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal Distribution</a>
+  <ul class="collapse">
+  <li><a href="#normality-plot-of-residuals" id="toc-normality-plot-of-residuals" class="nav-link" data-scroll-target="#normality-plot-of-residuals">Normality plot of Residuals</a></li>
+  <li><a href="#shapiro-wilk-test" id="toc-shapiro-wilk-test" class="nav-link" data-scroll-target="#shapiro-wilk-test">Shapiro-Wilk Test</a></li>
+  </ul></li>
   <li><a href="#kruskal-wallis-rank-sum-test" id="toc-kruskal-wallis-rank-sum-test" class="nav-link" data-scroll-target="#kruskal-wallis-rank-sum-test">Kruskal-Wallis Rank Sum Test</a></li>
   <li><a href="#friedman-test" id="toc-friedman-test" class="nav-link" data-scroll-target="#friedman-test">Friedman Test</a></li>
   </ul></li>
@@ -558,8 +564,9 @@ $`am:cyl`
 </div>
 </div>
 </section>
-<section id="limitations-of-anova" class="level2">
-<h2 class="anchored" data-anchor-id="limitations-of-anova">Limitations of ANOVA</h2>
+</section>
+<section id="limitations-of-anova" class="level1">
+<h1>Limitations of ANOVA</h1>
 <ol type="1">
 <li><p><strong>Assumptions</strong>: ANOVA makes the assumptions that the data are <strong>(i) independent, (ii) normally distributed,</strong> and have <strong>(iii) similar variances across groups</strong>. The ANOVA results could be suspect if these presumptions are not true.</p></li>
 <li><p><strong>Limited to comparing means</strong>: ANOVA cannot be used to draw conclusions about other measures of central tendency, such as <strong>medians</strong>, and is only capable of comparing the means of two or more groups.</p></li>
@@ -567,7 +574,6 @@ $`am:cyl`
 <li><p><strong>Type I and Type II errors:</strong> ANOVA is sensitive to Type I (false positive) errors and Type II (false negative) errors, like all statistical tests. It is crucial to select the proper level of significance and interpret the findings in light of the sample size and data variability.</p></li>
 <li><p><strong>Multiple comparisons</strong>: Multiple comparisons can raise the possibility of Type I errors when comparing the means of more than two groups. Adjustments to the significance level, like the <em>Bonferroni correction</em>, can be applied to overcome this problem.</p></li>
 </ol>
-</section>
 <section id="levenes-test-for-homogeneity-of-variance" class="level2">
 <h2 class="anchored" data-anchor-id="levenes-test-for-homogeneity-of-variance">Levene’s Test for Homogeneity Of Variance</h2>
 <ol type="1">
@@ -630,7 +636,8 @@ F = 20.249, num df = 2.000, denom df = 18.974, p-value = 1.963e-05</code></pre>
 <section id="normal-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="normal-distribution">Normal Distribution</h2>
 <p>ANOVA assumes that, the data are normally distributed.</p>
-<p>1.<strong>Normality plot of residuals</strong></p>
+<section id="normality-plot-of-residuals" class="level3">
+<h3 class="anchored" data-anchor-id="normality-plot-of-residuals">Normality plot of Residuals</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing one way ANOVA</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>AnovaOneWay <span class="ot">&lt;-</span> <span class="fu">aov</span>(wt<span class="sc">~</span>cyl, </span>
@@ -642,9 +649,9 @@ F = 20.249, num df = 2.000, denom df = 18.974, p-value = 1.963e-05</code></pre>
 <p><img src="05ANOVA_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<ol start="2" type="1">
-<li><strong>Shapiro-Wilk Test</strong></li>
-</ol>
+</section>
+<section id="shapiro-wilk-test" class="level3">
+<h3 class="anchored" data-anchor-id="shapiro-wilk-test">Shapiro-Wilk Test</h3>
 <ul>
 <li><p>The Shapiro-Wilk test is a statistical test used to <strong>determine whether a sample of data comes from a normally distributed population</strong>.</p></li>
 <li><p><strong>Null Hypothesis:</strong> The data comes from a Normal distribution; <strong>Alternate Hypothesis:</strong> The data does not come froma Normal distribution.</p></li>
@@ -674,6 +681,7 @@ W = 0.9025, p-value = 0.007175</code></pre>
 <li>We conclude that the data is not Normally distributed.</li>
 <li>We should prefer to use a non-parametric test insead of regular ANOVA.</li>
 </ul>
+</section>
 </section>
 <section id="kruskal-wallis-rank-sum-test" class="level2">
 <h2 class="anchored" data-anchor-id="kruskal-wallis-rank-sum-test">Kruskal-Wallis Rank Sum Test</h2>

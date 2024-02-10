@@ -195,7 +195,7 @@ tukey.test <- TukeyHSD(AnovaTwoWayInt)
 tukey.test
 ```
 
-## Limitations of ANOVA
+# Limitations of ANOVA
 
 1.  **Assumptions**: ANOVA makes the assumptions that the data are **(i) independent, (ii) normally distributed,** and have **(iii) similar variances across groups**. The ANOVA results could be suspect if these presumptions are not true.
 
@@ -261,7 +261,7 @@ oneway.test(wt ~ cyl,
 
 ANOVA assumes that, the data are normally distributed.
 
-1.**Normality plot of residuals**
+### Normality plot of Residuals
 
 ```{r}
 # Computing one way ANOVA
@@ -272,7 +272,7 @@ AnovaOneWay <- aov(wt~cyl,
 plot(AnovaOneWay, 2)
 ```
 
-2.  **Shapiro-Wilk Test**
+### Shapiro-Wilk Test
 
 -   The Shapiro-Wilk test is a statistical test used to **determine whether a sample of data comes from a normally distributed population**.
 
