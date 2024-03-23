@@ -1,6 +1,6 @@
 # Linear Regression.
 
-*July 26, 2023*
+*Mar 23, 2024*
 
 1.  **Linear regression is a statistical method for determining the relationship between one or more independent variables and a dependent variable.** It is a simple and powerful data modeling and analysis tool that can assist in **making predictions** or **identifying trends**.
 
@@ -649,6 +649,271 @@ There is no perfect linear relationship among the independent variables. In othe
 There are no extreme observations that are far away from the general pattern of the data. Such outliers can have a large effect on the estimates of the regression coefficients.
 
 It is important to check for these assumptions before using OLS regression, and there are various methods to test for them. If any of these assumptions are violated, alternative methods such as robust regression or non-parametric regression may be more appropriate. \[8\]
+
+
+# Quadratic Regression
+
+## Overview
+
+Quadratic regression is a form of multiple regression where the relationship between the independent variable \(x\) and the dependent variable \(y\) is modeled as a quadratic function. This type of regression is used when the data suggests a parabolic relationship between the variables, meaning the trend in the data increases or decreases at a non-constant rate.
+
+The quadratic regression equation can be represented as:
+
+\begin{equation}
+y = \beta_0 + \beta_1x + \beta_2x^2 + \epsilon
+\end{equation}
+
+where:
+
+$y$ is the dependent variable,
+
+$x$ is the independent variable,
+
+$\beta_0$ is the intercept of the model,
+
+$\beta_1$ is the coefficient for the linear term,
+
+$\beta_2$ is the coefficient for the quadratic term, and
+
+$\epsilon$ is the error term of the model.
+
+The coefficients $\beta_0$, $\beta_1$, and $\beta_2$ are estimated through the regression analysis, aiming to fit the model such that it minimizes the sum of the squared differences between the observed and predicted values.
+
+
+
+
+## Applying Quadratic Regression in R with the `mtcars` dataset
+
+Let's say we want to explore how the miles per gallon (`mpg`) of cars in the `mtcars` dataset is related to the displacement (`disp`), which is the engine size. We hypothesize that there's a quadratic relationship between displacement and `mpg`.
+
+Here's a step-by-step guide on how to perform this analysis in R:
+
+1. **Visualize the Data**: Plot `disp` versus `mpg` to visually inspect the relationship.
+
+2. **Fit the Quadratic Model**: Use the `lm()` function to fit a quadratic regression model. We'll include both the linear and quadratic terms of `disp` in the model.
+
+3. **Analyze the Results**: Summarize the model to interpret the coefficients and assess the fit.
+
+
+### Step 1: Visualize the Data
+
+```{r}
+plot(mtcars$disp, 
+     mtcars$mpg, 
+     main="Mileage vs. Displacement", 
+     xlab="Displacement (disp)", 
+     ylab="Miles Per Gallon (mpg)", 
+     pch=19)
+```
+
+### Step 2: Fit the Quadratic Model
+
+The `lm()` function in R is used to fit a quadratic regression model by including both the linear and quadratic terms of displacement.
+
+```{r}
+# Fit the quadratic regression model
+model <- lm(mpg ~ disp + I(disp^2), 
+            data=mtcars)
+
+# Summarize the model to view coefficients and statistics
+summary(model)
+```
+
+**`I(disp^2)`**: The term `I(disp^2)` within the `lm` function call in R signifies the inclusion of a quadratic term for the variable `disp` (engine displacement) in the regression model. The `I()` function in R is used to indicate that `disp^2` should be treated as a mathematical operation inside the formula. Without `I()`, the ^ symbol could be misinterpreted by the formula interface. In this context, `I()` ensures that `disp` is squared, and this squared term is then used as a predictor in the model.
+
+
+### Step 3: Analysis
+
+Here's how we can write the resulting quadratic model:
+
+$$
+\text{mpg} = 35.83 - 0.1053 \times \text{disp} + 0.0001255 \times \text{disp}^2 + \epsilon
+$$
+
+
+Here is how we can visualize it. 
+
+```{r}
+# Initial plot
+plot(mtcars$disp, 
+     mtcars$mpg, 
+     main="Mileage vs. Displacement", 
+     xlab="Displacement (disp)", 
+     ylab="Miles Per Gallon (mpg)", 
+     pch=19)
+
+# Fit a quadratic regression model
+model <- lm(mpg ~ disp + I(disp^2), 
+            data=mtcars)
+
+# Add the quadratic curve to the plot
+# The curve expression uses the coefficients from the model
+curve(coef(model)[1] + 
+        coef(model)[2]*x + 
+        coef(model)[3]*x^2, 
+      add = TRUE, 
+      col = "red", 
+      from=min(mtcars$disp), to=max(mtcars$disp))
+
+```
+
+
+
+
+**Coefficient for `disp`:**
+
+- **Estimate**: The estimate of \(-0.1053\) indicates the effect of the linear term of displacement (`disp`) on miles per gallon (`mpg`). Specifically, for each one-unit increase in `disp`, `mpg` is expected to decrease by 0.1053 units, holding the effect of `disp^2` constant. This suggests a negative linear relationship between engine displacement and fuel efficiency.
+- **Std. Error**: The standard error of the estimate is \(0.02028\), which measures the accuracy of the coefficient estimate. A smaller standard error indicates a more precise estimate of the coefficient.
+- **t value**: The t statistic of \(-5.192\) is calculated by dividing the coefficient by its standard error. The negative sign indicates a negative relationship between `disp` and `mpg`. The magnitude of the t value suggests strong evidence against the null hypothesis (that the coefficient is zero), indicating that `disp` is a significant predictor of `mpg`.
+- **Pr(>|t|)**: The p-value of \(0.0000149\) (or \(1.49e-05\)) is extremely small, far below the typical significance level of \(0.05\), providing strong evidence against the null hypothesis. This confirms that the linear term of displacement is significantly associated with `mpg`.
+- **Significance**: The `***` indicates a very high level of statistical significance for this coefficient.
+
+**Coefficient for `I(disp^2)`:**
+
+- **Estimate**: The estimate of \(0.0001255\) represents the effect of the quadratic term of displacement (`disp^2`) on `mpg`. This suggests that as `disp` increases, the rate of change in `mpg` also changes, specifically by an additional 0.0001255 units for each square unit increase in `disp`. This captures the curvilinear relationship between displacement and fuel efficiency.
+- **Std. Error**: The standard error for this coefficient is \(0.00003891\), indicating the precision of the quadratic term's estimate.
+- **t value**: The t statistic of \(3.226\) suggests that the quadratic term of displacement is a significant predictor of `mpg`, with a positive coefficient indicating the shape of the curve is concave up (the relationship between `disp` and `mpg` becomes less negative or more positive as `disp` increases, after accounting for the linear term).
+- **Pr(>|t|)**: The p-value of \(0.0031\) indicates statistical significance, albeit less so than the linear term, but still well below the \(0.05\) threshold, meaning the quadratic term significantly contributes to the model.
+- **Significance**: The `**` indicates a high level of statistical significance for the quadratic coefficient.
+
+Both the linear and quadratic terms of engine displacement are significant predictors of fuel efficiency in the `mtcars` dataset. The negative coefficient for `disp` indicates a general trend of decreasing `mpg` with increasing `disp`, while the positive coefficient for `disp^2` suggests that this relationship is not purely linear but has a quadratic component, indicating a change in the rate of decline of `mpg` as `disp` increases.
+
+**Residuals**: Residuals are the differences between observed values and the values predicted by the model. The summary statistics of residuals (Min, 1Q (first quartile), Median, 3Q (third quartile), Max) suggest how well the model fits the data. Smaller residuals indicate a better fit.
+
+**Residual standard error**: An estimate of the standard deviation of the residuals, which gives a measure of the quality of the fit. Here, it's `2.837`, on `29` degrees of freedom.
+
+**Multiple R-squared**: A measure of the proportion of variance in the dependent variable (`mpg`) that is predictable from the independent variables (`disp` and `I(disp^2)`). Here, `0.7927` indicates that approximately `79.27%` of the variability in `mpg` is explained by the model.
+
+**Adjusted R-squared**: Adjusted for the number of predictors in the model, providing a more accurate measure of the goodness of fit. `0.7784` is quite high, suggesting a good fit.
+
+**F-statistic and its p-value**: Tests the overall significance of the model. A very small p-value (`1.229e-10`) indicates that the model is statistically significant at explaining the variation in `mpg` compared to a model with no predictors.
+
+
+### Step 3 (Alternate Scenario)
+
+If the output from a quadratic regression on the `mtcars` dataset showed a significant linear term (`disp`) but an insignificant quadratic term (`I(disp^2)`), the interpretation would change as follows:
+
+1. **Dominant Linear Relationship**: A significant linear term alongside an insignificant quadratic term would suggest the relationship between engine displacement (`disp`) and miles per gallon (`mpg`) is primarily linear. This would mean `mpg` changes at a constant rate with changes in `disp`, without evident curvature.
+
+2. **Simpler Model Sufficiency**: The insignificance of the quadratic term would imply that a simpler linear model might be just as effective in describing the relationship between `disp` and `mpg`, reducing the need for the added complexity of a quadratic term.
+
+3. **Coefficient Interpretation**: With only the linear term significant, the coefficient for `disp` could be understood as the change in `mpg` for every one-unit change in `disp`, without considering curvature since the quadratic term doesn’t significantly contribute to the model.
+
+4. **Modeling Implications**: The lack of significance for the quadratic term could prompt reconsideration of the model choice, suggesting perhaps a different variable or model type could better capture the dynamics between `disp` and `mpg`. If the quadratic term isn't significant, it indicates a straight-line relationship between `disp` and `mpg`, questioning the necessity of a quadratic model. This emphasizes evaluating model complexity against the significance and practical relevance of the terms included.
+
+### Step 3 (Alternate Scenario 2)
+
+If the linear term (`disp`) was not significant but the quadratic term (`I(disp^2)`) was significant in the regression analysis, the interpretation would change as follows:
+
+1. **Quadratic Relationship**: The significance of the quadratic term over the linear term would suggest a curvilinear relationship between engine displacement (`disp`) and miles per gallon (`mpg`). This would imply that the effect of `disp` on `mpg` changes at different levels of `disp`, not simply increasing or decreasing in a straight line.
+
+2. **Non-linear Dynamics**: The model would indicate that the relationship between `disp` and `mpg` cannot  be adequately described by a linear model. 
+
+3. **Model Complexity**: A significant quadratic term with a non-significant linear term would justify the complexity of including the quadratic term in the model. It would suggest that understanding the relationship between `disp` and `mpg` requires acknowledging the nonlinear dynamics.
+
+4. **Interpreting the Coefficient**: With a significant quadratic term, the effect of `disp` on `mpg` would be dependent on the value of `disp` itself, indicating the presence of an acceleration or deceleration in the rate at which `mpg` changes with `disp`. It might also suggest looking for a turning point in the relationship between `disp` and `mpg`, where the effect of increasing displacement on fuel efficiency starts to change direction.
+
+
+## Comparing Models with / without Quadratic term
+
+To compare the quadratic regression model with the base linear model (without the quadratic term) for predicting miles per gallon (`mpg`) from engine displacement (`disp`) in the `mtcars` dataset, let us run the base model (model0).
+
+```{r}
+# Fit the regression model without quadratic term
+model0 <- lm(mpg ~ disp, 
+            data=mtcars)
+
+# Summarize the model to view coefficients and statistics
+summary(model0)
+```
+
+Let us look at several key aspects based on the provided output for both models.
+
+### Base Model (Linear):
+
+- **Formula**: 
+$$
+\text{mpg} = 29.60 - 0.0412 \times \text{disp} + \epsilon
+$$
+
+- **Residual Standard Error (RSE)**: 3.251, indicating the average distance that the observed values fall from the regression line.
+- **Multiple R-squared**: 0.7183, meaning approximately 71.83% of the variability in `mpg` is explained by the model.
+- **Adjusted R-squared**: 0.709, slightly lower than the R-squared, adjusted for the number of predictors.
+- **F-statistic**: 76.51, with a p-value of \(9.38e-10\), showing the model is statistically significant.
+
+### Model with Quadratic Term:
+
+- **Formula**: 
+$$
+\text{mpg} = 35.83 - 0.1053 \times \text{disp} + 0.0001255 \times \text{disp}^2 + \epsilon
+$$
+
+- **Residual Standard Error (RSE)**: 2.837, lower than the base model, suggesting a better fit to the data.
+- **Multiple R-squared**: 0.7927, indicating approximately 79.27% of the variability in `mpg` is explained by this model, which is an improvement over the base model.
+- **Adjusted R-squared**: 0.7784, also higher than the base model, indicating a better fit when the number of predictors is considered.
+- **F-statistic**: 55.46 on 2 and 29 degrees of freedom, with a p-value of \(1.229e-10\), confirming statistical significance.
+
+### Comparison and Interpretation:
+
+1. **Fit Quality**: The model with the quadratic term shows a lower Residual Standard Error (RSE) and higher R-squared values, suggesting it provides a better fit to the data compared to the base model. This indicates that adding the quadratic term captures more of the variability in `mpg`.
+
+2. **Model Complexity**: The quadratic model is more complex due to the additional term. Despite this, the improvement in fit (as shown by the RSE and R-squared values) justifies the increased complexity.
+
+3. **Statistical Significance**: Both models are statistically significant, but the improvement in the fit and explanatory power of the quadratic model suggests that the relationship between `disp` and `mpg` is not strictly linear but has a curvilinear component.
+
+Thus, the quadratic model provides a more accurate and nuanced understanding of how engine displacement affects fuel efficiency, as indicated by its statistical metrics and the significant quadratic term. This analysis demonstrates the value of exploring more complex models when linear relationships do not fully capture the dynamics between variables.
+
+
+
+## Biquadratic model
+
+We can fit a bi-quadratic regression model to the `mtcars` dataset in R. The following model predicts miles per gallon (`mpg`) based on both the engine displacement (`disp`) and horsepower (`hp`), including both their linear and quadratic terms.
+
+### Model Equation:
+
+The model can be represented as:
+$$
+\text{mpg} = \beta_0 + \beta_1 \times \text{disp} + \beta_2 \times \text{disp}^2 + \beta_3 \times \text{hp} + \beta_4 \times \text{hp}^2 + \epsilon
+$$
+
+### Implementation:
+
+Here is R code to implement the model.
+
+```{r}
+# Fit a bi-quadratic regression model
+model2 <- lm(mpg ~ disp + I(disp^2) + hp + I(hp^2), 
+            data=mtcars)
+
+# Summarize the model to view coefficients and statistics
+summary(model2)
+```
+
+
+
+
+### Coefficients:
+- **Intercept (\(\beta_0\))**: The model's intercept is approximately \(39.46\), suggesting the expected `mpg` when both `disp` and `hp` are 0.
+- **disp (\(\beta_1\))**: The coefficient of `-0.06968` for `disp` indicates that, holding other variables constant, a one-unit increase in `disp` is associated with a decrease of about \(0.06968\) units in `mpg`.
+- **I(disp^2) (\(\beta_2\))**: The positive coefficient `0.00008653` for the quadratic term of `disp` suggests that the effect of `disp` on `mpg` increases at a decreasing rate as `disp` increases.
+- **hp (\(\beta_3\))**: The coefficient of `-0.09864` for `hp` implies that, holding other variables constant, a one-unit increase in `hp` is associated with a decrease of about \(0.09864\) units in `mpg`.
+- **I(hp^2) (\(\beta_4\))**: The coefficient `0.0002026` for the quadratic term of `hp` indicates that the relationship between `hp` and `mpg` also increases at a decreasing rate as `hp` increases, though this effect is less statistically significant (p = 0.0768) than the linear terms.
+
+### Significance:
+- The asterisks (`*`, `.`) next to the coefficients denote their level of statistical significance, with more `*` indicating higher significance. All variables except for `I(hp^2)` are statistically significant at the \(p < 0.05\) level, suggesting they have a meaningful contribution to the model. `I(hp^2)` is close to significance, suggesting a possible quadratic effect of horsepower on `mpg`.
+
+### Model Fit:
+- **Residual Standard Error**: \(2.707\) on \(27\) degrees of freedom, indicating the standard deviation of the residuals.
+- **Multiple R-squared**: \(0.8243\), implying that approximately \(82.43\%\) of the variability in `mpg` is explained by the model, which is a strong fit.
+- **Adjusted R-squared**: \(0.7982\), adjusted for the number of predictors, also indicates a good fit.
+- **F-statistic**: \(31.66\) on \(4\) and \(27\) DF, with a p-value of \(7.758e-10\), strongly suggests the model is statistically significant.
+
+### Interpretation:
+This bi-quadratic model suggests a complex relationship between `mpg` and both `disp` and `hp`, incorporating the effects of engine displacement and horsepower not just linearly but also how these effects change as `disp` and `hp` increase. The model's high \(R^2\) values and significant F-statistic indicate a strong fit, capturing a significant portion of the variability in `mpg`.
+
+
+
+
 
 # References
 

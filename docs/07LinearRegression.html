@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Analytics 102 -- Applied Statistics and Regression Using R – linearregression</title>
+<title>Data Analytics 102 – Applied Statistics and Regression Using R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -78,7 +78,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -87,6 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -96,15 +103,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Data Analytics 102 – Applied Statistics and Regression Using R</span>
     </a>
@@ -116,34 +150,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/" rel="" target="_blank"><i class="bi bi-globe" role="img">
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/" target="_blank"> <i class="bi bi-globe" role="img">
 </i> 
- <span class="menu-text">Sameer Mathur</span></a>
+<span class="menu-text">Sameer Mathur</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true" rel="" target="_blank"><i class="bi bi-globe" role="img">
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true" target="_blank"> <i class="bi bi-globe" role="img">
 </i> 
- <span class="menu-text">Aryeman Gupta Mathur</span></a>
+<span class="menu-text">Aryeman Gupta Mathur</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/SameerMathur/DataAnalytics102" rel="" target="_blank"><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/SameerMathur/DataAnalytics102" target="_blank"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text">Book’s Github</span></a>
+<span class="menu-text">Book’s Github</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07LinearRegression.html">Linear Regression.</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07LinearRegression.html">Linear Regression.</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -153,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="./index.html" class="sidebar-logo-link">
       <img src="./images/openscapes_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -193,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04TTest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">t-tests</span></a>
+ <span class="menu-text">T-tests</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -235,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
 <p><img src="BookCover102.png" class="img-fluid"></p>
@@ -315,6 +349,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#no-multicollinearity" id="toc-no-multicollinearity" class="nav-link" data-scroll-target="#no-multicollinearity">5. No multicollinearity:</a></li>
   <li><a href="#no-outliers" id="toc-no-outliers" class="nav-link" data-scroll-target="#no-outliers">6. No outliers:</a></li>
   </ul></li>
+  <li><a href="#quadratic-regression" id="toc-quadratic-regression" class="nav-link" data-scroll-target="#quadratic-regression">Quadratic Regression</a>
+  <ul class="collapse">
+  <li><a href="#overview-2" id="toc-overview-2" class="nav-link" data-scroll-target="#overview-2">Overview</a></li>
+  <li><a href="#applying-quadratic-regression-in-r-with-the-mtcars-dataset" id="toc-applying-quadratic-regression-in-r-with-the-mtcars-dataset" class="nav-link" data-scroll-target="#applying-quadratic-regression-in-r-with-the-mtcars-dataset">Applying Quadratic Regression in R with the <code>mtcars</code> dataset</a>
+  <ul class="collapse">
+  <li><a href="#step-1-visualize-the-data" id="toc-step-1-visualize-the-data" class="nav-link" data-scroll-target="#step-1-visualize-the-data">Step 1: Visualize the Data</a></li>
+  <li><a href="#step-2-fit-the-quadratic-model" id="toc-step-2-fit-the-quadratic-model" class="nav-link" data-scroll-target="#step-2-fit-the-quadratic-model">Step 2: Fit the Quadratic Model</a></li>
+  <li><a href="#step-3-analysis" id="toc-step-3-analysis" class="nav-link" data-scroll-target="#step-3-analysis">Step 3: Analysis</a></li>
+  <li><a href="#step-3-alternate-scenario" id="toc-step-3-alternate-scenario" class="nav-link" data-scroll-target="#step-3-alternate-scenario">Step 3 (Alternate Scenario)</a></li>
+  <li><a href="#step-3-alternate-scenario-2" id="toc-step-3-alternate-scenario-2" class="nav-link" data-scroll-target="#step-3-alternate-scenario-2">Step 3 (Alternate Scenario 2)</a></li>
+  </ul></li>
+  <li><a href="#comparing-models-with-without-quadratic-term" id="toc-comparing-models-with-without-quadratic-term" class="nav-link" data-scroll-target="#comparing-models-with-without-quadratic-term">Comparing Models with / without Quadratic term</a>
+  <ul class="collapse">
+  <li><a href="#base-model-linear" id="toc-base-model-linear" class="nav-link" data-scroll-target="#base-model-linear">Base Model (Linear):</a></li>
+  <li><a href="#model-with-quadratic-term" id="toc-model-with-quadratic-term" class="nav-link" data-scroll-target="#model-with-quadratic-term">Model with Quadratic Term:</a></li>
+  <li><a href="#comparison-and-interpretation" id="toc-comparison-and-interpretation" class="nav-link" data-scroll-target="#comparison-and-interpretation">Comparison and Interpretation:</a></li>
+  </ul></li>
+  <li><a href="#biquadratic-model" id="toc-biquadratic-model" class="nav-link" data-scroll-target="#biquadratic-model">Biquadratic model</a>
+  <ul class="collapse">
+  <li><a href="#model-equation" id="toc-model-equation" class="nav-link" data-scroll-target="#model-equation">Model Equation:</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation:</a></li>
+  <li><a href="#coefficients" id="toc-coefficients" class="nav-link" data-scroll-target="#coefficients">Coefficients:</a></li>
+  <li><a href="#significance" id="toc-significance" class="nav-link" data-scroll-target="#significance">Significance:</a></li>
+  <li><a href="#model-fit" id="toc-model-fit" class="nav-link" data-scroll-target="#model-fit">Model Fit:</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation:</a></li>
+  </ul></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="07LinearRegression.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -324,9 +385,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+
 <section id="linear-regression." class="level1">
 <h1>Linear Regression.</h1>
-<p><em>July 26, 2023</em></p>
+<p><em>Mar 23, 2024</em></p>
 <ol type="1">
 <li><p><strong>Linear regression is a statistical method for determining the relationship between one or more independent variables and a dependent variable.</strong> It is a simple and powerful data modeling and analysis tool that can assist in <strong>making predictions</strong> or <strong>identifying trends</strong>.</p></li>
 <li><p>The primary goal of linear regression is to <strong>identify the best-fitting line or plane</strong> that describes the relationship between the independent and dependent variables. The regression line or plane represents the predicted value of the dependent variable given a particular value of the independent variable.</p></li>
@@ -476,7 +538,11 @@ mpg = 37.2851 -5.3445 wt + ε
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Miles per Gallon"</span>)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model0, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="768"></p>
+<div>
+<figure class="figure">
+<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
 </div>
 </div>
 <ol type="1">
@@ -663,7 +729,11 @@ arm (Version 1.13-1, built: 2022-8-25)</code></pre>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use coefplot() to plot the coefficients of the model</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="768"></p>
+<div>
+<figure class="figure">
+<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -815,7 +885,11 @@ Attaching package: 'car'</code></pre>
 regression coefficients</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="768"></p>
+<div>
+<figure class="figure">
+<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
 </div>
 </div>
 <ol type="1">
@@ -881,7 +955,11 @@ F-statistic: 31.37 on 5 and 26 DF,  p-value: 3.18e-10</code></pre>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Residual Plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="768"></p>
+<div>
+<figure class="figure">
+<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
 </div>
 </div>
 <ol start="8" type="1">
@@ -1120,6 +1198,306 @@ F-statistic: 31.37 on 5 and 26 DF,  p-value: 3.18e-10</code></pre>
 <p>It is important to check for these assumptions before using OLS regression, and there are various methods to test for them. If any of these assumptions are violated, alternative methods such as robust regression or non-parametric regression may be more appropriate. [8]</p>
 </section>
 </section>
+<section id="quadratic-regression" class="level1">
+<h1>Quadratic Regression</h1>
+<section id="overview-2" class="level2">
+<h2 class="anchored" data-anchor-id="overview-2">Overview</h2>
+<p>Quadratic regression is a form of multiple regression where the relationship between the independent variable (x) and the dependent variable (y) is modeled as a quadratic function. This type of regression is used when the data suggests a parabolic relationship between the variables, meaning the trend in the data increases or decreases at a non-constant rate.</p>
+<p>The quadratic regression equation can be represented as:</p>
+<p><span class="math display">\[\begin{equation}
+y = \beta_0 + \beta_1x + \beta_2x^2 + \epsilon
+\end{equation}\]</span></p>
+<p>where:</p>
+<p><span class="math inline">\(y\)</span> is the dependent variable,</p>
+<p><span class="math inline">\(x\)</span> is the independent variable,</p>
+<p><span class="math inline">\(\beta_0\)</span> is the intercept of the model,</p>
+<p><span class="math inline">\(\beta_1\)</span> is the coefficient for the linear term,</p>
+<p><span class="math inline">\(\beta_2\)</span> is the coefficient for the quadratic term, and</p>
+<p><span class="math inline">\(\epsilon\)</span> is the error term of the model.</p>
+<p>The coefficients <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\beta_2\)</span> are estimated through the regression analysis, aiming to fit the model such that it minimizes the sum of the squared differences between the observed and predicted values.</p>
+</section>
+<section id="applying-quadratic-regression-in-r-with-the-mtcars-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="applying-quadratic-regression-in-r-with-the-mtcars-dataset">Applying Quadratic Regression in R with the <code>mtcars</code> dataset</h2>
+<p>Let’s say we want to explore how the miles per gallon (<code>mpg</code>) of cars in the <code>mtcars</code> dataset is related to the displacement (<code>disp</code>), which is the engine size. We hypothesize that there’s a quadratic relationship between displacement and <code>mpg</code>.</p>
+<p>Here’s a step-by-step guide on how to perform this analysis in R:</p>
+<ol type="1">
+<li><p><strong>Visualize the Data</strong>: Plot <code>disp</code> versus <code>mpg</code> to visually inspect the relationship.</p></li>
+<li><p><strong>Fit the Quadratic Model</strong>: Use the <code>lm()</code> function to fit a quadratic regression model. We’ll include both the linear and quadratic terms of <code>disp</code> in the model.</p></li>
+<li><p><strong>Analyze the Results</strong>: Summarize the model to interpret the coefficients and assess the fit.</p></li>
+</ol>
+<section id="step-1-visualize-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-visualize-the-data">Step 1: Visualize the Data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>     mtcars<span class="sc">$</span>mpg, </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Mileage vs. Displacement"</span>, </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Displacement (disp)"</span>, </span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Miles Per Gallon (mpg)"</span>, </span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-fit-the-quadratic-model" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-fit-the-quadratic-model">Step 2: Fit the Quadratic Model</h3>
+<p>The <code>lm()</code> function in R is used to fit a quadratic regression model by including both the linear and quadratic terms of displacement.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the quadratic regression model</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> <span class="fu">I</span>(disp<span class="sc">^</span><span class="dv">2</span>), </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>mtcars)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the model to view coefficients and statistics</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp + I(disp^2), data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.9112 -1.5269 -0.3124  1.3489  5.3946 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  3.583e+01  2.209e+00  16.221 4.39e-16 ***
+disp        -1.053e-01  2.028e-02  -5.192 1.49e-05 ***
+I(disp^2)    1.255e-04  3.891e-05   3.226   0.0031 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.837 on 29 degrees of freedom
+Multiple R-squared:  0.7927,    Adjusted R-squared:  0.7784 
+F-statistic: 55.46 on 2 and 29 DF,  p-value: 1.229e-10</code></pre>
+</div>
+</div>
+<p><strong><code>I(disp^2)</code></strong>: The term <code>I(disp^2)</code> within the <code>lm</code> function call in R signifies the inclusion of a quadratic term for the variable <code>disp</code> (engine displacement) in the regression model. The <code>I()</code> function in R is used to indicate that <code>disp^2</code> should be treated as a mathematical operation inside the formula. Without <code>I()</code>, the ^ symbol could be misinterpreted by the formula interface. In this context, <code>I()</code> ensures that <code>disp</code> is squared, and this squared term is then used as a predictor in the model.</p>
+</section>
+<section id="step-3-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-analysis">Step 3: Analysis</h3>
+<p>Here’s how we can write the resulting quadratic model:</p>
+<p><span class="math display">\[
+\text{mpg} = 35.83 - 0.1053 \times \text{disp} + 0.0001255 \times \text{disp}^2 + \epsilon
+\]</span></p>
+<p>Here is how we can visualize it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial plot</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>     mtcars<span class="sc">$</span>mpg, </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Mileage vs. Displacement"</span>, </span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Displacement (disp)"</span>, </span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Miles Per Gallon (mpg)"</span>, </span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">19</span>)</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a quadratic regression model</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> <span class="fu">I</span>(disp<span class="sc">^</span><span class="dv">2</span>), </span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>mtcars)</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the quadratic curve to the plot</span></span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a><span class="co"># The curve expression uses the coefficients from the model</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">coef</span>(model)[<span class="dv">1</span>] <span class="sc">+</span> </span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coef</span>(model)[<span class="dv">2</span>]<span class="sc">*</span>x <span class="sc">+</span> </span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coef</span>(model)[<span class="dv">3</span>]<span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span>, </span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"red"</span>, </span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">from=</span><span class="fu">min</span>(mtcars<span class="sc">$</span>disp), <span class="at">to=</span><span class="fu">max</span>(mtcars<span class="sc">$</span>disp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07LinearRegression_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Coefficient for <code>disp</code>:</strong></p>
+<ul>
+<li><strong>Estimate</strong>: The estimate of (-0.1053) indicates the effect of the linear term of displacement (<code>disp</code>) on miles per gallon (<code>mpg</code>). Specifically, for each one-unit increase in <code>disp</code>, <code>mpg</code> is expected to decrease by 0.1053 units, holding the effect of <code>disp^2</code> constant. This suggests a negative linear relationship between engine displacement and fuel efficiency.</li>
+<li><strong>Std. Error</strong>: The standard error of the estimate is (0.02028), which measures the accuracy of the coefficient estimate. A smaller standard error indicates a more precise estimate of the coefficient.</li>
+<li><strong>t value</strong>: The t statistic of (-5.192) is calculated by dividing the coefficient by its standard error. The negative sign indicates a negative relationship between <code>disp</code> and <code>mpg</code>. The magnitude of the t value suggests strong evidence against the null hypothesis (that the coefficient is zero), indicating that <code>disp</code> is a significant predictor of <code>mpg</code>.</li>
+<li><strong>Pr(&gt;|t|)</strong>: The p-value of (0.0000149) (or (1.49e-05)) is extremely small, far below the typical significance level of (0.05), providing strong evidence against the null hypothesis. This confirms that the linear term of displacement is significantly associated with <code>mpg</code>.</li>
+<li><strong>Significance</strong>: The <code>***</code> indicates a very high level of statistical significance for this coefficient.</li>
+</ul>
+<p><strong>Coefficient for <code>I(disp^2)</code>:</strong></p>
+<ul>
+<li><strong>Estimate</strong>: The estimate of (0.0001255) represents the effect of the quadratic term of displacement (<code>disp^2</code>) on <code>mpg</code>. This suggests that as <code>disp</code> increases, the rate of change in <code>mpg</code> also changes, specifically by an additional 0.0001255 units for each square unit increase in <code>disp</code>. This captures the curvilinear relationship between displacement and fuel efficiency.</li>
+<li><strong>Std. Error</strong>: The standard error for this coefficient is (0.00003891), indicating the precision of the quadratic term’s estimate.</li>
+<li><strong>t value</strong>: The t statistic of (3.226) suggests that the quadratic term of displacement is a significant predictor of <code>mpg</code>, with a positive coefficient indicating the shape of the curve is concave up (the relationship between <code>disp</code> and <code>mpg</code> becomes less negative or more positive as <code>disp</code> increases, after accounting for the linear term).</li>
+<li><strong>Pr(&gt;|t|)</strong>: The p-value of (0.0031) indicates statistical significance, albeit less so than the linear term, but still well below the (0.05) threshold, meaning the quadratic term significantly contributes to the model.</li>
+<li><strong>Significance</strong>: The <code>**</code> indicates a high level of statistical significance for the quadratic coefficient.</li>
+</ul>
+<p>Both the linear and quadratic terms of engine displacement are significant predictors of fuel efficiency in the <code>mtcars</code> dataset. The negative coefficient for <code>disp</code> indicates a general trend of decreasing <code>mpg</code> with increasing <code>disp</code>, while the positive coefficient for <code>disp^2</code> suggests that this relationship is not purely linear but has a quadratic component, indicating a change in the rate of decline of <code>mpg</code> as <code>disp</code> increases.</p>
+<p><strong>Residuals</strong>: Residuals are the differences between observed values and the values predicted by the model. The summary statistics of residuals (Min, 1Q (first quartile), Median, 3Q (third quartile), Max) suggest how well the model fits the data. Smaller residuals indicate a better fit.</p>
+<p><strong>Residual standard error</strong>: An estimate of the standard deviation of the residuals, which gives a measure of the quality of the fit. Here, it’s <code>2.837</code>, on <code>29</code> degrees of freedom.</p>
+<p><strong>Multiple R-squared</strong>: A measure of the proportion of variance in the dependent variable (<code>mpg</code>) that is predictable from the independent variables (<code>disp</code> and <code>I(disp^2)</code>). Here, <code>0.7927</code> indicates that approximately <code>79.27%</code> of the variability in <code>mpg</code> is explained by the model.</p>
+<p><strong>Adjusted R-squared</strong>: Adjusted for the number of predictors in the model, providing a more accurate measure of the goodness of fit. <code>0.7784</code> is quite high, suggesting a good fit.</p>
+<p><strong>F-statistic and its p-value</strong>: Tests the overall significance of the model. A very small p-value (<code>1.229e-10</code>) indicates that the model is statistically significant at explaining the variation in <code>mpg</code> compared to a model with no predictors.</p>
+</section>
+<section id="step-3-alternate-scenario" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-alternate-scenario">Step 3 (Alternate Scenario)</h3>
+<p>If the output from a quadratic regression on the <code>mtcars</code> dataset showed a significant linear term (<code>disp</code>) but an insignificant quadratic term (<code>I(disp^2)</code>), the interpretation would change as follows:</p>
+<ol type="1">
+<li><p><strong>Dominant Linear Relationship</strong>: A significant linear term alongside an insignificant quadratic term would suggest the relationship between engine displacement (<code>disp</code>) and miles per gallon (<code>mpg</code>) is primarily linear. This would mean <code>mpg</code> changes at a constant rate with changes in <code>disp</code>, without evident curvature.</p></li>
+<li><p><strong>Simpler Model Sufficiency</strong>: The insignificance of the quadratic term would imply that a simpler linear model might be just as effective in describing the relationship between <code>disp</code> and <code>mpg</code>, reducing the need for the added complexity of a quadratic term.</p></li>
+<li><p><strong>Coefficient Interpretation</strong>: With only the linear term significant, the coefficient for <code>disp</code> could be understood as the change in <code>mpg</code> for every one-unit change in <code>disp</code>, without considering curvature since the quadratic term doesn’t significantly contribute to the model.</p></li>
+<li><p><strong>Modeling Implications</strong>: The lack of significance for the quadratic term could prompt reconsideration of the model choice, suggesting perhaps a different variable or model type could better capture the dynamics between <code>disp</code> and <code>mpg</code>. If the quadratic term isn’t significant, it indicates a straight-line relationship between <code>disp</code> and <code>mpg</code>, questioning the necessity of a quadratic model. This emphasizes evaluating model complexity against the significance and practical relevance of the terms included.</p></li>
+</ol>
+</section>
+<section id="step-3-alternate-scenario-2" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-alternate-scenario-2">Step 3 (Alternate Scenario 2)</h3>
+<p>If the linear term (<code>disp</code>) was not significant but the quadratic term (<code>I(disp^2)</code>) was significant in the regression analysis, the interpretation would change as follows:</p>
+<ol type="1">
+<li><p><strong>Quadratic Relationship</strong>: The significance of the quadratic term over the linear term would suggest a curvilinear relationship between engine displacement (<code>disp</code>) and miles per gallon (<code>mpg</code>). This would imply that the effect of <code>disp</code> on <code>mpg</code> changes at different levels of <code>disp</code>, not simply increasing or decreasing in a straight line.</p></li>
+<li><p><strong>Non-linear Dynamics</strong>: The model would indicate that the relationship between <code>disp</code> and <code>mpg</code> cannot be adequately described by a linear model.</p></li>
+<li><p><strong>Model Complexity</strong>: A significant quadratic term with a non-significant linear term would justify the complexity of including the quadratic term in the model. It would suggest that understanding the relationship between <code>disp</code> and <code>mpg</code> requires acknowledging the nonlinear dynamics.</p></li>
+<li><p><strong>Interpreting the Coefficient</strong>: With a significant quadratic term, the effect of <code>disp</code> on <code>mpg</code> would be dependent on the value of <code>disp</code> itself, indicating the presence of an acceleration or deceleration in the rate at which <code>mpg</code> changes with <code>disp</code>. It might also suggest looking for a turning point in the relationship between <code>disp</code> and <code>mpg</code>, where the effect of increasing displacement on fuel efficiency starts to change direction.</p></li>
+</ol>
+</section>
+</section>
+<section id="comparing-models-with-without-quadratic-term" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-models-with-without-quadratic-term">Comparing Models with / without Quadratic term</h2>
+<p>To compare the quadratic regression model with the base linear model (without the quadratic term) for predicting miles per gallon (<code>mpg</code>) from engine displacement (<code>disp</code>) in the <code>mtcars</code> dataset, let us run the base model (model0).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the regression model without quadratic term</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>model0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>mtcars)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the model to view coefficients and statistics</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.8922 -2.2022 -0.9631  1.6272  7.2305 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 29.599855   1.229720  24.070  &lt; 2e-16 ***
+disp        -0.041215   0.004712  -8.747 9.38e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.251 on 30 degrees of freedom
+Multiple R-squared:  0.7183,    Adjusted R-squared:  0.709 
+F-statistic: 76.51 on 1 and 30 DF,  p-value: 9.38e-10</code></pre>
+</div>
+</div>
+<p>Let us look at several key aspects based on the provided output for both models.</p>
+<section id="base-model-linear" class="level3">
+<h3 class="anchored" data-anchor-id="base-model-linear">Base Model (Linear):</h3>
+<ul>
+<li><p><strong>Formula</strong>: <span class="math display">\[
+\text{mpg} = 29.60 - 0.0412 \times \text{disp} + \epsilon
+\]</span></p></li>
+<li><p><strong>Residual Standard Error (RSE)</strong>: 3.251, indicating the average distance that the observed values fall from the regression line.</p></li>
+<li><p><strong>Multiple R-squared</strong>: 0.7183, meaning approximately 71.83% of the variability in <code>mpg</code> is explained by the model.</p></li>
+<li><p><strong>Adjusted R-squared</strong>: 0.709, slightly lower than the R-squared, adjusted for the number of predictors.</p></li>
+<li><p><strong>F-statistic</strong>: 76.51, with a p-value of (9.38e-10), showing the model is statistically significant.</p></li>
+</ul>
+</section>
+<section id="model-with-quadratic-term" class="level3">
+<h3 class="anchored" data-anchor-id="model-with-quadratic-term">Model with Quadratic Term:</h3>
+<ul>
+<li><p><strong>Formula</strong>: <span class="math display">\[
+\text{mpg} = 35.83 - 0.1053 \times \text{disp} + 0.0001255 \times \text{disp}^2 + \epsilon
+\]</span></p></li>
+<li><p><strong>Residual Standard Error (RSE)</strong>: 2.837, lower than the base model, suggesting a better fit to the data.</p></li>
+<li><p><strong>Multiple R-squared</strong>: 0.7927, indicating approximately 79.27% of the variability in <code>mpg</code> is explained by this model, which is an improvement over the base model.</p></li>
+<li><p><strong>Adjusted R-squared</strong>: 0.7784, also higher than the base model, indicating a better fit when the number of predictors is considered.</p></li>
+<li><p><strong>F-statistic</strong>: 55.46 on 2 and 29 degrees of freedom, with a p-value of (1.229e-10), confirming statistical significance.</p></li>
+</ul>
+</section>
+<section id="comparison-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-and-interpretation">Comparison and Interpretation:</h3>
+<ol type="1">
+<li><p><strong>Fit Quality</strong>: The model with the quadratic term shows a lower Residual Standard Error (RSE) and higher R-squared values, suggesting it provides a better fit to the data compared to the base model. This indicates that adding the quadratic term captures more of the variability in <code>mpg</code>.</p></li>
+<li><p><strong>Model Complexity</strong>: The quadratic model is more complex due to the additional term. Despite this, the improvement in fit (as shown by the RSE and R-squared values) justifies the increased complexity.</p></li>
+<li><p><strong>Statistical Significance</strong>: Both models are statistically significant, but the improvement in the fit and explanatory power of the quadratic model suggests that the relationship between <code>disp</code> and <code>mpg</code> is not strictly linear but has a curvilinear component.</p></li>
+</ol>
+<p>Thus, the quadratic model provides a more accurate and nuanced understanding of how engine displacement affects fuel efficiency, as indicated by its statistical metrics and the significant quadratic term. This analysis demonstrates the value of exploring more complex models when linear relationships do not fully capture the dynamics between variables.</p>
+</section>
+</section>
+<section id="biquadratic-model" class="level2">
+<h2 class="anchored" data-anchor-id="biquadratic-model">Biquadratic model</h2>
+<p>We can fit a bi-quadratic regression model to the <code>mtcars</code> dataset in R. The following model predicts miles per gallon (<code>mpg</code>) based on both the engine displacement (<code>disp</code>) and horsepower (<code>hp</code>), including both their linear and quadratic terms.</p>
+<section id="model-equation" class="level3">
+<h3 class="anchored" data-anchor-id="model-equation">Model Equation:</h3>
+<p>The model can be represented as: <span class="math display">\[
+\text{mpg} = \beta_0 + \beta_1 \times \text{disp} + \beta_2 \times \text{disp}^2 + \beta_3 \times \text{hp} + \beta_4 \times \text{hp}^2 + \epsilon
+\]</span></p>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation:</h3>
+<p>Here is R code to implement the model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a bi-quadratic regression model</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> <span class="fu">I</span>(disp<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> hp <span class="sc">+</span> <span class="fu">I</span>(hp<span class="sc">^</span><span class="dv">2</span>), </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>mtcars)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the model to view coefficients and statistics</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp + I(disp^2) + hp + I(hp^2), data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.7428 -1.6602 -0.4269  1.2525  5.3432 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  3.946e+01  2.892e+00  13.646 1.24e-13 ***
+disp        -6.968e-02  2.536e-02  -2.748   0.0106 *  
+I(disp^2)    8.653e-05  4.120e-05   2.100   0.0452 *  
+hp          -9.864e-02  4.724e-02  -2.088   0.0464 *  
+I(hp^2)      2.026e-04  1.101e-04   1.840   0.0768 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.707 on 27 degrees of freedom
+Multiple R-squared:  0.8243,    Adjusted R-squared:  0.7982 
+F-statistic: 31.66 on 4 and 27 DF,  p-value: 7.758e-10</code></pre>
+</div>
+</div>
+</section>
+<section id="coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="coefficients">Coefficients:</h3>
+<ul>
+<li>**Intercept ((_0))**: The model’s intercept is approximately (39.46), suggesting the expected <code>mpg</code> when both <code>disp</code> and <code>hp</code> are 0.</li>
+<li>**disp ((_1))**: The coefficient of <code>-0.06968</code> for <code>disp</code> indicates that, holding other variables constant, a one-unit increase in <code>disp</code> is associated with a decrease of about (0.06968) units in <code>mpg</code>.</li>
+<li>**I(disp^2) ((_2))**: The positive coefficient <code>0.00008653</code> for the quadratic term of <code>disp</code> suggests that the effect of <code>disp</code> on <code>mpg</code> increases at a decreasing rate as <code>disp</code> increases.</li>
+<li>**hp ((_3))**: The coefficient of <code>-0.09864</code> for <code>hp</code> implies that, holding other variables constant, a one-unit increase in <code>hp</code> is associated with a decrease of about (0.09864) units in <code>mpg</code>.</li>
+<li>**I(hp^2) ((_4))**: The coefficient <code>0.0002026</code> for the quadratic term of <code>hp</code> indicates that the relationship between <code>hp</code> and <code>mpg</code> also increases at a decreasing rate as <code>hp</code> increases, though this effect is less statistically significant (p = 0.0768) than the linear terms.</li>
+</ul>
+</section>
+<section id="significance" class="level3">
+<h3 class="anchored" data-anchor-id="significance">Significance:</h3>
+<ul>
+<li>The asterisks (<code>*</code>, <code>.</code>) next to the coefficients denote their level of statistical significance, with more <code>*</code> indicating higher significance. All variables except for <code>I(hp^2)</code> are statistically significant at the (p &lt; 0.05) level, suggesting they have a meaningful contribution to the model. <code>I(hp^2)</code> is close to significance, suggesting a possible quadratic effect of horsepower on <code>mpg</code>.</li>
+</ul>
+</section>
+<section id="model-fit" class="level3">
+<h3 class="anchored" data-anchor-id="model-fit">Model Fit:</h3>
+<ul>
+<li><strong>Residual Standard Error</strong>: (2.707) on (27) degrees of freedom, indicating the standard deviation of the residuals.</li>
+<li><strong>Multiple R-squared</strong>: (0.8243), implying that approximately (82.43%) of the variability in <code>mpg</code> is explained by the model, which is a strong fit.</li>
+<li><strong>Adjusted R-squared</strong>: (0.7982), adjusted for the number of predictors, also indicates a good fit.</li>
+<li><strong>F-statistic</strong>: (31.66) on (4) and (27) DF, with a p-value of (7.758e-10), strongly suggests the model is statistically significant.</li>
+</ul>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation:</h3>
+<p>This bi-quadratic model suggests a complex relationship between <code>mpg</code> and both <code>disp</code> and <code>hp</code>, incorporating the effects of engine displacement and horsepower not just linearly but also how these effects change as <code>disp</code> and <code>hp</code> increase. The model’s high (R^2) values and significant F-statistic indicate a strong fit, capturing a significant portion of the variability in <code>mpg</code>.</p>
+</section>
+</section>
+</section>
 <section id="references" class="level1">
 <h1>References</h1>
 <p>[1]</p>
@@ -1273,10 +1651,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1286,8 +1663,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1300,6 +1686,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1343,6 +1848,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1368,6 +1874,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1436,10 +1968,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/">Sameer Mathur</a>
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/">
+<p>Sameer Mathur</p>
+</a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true">Aryeman Gupta Mathur</a>
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true">
+<p>Aryeman Gupta Mathur</p>
+</a>
   </li>  
 </ul>
     </div>
@@ -1448,6 +1984,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 
