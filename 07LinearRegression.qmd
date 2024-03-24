@@ -889,30 +889,26 @@ model2 <- lm(mpg ~ disp + I(disp^2) + hp + I(hp^2),
 summary(model2)
 ```
 
-
-
-
 ### Coefficients:
-- **Intercept (\(\beta_0\))**: The model's intercept is approximately \(39.46\), suggesting the expected `mpg` when both `disp` and `hp` are 0.
-- **disp (\(\beta_1\))**: The coefficient of `-0.06968` for `disp` indicates that, holding other variables constant, a one-unit increase in `disp` is associated with a decrease of about \(0.06968\) units in `mpg`.
-- **I(disp^2) (\(\beta_2\))**: The positive coefficient `0.00008653` for the quadratic term of `disp` suggests that the effect of `disp` on `mpg` increases at a decreasing rate as `disp` increases.
-- **hp (\(\beta_3\))**: The coefficient of `-0.09864` for `hp` implies that, holding other variables constant, a one-unit increase in `hp` is associated with a decrease of about \(0.09864\) units in `mpg`.
-- **I(hp^2) (\(\beta_4\))**: The coefficient `0.0002026` for the quadratic term of `hp` indicates that the relationship between `hp` and `mpg` also increases at a decreasing rate as `hp` increases, though this effect is less statistically significant (p = 0.0768) than the linear terms.
+
+- **Intercept ($\beta_0$)**: The model's intercept is approximately $39.46$, suggesting the expected `mpg` when both `disp` and `hp` are 0.
+- **disp ($\beta_1$)**: The coefficient of `$-0.06968$` for `disp` indicates that, holding other variables constant, a one-unit increase in `disp` is associated with a decrease of about $0.06968$ units in `mpg`.
+- **I(disp^2) ($\beta_2$)**: The positive coefficient $0.00008653$ for the quadratic term of `disp` suggests that the effect of `disp` on `mpg` increases at a decreasing rate as `disp` increases.
+- **hp ($\beta_3$)**: The coefficient of `$-0.09864$` for `hp` implies that, holding other variables constant, a one-unit increase in `hp` is associated with a decrease of about $0.09864$ units in `mpg`.
+- **I(hp^2) ($\beta_4$)**: The coefficient $0.0002026$ for the quadratic term of `hp` indicates that the relationship between `hp` and `mpg` also increases at a decreasing rate as `hp` increases, though this effect is less statistically significant (p = $0.0768$) than the linear terms.
+
 
 ### Significance:
-- The asterisks (`*`, `.`) next to the coefficients denote their level of statistical significance, with more `*` indicating higher significance. All variables except for `I(hp^2)` are statistically significant at the \(p < 0.05\) level, suggesting they have a meaningful contribution to the model. `I(hp^2)` is close to significance, suggesting a possible quadratic effect of horsepower on `mpg`.
+- The asterisks (`*`, `.`) next to the coefficients denote their level of statistical significance, with more `*` indicating higher significance. All variables except for `I(hp^2)` are statistically significant at the $p < 0.05$ level, suggesting they have a meaningful contribution to the model. `I(hp^2)` is close to significance, suggesting a possible quadratic effect of horsepower on `mpg`.
 
 ### Model Fit:
-- **Residual Standard Error**: \(2.707\) on \(27\) degrees of freedom, indicating the standard deviation of the residuals.
-- **Multiple R-squared**: \(0.8243\), implying that approximately \(82.43\%\) of the variability in `mpg` is explained by the model, which is a strong fit.
-- **Adjusted R-squared**: \(0.7982\), adjusted for the number of predictors, also indicates a good fit.
-- **F-statistic**: \(31.66\) on \(4\) and \(27\) DF, with a p-value of \(7.758e-10\), strongly suggests the model is statistically significant.
+- **Residual Standard Error**: $2.707$ on $27$ degrees of freedom, indicating the standard deviation of the residuals.
+- **Multiple R-squared**: $0.8243$, implying that approximately $82.43\%$ of the variability in `mpg` is explained by the model, which is a strong fit.
+- **Adjusted R-squared**: $0.7982$, adjusted for the number of predictors, also indicates a good fit.
+- **F-statistic**: $31.66$ on $4$ and $27$ DF, with a p-value of $7.758e-10$, strongly suggests the model is statistically significant.
 
 ### Interpretation:
 This bi-quadratic model suggests a complex relationship between `mpg` and both `disp` and `hp`, incorporating the effects of engine displacement and horsepower not just linearly but also how these effects change as `disp` and `hp` increase. The model's high \(R^2\) values and significant F-statistic indicate a strong fit, capturing a significant portion of the variability in `mpg`.
-
-
-
 
 
 # References
