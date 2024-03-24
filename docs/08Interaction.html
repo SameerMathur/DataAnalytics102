@@ -308,7 +308,7 @@ window.Quarto = {
 
 <section id="interactions" class="level1">
 <h1>Interactions</h1>
-<p><em>July 26, 2023..</em></p>
+<p><em>Mar 23, 2024</em></p>
 <p>A regression model with an interaction term allows us to examine how the relationship between the outcome variable and one predictor variable changes depending on the level of another predictor variable. It is a useful tool for modeling complex relationships between predictor variables and outcome variables.</p>
 <p><strong>Example 1</strong></p>
 <ol type="1">
@@ -563,33 +563,31 @@ F-statistic: 32.36 on 5 and 26 DF,  p-value: 2.258e-10</code></pre>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model WITHOUT interaction between wt and cyl</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*+</span> cyl, <span class="at">data =</span> mtcars)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> cyl, <span class="at">data =</span> mtcars)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary of the model</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = mpg ~ wt * +cyl, data = mtcars)
+lm(formula = mpg ~ wt + cyl, data = mtcars)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--4.1513 -1.3798 -0.6389  1.4938  5.2523 
+-4.5890 -1.2357 -0.5159  1.3845  5.7915 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)   39.571      3.194  12.389 2.06e-12 ***
-wt            -5.647      1.359  -4.154 0.000313 ***
-cyl6         -11.162      9.355  -1.193 0.243584    
-cyl8         -15.703      4.839  -3.245 0.003223 ** 
-wt:cyl6        2.867      3.117   0.920 0.366199    
-wt:cyl8        3.455      1.627   2.123 0.043440 *  
+(Intercept)  33.9908     1.8878  18.006  &lt; 2e-16 ***
+wt           -3.2056     0.7539  -4.252 0.000213 ***
+cyl6         -4.2556     1.3861  -3.070 0.004718 ** 
+cyl8         -6.0709     1.6523  -3.674 0.000999 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 2.449 on 26 degrees of freedom
-Multiple R-squared:  0.8616,    Adjusted R-squared:  0.8349 
-F-statistic: 32.36 on 5 and 26 DF,  p-value: 2.258e-10</code></pre>
+Residual standard error: 2.557 on 28 degrees of freedom
+Multiple R-squared:  0.8374,    Adjusted R-squared:   0.82 
+F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11</code></pre>
 </div>
 </div>
 <ol start="2" type="1">

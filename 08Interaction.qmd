@@ -1,6 +1,6 @@
 # Interactions
 
-*July 26, 2023..*
+*Mar 23, 2024*
 
 A regression model with an interaction term allows us to examine how the relationship between the outcome variable and one predictor variable changes depending on the level of another predictor variable. It is a useful tool for modeling complex relationships between predictor variables and outcome variables.
 
@@ -231,7 +231,7 @@ data(mtcars)
 mtcars$cyl <- factor(mtcars$cyl)
 
 # Fit a linear regression model WITHOUT interaction between wt and cyl
-model1 <- lm(mpg ~ wt *+ cyl, data = mtcars)
+model1 <- lm(mpg ~ wt + cyl, data = mtcars)
 
 # Display the summary of the model
 summary(model1)
