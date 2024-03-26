@@ -295,6 +295,16 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">Comparison:</a></li>
   </ul></li>
+  <li><a href="#example-3-linear-regression-with-interaction-in-r" id="toc-example-3-linear-regression-with-interaction-in-r" class="nav-link" data-scroll-target="#example-3-linear-regression-with-interaction-in-r">Example 3: Linear Regression with Interaction in R</a>
+  <ul class="collapse">
+  <li><a href="#coefficients" id="toc-coefficients" class="nav-link" data-scroll-target="#coefficients">Coefficients</a></li>
+  <li><a href="#residuals" id="toc-residuals" class="nav-link" data-scroll-target="#residuals">Residuals</a></li>
+  <li><a href="#residual-standard-error" id="toc-residual-standard-error" class="nav-link" data-scroll-target="#residual-standard-error">Residual Standard Error</a></li>
+  <li><a href="#r-squared-values" id="toc-r-squared-values" class="nav-link" data-scroll-target="#r-squared-values">R-squared values</a></li>
+  <li><a href="#f-statistic" id="toc-f-statistic" class="nav-link" data-scroll-target="#f-statistic">F-statistic</a></li>
+  <li><a href="#model-fit-and-predictive-power" id="toc-model-fit-and-predictive-power" class="nav-link" data-scroll-target="#model-fit-and-predictive-power">Model Fit and Predictive Power</a></li>
+  <li><a href="#statistical-significance" id="toc-statistical-significance" class="nav-link" data-scroll-target="#statistical-significance">Statistical Significance</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -308,7 +318,7 @@ window.Quarto = {
 
 <section id="interactions" class="level1">
 <h1>Interactions</h1>
-<p><em>Mar 23, 2024</em></p>
+<p><em>Mar 26, 2024</em></p>
 <p>A regression model with an interaction term allows us to examine how the relationship between the outcome variable and one predictor variable changes depending on the level of another predictor variable. It is a useful tool for modeling complex relationships between predictor variables and outcome variables.</p>
 <p><strong>Example 1</strong></p>
 <ol type="1">
@@ -389,8 +399,7 @@ window.Quarto = {
 <li><p>If <span class="math inline">\(β_3\)</span> is zero, it means that there is no interaction between <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, and the effect of <span class="math inline">\(X_1\)</span> on <span class="math inline">\(Y\)</span> is constant across all levels of <span class="math inline">\(X_2\)</span>.</p></li>
 </ul>
 <ol start="6" type="1">
-<li>The regression equation can be used to estimate the expected value of <span class="math inline">\(Y\)</span> for a given combination of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, as well as to test the significance of the coefficients and the overall fit of the model.</li>
-<li>The interpretation of the coefficients depends on the scale and measurement of the predictor and outcome variables, as well as the assumptions and limitations of the model. Therefore, it is important to carefully select and preprocess the data, specify and test the model assumptions, and interpret the results in the context of the research question and design. [5]</li>
+<li>The regression equation can be used to estimate the expected value of <span class="math inline">\(Y\)</span> for a given combination of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, as well as to test the significance of the coefficients and the overall fit of the model. [5]</li>
 </ol>
 </section>
 <section id="example-1-linear-regression-with-interaction-in-r" class="level2">
@@ -399,13 +408,13 @@ window.Quarto = {
 <li>In this example, we will create a model to predict the miles per gallon (<strong><code>mpg</code></strong>) of a car based on its weight (<strong><code>wt</code></strong>) and whether it has an automatic (<strong><code>am=0</code></strong>) or manual transmission (<strong><code>am=1</code></strong>):</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load mtcars dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>am)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fit a linear regression model with interaction</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> am, <span class="at">data =</span> mtcars)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert am to a factor variable</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>am)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># fit a linear regression model with interaction</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> am, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> mtcars)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print the model summary</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -437,32 +446,31 @@ F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
 <li><p>The <strong><code>*</code></strong> operator is used to include an interaction term between <strong><code>wt</code></strong> and <strong><code>am</code></strong>.</p></li>
 <li><p>View the summary of the model by running <strong><code>summary(model)</code></strong>. This displays the coefficients for each variable in the model, as well as the interaction term.</p></li>
 <li><p>The output shows the summary statistics for the <em>residuals</em> (i.e., the difference between the predicted values and the actual values of the response variable). The minimum and maximum values of the residuals are shown, as well as the first quartile (1Q), median, and third quartile (3Q) values.</p></li>
-<li><p>It also displays the estimates of the regression coefficients, which represent the average change in the response variable (mpg) associated with a one-unit increase in the predictor variable, while holding all other variables constant.</p>
+<li><p>It also displays the estimates of the regression <em>beta coefficients</em>, which represent the average change in the response variable <code>(mpg)</code>, each associated with a one-unit increase in the predictor variable, while holding all other variables constant.</p>
 <ul>
-<li><p>The intercept coefficient represents the predicted average mpg when weight is 0 and am is 0 (i.e., for automatic transmission). In this case, the intercept is 31.4161, meaning that the predicted average mpg for cars with automatic transmission and weight 0 is 31.4161.</p></li>
-<li><p>The weight coefficient (wt) represents the predicted change in average mpg for a one-unit increase in weight, while holding am constant. In this case, the weight coefficient is -3.7859, meaning that for every one-unit increase in weight, the predicted average mpg decreases by 3.7859 units.</p></li>
-<li><p>The am1 coefficient represents the difference in average mpg between cars with manual transmission (am=1) and automatic transmission (am=0), while holding weight constant. In this case, the am1 coefficient is 14.8784, meaning that the predicted average mpg for cars with manual transmission is 14.8784 units higher than the predicted average mpg for cars with automatic transmission, while holding weight constant.</p></li>
-<li><p>The wt:am1 coefficient represents the interaction effect between weight and transmission type. In this case, the wt:am1 coefficient is -5.2984, meaning that the effect of weight on mpg depends on the transmission type, and the effect is significant (i.e., the p-value is less than 0.05).</p></li>
+<li><p>The intercept coefficient represents the predicted average <code>mpg</code> when weight is 0 and <code>am</code> is 0 (i.e., for automatic transmission). In this case, the intercept is <code>31.4161</code>, meaning that the predicted average <code>mpg</code> for cars with automatic transmission and weight 0 is <code>31.4161</code>.</p></li>
+<li><p>The weight coefficient (<code>wt</code>) represents the predicted change in average mpg for a one-unit increase in weight, while holding <code>am</code> constant. In this case, the weight coefficient is <code>-3.7859</code>, meaning that for every one-unit increase in weight, the predicted average mpg decreases by <code>3.7859</code> units.</p></li>
+<li><p>The <code>am1</code> coefficient represents the difference in average mpg between cars with manual transmission <code>(am=1)</code> and automatic transmission <code>(am=0)</code>, while holding weight constant. In this case, the <code>am1</code> coefficient is <code>14.8784</code>, meaning that the predicted average mpg for cars with manual transmission is <code>14.8784</code> units higher than the predicted average <code>mpg</code> for cars with automatic transmission, while holding weight constant.</p></li>
+<li><p>The <code>wt:am1</code> coefficient represents the interaction effect between weight and transmission type. In this case, the wt:am1 coefficient is <code>-5.2984</code>, meaning that the effect of <code>wt</code> on <code>mpg</code> depends on the transmission type, and the effect is significant (i.e., the p-value is less than 0.05).</p></li>
 </ul></li>
-<li><p>Residual standard error: This is an estimate of the standard deviation of the errors (residuals). In this case, the residual standard error is 2.591, meaning that the model’s predictions are typically off by about 2.591 mpg.</p></li>
-<li><p>Multiple R-squared: 0.833, Adjusted R-squared: 0.8151</p></li>
+<li><p><em>Residual standard error</em>: This is an estimate of the standard deviation of the errors (residuals). In this case, the residual standard error is 2.591, meaning that the model’s predictions are typically off by about 2.591 mpg.</p></li>
+<li><p><em>Multiple R-squared</em>: 0.833, <em>Adjusted R-squared</em>: 0.8151</p></li>
 </ol>
 <p><strong>As a reference benchmark, we can run the model WITHOUT the interaction term.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the mtcars dataset</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert am to a factor variable</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>am)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional code to change the labels of the factor variable, if necessary</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars$am &lt;- factor(mtcars$am, labels = c("Automatic", "Manual"))</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model without an interaction term</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>model0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary of the model</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert am to a factor variable</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>am)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional code to change the labels of the factor variable, if necessary</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars$am &lt;- factor(mtcars$am, labels = c("Automatic", "Manual"))</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model without an interaction term</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>model0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> am, </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> mtcars)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary of the model</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -486,8 +494,8 @@ F-statistic: 44.17 on 2 and 29 DF,  p-value: 1.579e-09</code></pre>
 </div>
 </div>
 <ol type="1">
-<li><p>As you can see, the model output now only has three coefficients, corresponding to the intercept, weight (wt), and transmission type (am).</p></li>
-<li><p>The output shows that there is no significant difference in average mpg between cars with automatic and manual transmission types (p &gt; 0.05), after controlling for weight.</p></li>
+<li><p>As we can see, the model output now only has three coefficients, corresponding to the intercept, weight <code>(wt)</code>, and transmission type <code>(am)</code>.</p></li>
+<li><p>The output shows that there is no significant difference in average <code>mpg</code> between cars with automatic and manual transmission types (p &gt; 0.05), after controlling for weight.</p></li>
 <li><p>The other coefficients are interpreted in the same way as before.</p></li>
 </ol>
 <div style="page-break-after: always;"></div>
@@ -500,17 +508,16 @@ F-statistic: 44.17 on 2 and 29 DF,  p-value: 1.579e-09</code></pre>
 <li><p>Here is the R code</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the mtcars dataset</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert cyl to a factor variable</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model with interaction between wt and cyl</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> cyl, <span class="at">data =</span> mtcars)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary of the model</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert cyl to a factor variable</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model with interaction between wt and cyl</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> cyl, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> mtcars)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary of the model</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -538,7 +545,6 @@ F-statistic: 32.36 on 5 and 26 DF,  p-value: 2.258e-10</code></pre>
 </div>
 <p>In this model, we are regressing <strong><code>mpg</code></strong> on the main effects of <strong><code>wt</code></strong> and <strong><code>cyl</code></strong>, as well as the interaction term <strong><code>wt:cyl</code></strong>.</p>
 <ul>
-<li><p><strong><code>Call</code></strong>: This shows the call to the <strong><code>lm()</code></strong> function that was used to fit the linear regression model. The formula <strong><code>mpg ~ wt * cyl</code></strong> specifies that we are regressing <strong><code>mpg</code></strong> on the main effects of <strong><code>wt</code></strong> and <strong><code>cyl</code></strong>, as well as the interaction term <strong><code>wt:cyl</code></strong>. The <strong><code>data = mtcars</code></strong> argument specifies that the data should be taken from the <strong><code>mtcars</code></strong> dataset.</p></li>
 <li><p><strong><code>Residuals</code></strong>: This shows the residuals of the model, which are the differences between the observed <strong><code>mpg</code></strong> values and the predicted <strong><code>mpg</code></strong> values from the model. The minimum residual is -4.1513, the maximum residual is 5.2523, and the median residual is -0.6389.</p></li>
 <li><p><strong><code>Coefficients</code></strong>: This table shows the estimated coefficients of the linear regression model. The <strong><code>Estimate</code></strong> column shows the estimated effect of each variable on <strong><code>mpg</code></strong>, while the <strong><code>Std. Error</code></strong> column shows the standard error of each estimate. The <strong><code>t value</code></strong> column shows the t-value for each coefficient, which is calculated by dividing the estimated effect by its standard error.</p></li>
 <li><p>The <strong><code>Pr(&gt;|t|)</code></strong> column shows the p-value for the t-test of each coefficient. If the p-value is less than 0.05, we can reject the null hypothesis that the coefficient is equal to zero, and conclude that the variable has a significant effect on <strong><code>mpg</code></strong>.</p></li>
@@ -604,6 +610,145 @@ F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11</code></pre>
 <li><p>On the other hand, the second model assumes that the effect of <strong><code>wt</code></strong> on <strong><code>mpg</code></strong> is the same across all levels of <strong><code>cyl</code></strong>. This means that the second model is more parsimonious than the first model, as it has fewer parameters to estimate. However, it may not capture the full complexity of the relationship between <strong><code>wt</code></strong>, <strong><code>cyl</code></strong>, and <strong><code>mpg</code></strong>.</p></li>
 <li><p>In terms of model fit, the first model (<strong><code>mpg ~ wt * cyl</code></strong>) has a slightly higher adjusted R-squared value (0.8349) compared to the second model’s adjusted R-squared (0.8349). This suggests that the first model explains a slightly larger proportion of the variability in <strong><code>mpg</code></strong> compared to the second model. However, the difference in adjusted R-squared values is relatively small, and both models have a high degree of explanatory power.</p></li>
 </ol>
+</section>
+</section>
+<section id="example-3-linear-regression-with-interaction-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="example-3-linear-regression-with-interaction-in-r">Example 3: Linear Regression with Interaction in R</h2>
+<ol type="1">
+<li><p>In this example, we will create a model to predict the miles per gallon (<strong><code>mpg</code></strong>) of a car based on its weight (<strong><code>wt</code></strong>) and the horsepower (<strong><code>hp</code></strong>) of the engine.</p></li>
+<li><p>Specifically, both the explanatory variables weight (<strong><code>wt</code></strong>) and horsepower are continuous variables.</p></li>
+<li><p>Here is the R code</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model with interaction between wt and hp</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> hp, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> mtcars)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary of the model</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt * hp, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.0632 -1.6491 -0.7362  1.4211  4.5513 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 49.80842    3.60516  13.816 5.01e-14 ***
+wt          -8.21662    1.26971  -6.471 5.20e-07 ***
+hp          -0.12010    0.02470  -4.863 4.04e-05 ***
+wt:hp        0.02785    0.00742   3.753 0.000811 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.153 on 28 degrees of freedom
+Multiple R-squared:  0.8848,    Adjusted R-squared:  0.8724 
+F-statistic: 71.66 on 3 and 28 DF,  p-value: 2.981e-13</code></pre>
+</div>
+</div>
+<section id="coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="coefficients">Coefficients</h3>
+<p>This section lists the estimated coefficients for the intercept, <code>wt</code>, <code>hp</code>, and the interaction term <code>wt:hp</code>, along with their standard errors, t-values, and p-values.</p>
+<section id="intercept-49.80842" class="level4">
+<h4 class="anchored" data-anchor-id="intercept-49.80842">Intercept (49.80842)</h4>
+<ul>
+<li>This is the expected value of <code>mpg</code> when both <code>wt</code> and <code>hp</code> are 0. Since it’s not practical for <code>wt</code> and <code>hp</code> to be 0 in real-world scenarios, the intercept here is more of a statistical artifact rather than something with a practical interpretation.</li>
+</ul>
+</section>
+<section id="main-effects" class="level4">
+<h4 class="anchored" data-anchor-id="main-effects">Main Effects</h4>
+<ul>
+<li><p><strong><code>wt</code> (-8.21662):</strong> This coefficient represents the change in <code>mpg</code> for a one-unit increase in <code>wt</code> (weight of the car), holding <code>hp</code> (horsepower) constant. Specifically, for each 1,000 lbs increase in weight, <code>mpg</code> is expected to decrease by about 8.22 miles per gallon, assuming the interaction effect remains constant.</p></li>
+<li><p><strong><code>hp</code> (-0.12010):</strong> This coefficient shows the change in <code>mpg</code> for a one-unit increase in <code>hp</code>, holding <code>wt</code> constant. For each additional horsepower, <code>mpg</code> is expected to decrease by about 0.12 miles per gallon, assuming the interaction effect remains constant.</p></li>
+</ul>
+</section>
+<section id="interaction-term-wthp-0.02785" class="level4">
+<h4 class="anchored" data-anchor-id="interaction-term-wthp-0.02785">Interaction Term (<code>wt:hp</code> 0.02785)</h4>
+<ul>
+<li><p>The interaction term indicates how the effect of one predictor on the response variable changes as the value of the other predictor changes. In this case, the positive coefficient (0.02785) for the <code>wt:hp</code> interaction suggests that the negative impact of increasing <code>wt</code> on <code>mpg</code> becomes less negative (or more positive) as <code>hp</code> increases. Similarly, the negative impact of increasing <code>hp</code> on <code>mpg</code> becomes less negative as <code>wt</code> increases.</p></li>
+<li><p>To put it another way, the interaction term suggests that the relationship between <code>wt</code> and <code>mpg</code> is not constant but varies depending on the level of <code>hp</code>, and vice versa. The positive sign indicates that heavier cars with more horsepower have a smaller decrease in fuel efficiency than would be expected by simply considering the main effects of <code>wt</code> and <code>hp</code> separately.</p></li>
+</ul>
+</section>
+</section>
+<section id="residuals" class="level3">
+<h3 class="anchored" data-anchor-id="residuals">Residuals</h3>
+<p>Residuals are the differences between observed values of the dependent variable (mpg) and the values predicted by the model. The summary statistics of residuals (minimum, 1st quartile, median, 3rd quartile, maximum) help assess the goodness of fit. Ideally, residuals should be symmetrically distributed around zero, indicating that the model doesn’t systematically underpredict or overpredict across the range of data.</p>
+</section>
+<section id="residual-standard-error" class="level3">
+<h3 class="anchored" data-anchor-id="residual-standard-error">Residual Standard Error</h3>
+<p>The residual standard error (RSE) of 2.153 on 28 degrees of freedom indicates the average amount by which the observed values deviate from the values predicted by the model. Lower values indicate a better fit.</p>
+</section>
+<section id="r-squared-values" class="level3">
+<h3 class="anchored" data-anchor-id="r-squared-values">R-squared values</h3>
+<ul>
+<li><strong>Multiple R-squared: 0.8848</strong>: This indicates that about 88.48% of the variability in <code>mpg</code> can be explained by the model, which is quite high.</li>
+<li><strong>Adjusted R-squared: 0.8724</strong>: This is a modification of the R-squared that adjusts for the number of predictors in the model. It’s slightly lower than the R-squared, which is expected, but still indicates a good fit.</li>
+</ul>
+</section>
+<section id="f-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="f-statistic">F-statistic</h3>
+<p>The F-statistic of 71.66 with a p-value of 2.981e-13 tests the overall significance of the model. A very small p-value here (&lt; 0.05) indicates that at least one of the predictors (<code>wt</code>, <code>hp</code>, or the interaction <code>wt:hp</code>) is likely to have a non-zero coefficient, meaning the model is significant.</p>
+<p><strong>As a reference benchmark, we can run the model without the interaction term.</strong></p>
+<p>Here’s the R code for regressing <strong><code>mpg</code></strong> on <strong><code>wt</code></strong> and <strong><code>hp</code></strong> (without an interaction term):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model WITHOUT interaction between wt and hp</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> mtcars)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary of the model</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt + hp, data = mtcars)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-3.941 -1.600 -0.182  1.050  5.854 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 37.22727    1.59879  23.285  &lt; 2e-16 ***
+wt          -3.87783    0.63273  -6.129 1.12e-06 ***
+hp          -0.03177    0.00903  -3.519  0.00145 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.593 on 29 degrees of freedom
+Multiple R-squared:  0.8268,    Adjusted R-squared:  0.8148 
+F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12</code></pre>
+</div>
+</div>
+<p>To compare the models, let’s look at the key differences between the model with the interaction term and the one without it</p>
+<section id="coefficients-and-their-significance" class="level4">
+<h4 class="anchored" data-anchor-id="coefficients-and-their-significance">Coefficients and Their Significance</h4>
+<ul>
+<li><p>The coefficients for <code>wt</code> and <code>hp</code> in <code>model3</code> are significantly different when the interaction is included, reflecting the complexity added by considering the interaction. In <code>model4</code>, the coefficients suggest a simpler relationship.</p></li>
+<li><p>The interaction model (<code>model3</code>) indicates a nuanced relationship where the effect of one variable depends on the level of the other. This is missing in <code>model4</code>, which might lead to less accurate predictions for combinations of <code>wt</code> and <code>hp</code> where the interaction effect is strong.</p></li>
+</ul>
+</section>
+</section>
+<section id="model-fit-and-predictive-power" class="level3">
+<h3 class="anchored" data-anchor-id="model-fit-and-predictive-power">Model Fit and Predictive Power</h3>
+<ul>
+<li><p><strong>R-squared:</strong> <code>model3</code> has a higher R-squared (0.8848) compared to <code>model4</code> (0.8268), indicating that including the interaction term explains a higher proportion of variance in <code>mpg</code>. This suggests a better overall fit to the data.</p></li>
+<li><p><strong>Adjusted R-squared:</strong> Reflecting the number of predictors and the sample size, <code>model3</code> also shows a higher adjusted R-squared (0.8724 vs.&nbsp;0.8148), confirming that despite the complexity added by the interaction term, the model’s explanatory power improves.</p></li>
+<li><p><strong>Residual Standard Error:</strong> <code>model3</code> has a lower residual standard error compared to <code>model4</code> (2.153 vs.&nbsp;2.593), indicating that predictions from the interaction model are, on average, closer to the observed values.</p></li>
+</ul>
+</section>
+<section id="statistical-significance" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-significance">Statistical Significance</h3>
+<ul>
+<li>Both models show statistical significance overall (based on F-statistics and their p-values), but the interaction model provides a more nuanced understanding by highlighting the significant role of the interaction between <code>wt</code> and <code>hp</code>.</li>
+</ul>
+<p>Including an interaction term in a regression model, as seen in <code>model3</code>, can uncover more complex relationships between predictors and the response variable that are not apparent when predictors are considered independently, as in <code>model4</code>. The interaction model has a better fit and predictive power for the <code>mtcars</code> dataset, as evidenced by the higher R-squared, lower residual standard error, and the significance of the interaction term. This suggests that the decrease in <code>mpg</code> due to increases in <code>wt</code> and <code>hp</code> is not simply additive; rather, it depends on the combined effect of these two variables.</p>
 </section>
 </section>
 </section>
