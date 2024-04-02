@@ -52,14 +52,14 @@ In log-linear regression, like other forms of regression analysis, we make sever
 
 ## MODEL 1: Base Model
 
-## 1. Reading the data
+1. Reading the data
 
 ```{r}
 data(mtcars)
 attach(mtcars)
 ```
 
-## 2. Predict a mpg of car from their weight
+2. Predict a mpg of car from their weight
 
 ### Plot mpg and wt
 
@@ -69,14 +69,13 @@ plot(wt
      , xlab="weight", ylab="mpg")
 ```
 
-## 3. Fitting a Linear Model
-
 ### Simple Linear Regression
 
 ```{r}
 fit <- lm(mpg ~ wt, data = mtcars)
 summary(fit)
 ```
+4. Plot
 
 ```{r}
 plot(mtcars$wt,
@@ -94,13 +93,15 @@ fit$coefficients
 
 ```
 
-### Lists the predicted values in a fitted model
+### Predict 
+
+We can list the predicted values in a fitted model
 
 ```{r}
 fitted(fit)
 ```
 
-### Lists the residual values in a fitted model
+### Residuals
 
 Residuals are the vertical distances between the data and the fitted line. The Ordinary Least Squares (OLS) method minimizes the residuals. In OLS, the accuracy of a line through the sample data points is measured by the sum of squared residuals, and the goal is to make this sum as small as possible.
 
@@ -109,25 +110,44 @@ residuals(fit)
 
 ```
 
-### Statistical Significance and p-values
+Statistical Significance and p-values
 
 -   The regression coefficient (3.45) is significantly dfferent from zero (p \< 0.001)
 
 -   There is an expected increase of 3.45 lbs of weight for every 1 inch increases in height.
 
-### Multiple R-squred
+### Fit
+
+We can get the Multiple R-squared
 
 ```{r}
-# extacting the coefficient of determination
-summary(fit)$r.squared 
+# Summary of the model to get various statistics
+model_summary <- summary(fit)
+
+# Extracting Multiple R-squared value
+model_summary$r.squared 
 
 ```
 
-### Compute Confidence Interval for Linear Regression
+
+We can also get the Adjusted R-squared
+
+```{r}
+# Extracting Adjusted R-squared value
+model_summary$adj.r.squared
+```
+
+
+### Confidence Intervals
+
+We can compute Confidence Interval for a prediction.
+
 
 ```{r}
 newdata = data.frame(wt = 4)
-predict(fit, newdata, interval = "confidence") 
+predict(fit, 
+        newdata, 
+        interval = "confidence") 
 
 ```
 
@@ -135,28 +155,79 @@ predict(fit, newdata, interval = "confidence")
 
 The F-statistic tests whether the predictor variables, taken together,predict the response variable.
 
+
+
+
+
 ## MODEL 2: Log-Linear Model
+
+Model 2 employs a log-linear regression approach to understand the relationship between the weight (`wt`) of cars and their fuel efficiency (`mpg`) in the `mtcars` dataset. Unlike a simple linear regression model which predicts `mpg` directly from `wt`, this model predicts the logarithm of `mpg` based on `wt`. This transformation allows us to model a multiplicative relationship between the dependent and independent variables, which can be more appropriate for certain types of data and relationships.
 
 ```{r}
 fit2 <- lm(log(mpg) ~ wt, data = mtcars)
 summary(fit2)
 ```
 
-The beta estimate for wt in the above regression is -0.27178.
 
-This means that for a one-unit increase in the weight of a car, the expected value of the log of its miles per gallon (mpg) is expected to decrease by -0.27178 units, after controlling for other variables in the model.
+### Model Output and Interpretation
 
-Since the response variable (log(mpg)) is on a logarithmic scale, the beta estimate for wt indicates a multiplicative effect on the mpg, rather than an additive effect.
+The output of the model can be summarized and interpreted as follows:
+
+#### Residuals
+The residuals, or differences between the observed and predicted values of `log(mpg)`, have a median close to zero (-0.006136), indicating that the model's predictions are, on average, accurate. The range of residuals from the minimum (-0.210346) to the maximum (0.308623) suggests that most predictions are within this range of the actual log values.
+
+#### Coefficients
+
+- **Intercept (3.83191):** This value indicates the expected value of `log(mpg)` when `wt` is 0. It's a theoretical intercept since a car's weight cannot be zero, but it helps anchor the regression line.
+
+- **Weight (wt) Coefficient (-0.27178):** This coefficient represents the expected change in `log(mpg)` for a one-unit increase in car weight. Specifically, for each one-unit increase in weight, `log(mpg)` is expected to decrease by 0.27178 units. This negative relationship suggests that heavier cars tend to have lower fuel efficiency.
+
+#### Significance
+The p-values for both the intercept and weight coefficient are well below the standard thresholds (e.g., 0.05, 0.01), indicating that these coefficients are statistically significant and that weight is a meaningful predictor of `log(mpg)`.
+
+#### Model Fit
+- **Residual Standard Error (RSE): 0.1362** on 30 degrees of freedom indicates the average amount by which the predicted values deviate from the actual values.
+
+- **Multiple R-squared (0.7976):** This statistic indicates that approximately 79.76% of the variability in `log(mpg)` can be explained by the model. It's a measure of the model's goodness of fit.
+
+- **Adjusted R-squared (0.7908):** This adjusts the R-squared value for the number of predictors in the model and suggests that after adjustment, about 79.08% of the variability in `log(mpg)` is explained by the model.
+
+- **F-statistic (118.2):** This value tests the overall significance of the model. The very low p-value (6.31e-12) associated with the F-statistic indicates that the model is statistically significant.
+
+
+
+
+### Interpretation of the Beta Coefficient
+
+The beta coefficient for `wt` in our log-linear regression model is -0.27178. This statistic tells us about the relationship between a car's weight and its fuel efficiency (mpg), with the mpg being logarithmically transformed.
+
+In practical terms, a one-unit increase in a car's weight is associated with a decrease of 0.27178 in the log of its mpg. This relationship is multiplicative due to the log transformation of the mpg variable.
+
+To understand the impact of this coefficient in more intuitive terms, we can use the mathematical operation `exp(-0.27178)`:
 
 ```{r}
 exp(-0.27178)
 ```
 
-Specifically, we can interpret the beta estimate as suggesting that the expected ratio of mpg for two cars that differ by one unit in weight is e\^(-0.27178) = 0.7620219
+This calculation gives us approximately 0.762, or 76.2%. 
 
-In other words, we would expect the car with the higher weight to have a fuel efficiency that is approximately 76.2% lower than the car with the lower weight, after controlling for other factors in the model.
+This figure can be interpreted as follows: for every one-unit increase in weight, the fuel efficiency of a car is expected to be about 76.2% of what it would be if it were one unit lighter, all else being equal. 
 
-## MODEL 3a: Another Linear-Linear Model
+This means that **the heavier car's fuel efficiency is 76.2% of the lighter car's efficiency**, representing a significant decrease in efficiency due to the increase in weight.
+
+Hence, the beta coefficient of -0.27178 signifies a strong negative impact of weight on a car's fuel efficiency, illustrating that as a car's weight increases, its fuel efficiency substantially decreases, when other factors are held constant.
+
+
+
+
+
+
+
+## Another Log-Linear Model
+
+We present two regression models, Model 3a (Linear-Linear Model) and Model 3b (Log-Linear Model), using the `mtcars` dataset. Both models aim to predict the miles per gallon (`mpg`) of cars based on their weight (`wt`) and transmission type (`am`, with levels "Automatic" and "Manual"). 
+
+### Model 3a - Linear-Linear Model
 
 ```{r}
 # Convert am to a factor variable
@@ -166,6 +237,21 @@ fit3a <- lm((mpg) ~ wt + am, data = mtcars)
 summary(fit3a)
 ```
 
+This model directly predicts `mpg` from `wt` and the type of transmission (`am`), treating `am` as a factor variable. 
+
+#### Output Interpretation:
+
+- **Coefficients:** 
+
+  - The intercept, 37.32155, suggests the expected `mpg` for an automatic transmission car (baseline category) with a weight of 0, which is a hypothetical scenario serving as a reference point.
+  
+  - The `wt` coefficient of -5.35281 indicates that for each additional unit of weight, `mpg` decreases by approximately 5.35, holding the type of transmission constant.
+  
+  - The `amManual` coefficient of -0.02362 suggests a negligible and statistically insignificant change in `mpg` for manual cars compared to automatic ones, holding weight constant.
+  
+- **Model Fit:** The Multiple R-squared value of 0.7528 suggests that approximately 75.28% of the variability in `mpg` can be explained by the model. The Adjusted R-squared value of 0.7358 adjusts this for the number of predictors and indicates a strong model fit.
+
+
 ## MODEL 3b: Another Log-Linear Model
 
 ```{r}
@@ -174,16 +260,43 @@ fit3b <- lm(log(mpg) ~ wt + am, data = mtcars)
 summary(fit3b)
 ```
 
-```{r}
-exp(-0.04307)
-```
 
-```{r}
-exp(-0.2869)
-```
+This model predicts the log of `mpg` from `wt` and the type of transmission (`am`), again treating `am` as a factor variable.
 
-The beta estimate of amManual in the above regression is -0.04307. This means that, after controlling for weight, the expected value of the log of the miles per gallon (mpg) for a car with a manual transmission is expected to be -0.04307 units lower than for a car with an automatic transmission.
+#### Output Interpretation:
 
-Since the am variable was converted to a factor variable, the beta estimate for amManual represents the difference in the expected value of the response variable between cars with manual and automatic transmissions, after controlling for weight. In this case, the beta estimate indicates that cars with manual transmissions are expected to have a higher fuel efficiency than cars with automatic transmissions, all else being equal.
+- **Coefficients:**
+  - The intercept, 3.89834, is the expected value of log(`mpg`) for an automatic transmission car with a weight of 0.
+  
+  - The `wt` coefficient of -0.28699 suggests that for each additional unit of weight, the log of `mpg` decreases by approximately 0.287, indicating a strong negative relationship between weight and `mpg`, after controlling for transmission type.
+  
+  - The `amManual` coefficient of -0.04307 is not statistically significant (p=0.535), indicating that, after controlling for weight, the difference in log(`mpg`) between manual and automatic cars is negligible.
+  
+- **Model Fit:** The model has a Multiple R-squared of 0.8003, showing that it explains about 80.03% of the variability in log(`mpg`), which is an improvement over Model 3a. The Adjusted R-squared of 0.7865 indicates a strong fit to the data.
 
-It's important to note that the p-value for the amManual coefficient is greater than the conventional threshold of 0.05 for statistical significance. This means that we cannot reject the null hypothesis that the amManual coefficient is equal to zero, and thus the difference in fuel efficiency between manual and automatic transmissions may not be statistically significant. However, this should be interpreted with caution, as it's possible that the sample size or other factors in the data are affecting the p-value.
+#### Exponential Interpretations:
+
+- **exp(-0.04307) = 0.9578443**: 
+
+This value implies that, all else being equal, the `mpg` of automatic cars is expected to be approximately 95.78% of that of manual cars. 
+
+Given the statistical insignificance of the `amManual` coefficient, this difference is not considered meaningful in the context of this model.
+
+- **exp(-0.2869) = 0.7505868**: 
+
+This exponentiated coefficient translates to a more intuitive interpretation for the `wt` variable. It suggests that for each one-unit increase in weight, the `mpg` is expected to be multiplied by approximately 0.75, holding the transmission type constant. This represents a substantial decrease in fuel efficiency with increased weight.
+
+### Comparison
+
+Both models provide valuable insights into the factors affecting `mpg`. 
+
+Model 3a highlights a strong negative relationship between `mpg` and `wt`, with the type of transmission (`am`) showing no significant effect when modeled linearly. 
+
+Model 3b, with its log-linear approach, not only confirms the strong negative impact of weight on `mpg` but also offers a slightly better fit to the data as indicated by the higher adjusted R-squared value. 
+
+The lack of a significant effect from the transmission type is consistent across both models. The log-linear model's ability to better account for the variability suggests that the relationship between `mpg` and `wt` might be more appropriately modeled on a multiplicative (logarithmic) scale.
+
+
+
+
+
