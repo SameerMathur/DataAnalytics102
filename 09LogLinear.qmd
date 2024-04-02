@@ -2,6 +2,54 @@
 
 *April 02, 2024*
 
+
+## Overview 
+
+We use log-linear regression as a statistical technique to model the relationship between a dependent variable and one or more independent variables. This is done by applying a logarithmic transformation to the dependent variable. This approach is especially useful when dealing with **non-linear** relationships or when the dependent variable is strictly positive and can vary over a wide range. 
+
+### Purpose
+- **Handle Asymmetry:** It's often utilized when the dependent variable has a skewed distribution. The logarithmic transformation can help stabilize variance and make the relationship more linear.
+- **Multiplicative Effects:** It models the relationship between the variables in a multiplicative manner rather than an additive one. 
+
+### Model Form
+The general form of a log-linear regression model can be expressed as follows:
+
+\begin{equation}
+\log(Y) = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + \epsilon
+\end{equation}
+
+Where:
+- $Y$ is the dependent variable (after applying the logarithm).
+
+- $X_1, X_2, ..., X_n$ are the independent variables.
+
+- $β_0, β_1, ..., β_n$ are the coefficients that the regression model will estimate.
+
+- $ε$ is the error term.
+
+### Assumptions
+In log-linear regression, like other forms of regression analysis, we make several key assumptions:
+
+- **Linearity:** The relationship between the transformed dependent variable and the independent variables is linear.
+
+- **Independence:** Observations are independent from each other.
+
+- **Homoscedasticity:** The variance of the error terms is constant across the values of the independent variables.
+
+- **Normal Distribution of Errors:** The errors are normally distributed, which is especially important for hypothesis testing.
+
+
+### Advantages
+- **Flexibility:** Can handle a wide range of dependent variable values.
+- **Interpretability:** Coefficients can be interpreted as percentage changes, which makes it easier for us to understand the impact of independent variables.
+
+### Disadvantages
+- **Transformation Bias:** The transformation of the dependent variable might introduce bias.
+- **Outliers:** Logarithmic transformation can make the model sensitive to outliers in the data.
+
+
+
+
 ## MODEL 1: Base Model
 
 ## 1. Reading the data

@@ -100,6 +100,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -251,6 +280,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#log-linear-regression" id="toc-log-linear-regression" class="nav-link active" data-scroll-target="#log-linear-regression">Log-Linear Regression</a>
   <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#model-form" id="toc-model-form" class="nav-link" data-scroll-target="#model-form">Model Form</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
+  <li><a href="#advantages" id="toc-advantages" class="nav-link" data-scroll-target="#advantages">Advantages</a></li>
+  <li><a href="#disadvantages" id="toc-disadvantages" class="nav-link" data-scroll-target="#disadvantages">Disadvantages</a></li>
+  </ul></li>
   <li><a href="#model-1-base-model" id="toc-model-1-base-model" class="nav-link" data-scroll-target="#model-1-base-model">MODEL 1: Base Model</a></li>
   <li><a href="#reading-the-data" id="toc-reading-the-data" class="nav-link" data-scroll-target="#reading-the-data">1. Reading the data</a></li>
   <li><a href="#predict-a-mpg-of-car-from-their-weight" id="toc-predict-a-mpg-of-car-from-their-weight" class="nav-link" data-scroll-target="#predict-a-mpg-of-car-from-their-weight">2. Predict a mpg of car from their weight</a>
@@ -284,6 +321,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="log-linear-regression" class="level1">
 <h1>Log-Linear Regression</h1>
 <p><em>April 02, 2024</em></p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>We use log-linear regression as a statistical technique to model the relationship between a dependent variable and one or more independent variables. This is done by applying a logarithmic transformation to the dependent variable. This approach is especially useful when dealing with <strong>non-linear</strong> relationships or when the dependent variable is strictly positive and can vary over a wide range.</p>
+<section id="purpose" class="level3">
+<h3 class="anchored" data-anchor-id="purpose">Purpose</h3>
+<ul>
+<li><strong>Handle Asymmetry:</strong> It’s often utilized when the dependent variable has a skewed distribution. The logarithmic transformation can help stabilize variance and make the relationship more linear.</li>
+<li><strong>Multiplicative Effects:</strong> It models the relationship between the variables in a multiplicative manner rather than an additive one.</li>
+</ul>
+</section>
+<section id="model-form" class="level3">
+<h3 class="anchored" data-anchor-id="model-form">Model Form</h3>
+<p>The general form of a log-linear regression model can be expressed as follows:</p>
+<p><span class="math display">\[\begin{equation}
+\log(Y) = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + \epsilon
+\end{equation}\]</span></p>
+<p>Where: - <span class="math inline">\(Y\)</span> is the dependent variable (after applying the logarithm).</p>
+<ul>
+<li><p><span class="math inline">\(X_1, X_2, ..., X_n\)</span> are the independent variables.</p></li>
+<li><p><span class="math inline">\(β_0, β_1, ..., β_n\)</span> are the coefficients that the regression model will estimate.</p></li>
+<li><p><span class="math inline">\(ε\)</span> is the error term.</p></li>
+</ul>
+</section>
+<section id="assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
+<p>In log-linear regression, like other forms of regression analysis, we make several key assumptions:</p>
+<ul>
+<li><p><strong>Linearity:</strong> The relationship between the transformed dependent variable and the independent variables is linear.</p></li>
+<li><p><strong>Independence:</strong> Observations are independent from each other.</p></li>
+<li><p><strong>Homoscedasticity:</strong> The variance of the error terms is constant across the values of the independent variables.</p></li>
+<li><p><strong>Normal Distribution of Errors:</strong> The errors are normally distributed, which is especially important for hypothesis testing.</p></li>
+</ul>
+</section>
+<section id="advantages" class="level3">
+<h3 class="anchored" data-anchor-id="advantages">Advantages</h3>
+<ul>
+<li><strong>Flexibility:</strong> Can handle a wide range of dependent variable values.</li>
+<li><strong>Interpretability:</strong> Coefficients can be interpreted as percentage changes, which makes it easier for us to understand the impact of independent variables.</li>
+</ul>
+</section>
+<section id="disadvantages" class="level3">
+<h3 class="anchored" data-anchor-id="disadvantages">Disadvantages</h3>
+<ul>
+<li><strong>Transformation Bias:</strong> The transformation of the dependent variable might introduce bias.</li>
+<li><strong>Outliers:</strong> Logarithmic transformation can make the model sensitive to outliers in the data.</li>
+</ul>
+</section>
+</section>
 <section id="model-1-base-model" class="level2">
 <h2 class="anchored" data-anchor-id="model-1-base-model">MODEL 1: Base Model</h2>
 </section>
