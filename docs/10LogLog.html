@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Analytics 102 -- Applied Statistics and Regression Using R – loglog</title>
+<title>Data Analytics 102 – Applied Statistics and Regression Using R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -78,7 +78,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -87,6 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -96,15 +103,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Data Analytics 102 – Applied Statistics and Regression Using R</span>
     </a>
@@ -116,34 +150,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/" rel="" target="_blank"><i class="bi bi-globe" role="img">
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/" target="_blank"> <i class="bi bi-globe" role="img">
 </i> 
- <span class="menu-text">Sameer Mathur</span></a>
+<span class="menu-text">Sameer Mathur</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true" rel="" target="_blank"><i class="bi bi-globe" role="img">
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true" target="_blank"> <i class="bi bi-globe" role="img">
 </i> 
- <span class="menu-text">Aryeman Gupta Mathur</span></a>
+<span class="menu-text">Aryeman Gupta Mathur</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/SameerMathur/DataAnalytics102" rel="" target="_blank"><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/SameerMathur/DataAnalytics102" target="_blank"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text">Book’s Github</span></a>
+<span class="menu-text">Book’s Github</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10LogLog.html">Log-Log Regression</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10LogLog.html">Log-Log Regression</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -153,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="./index.html" class="sidebar-logo-link">
       <img src="./images/openscapes_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -193,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04TTest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">t-tests</span></a>
+ <span class="menu-text">T-tests</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -235,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
 <p><img src="BookCover102.png" class="img-fluid"></p>
@@ -246,16 +280,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#log-log-regression" id="toc-log-log-regression" class="nav-link active" data-scroll-target="#log-log-regression">Log-Log Regression</a>
   <ul class="collapse">
-  <li><a href="#overview-of-log-log-regression" id="toc-overview-of-log-log-regression" class="nav-link" data-scroll-target="#overview-of-log-log-regression">Overview of Log-Log Regression</a></li>
-  <li><a href="#advantages-of-log-log-regression" id="toc-advantages-of-log-log-regression" class="nav-link" data-scroll-target="#advantages-of-log-log-regression">Advantages of Log-Log Regression</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  </ul></li>
   <li><a href="#business-applications-of-log-log-regression" id="toc-business-applications-of-log-log-regression" class="nav-link" data-scroll-target="#business-applications-of-log-log-regression">Business Applications of Log-Log Regression</a>
   <ul class="collapse">
   <li><a href="#marketing" id="toc-marketing" class="nav-link" data-scroll-target="#marketing">Marketing</a></li>
   <li><a href="#finance" id="toc-finance" class="nav-link" data-scroll-target="#finance">Finance</a></li>
   <li><a href="#organizational-behavior" id="toc-organizational-behavior" class="nav-link" data-scroll-target="#organizational-behavior">Organizational Behavior</a></li>
   </ul></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a></li>
-  <li><a href="#running-log-log-regression-in-r" id="toc-running-log-log-regression-in-r" class="nav-link" data-scroll-target="#running-log-log-regression-in-r">Running Log-Log Regression in R</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a>
+  <ul class="collapse">
+  <li><a href="#model-form" id="toc-model-form" class="nav-link" data-scroll-target="#model-form">Model Form</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
+  <li><a href="#advantages" id="toc-advantages" class="nav-link" data-scroll-target="#advantages">Advantages</a></li>
+  <li><a href="#disadvantages" id="toc-disadvantages" class="nav-link" data-scroll-target="#disadvantages">Disadvantages</a></li>
+  </ul></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation">Estimation</a></li>
+  <li><a href="#model-1-base-model" id="toc-model-1-base-model" class="nav-link" data-scroll-target="#model-1-base-model">MODEL 1: Base Model</a>
+  <ul class="collapse">
+  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a></li>
+  </ul></li>
+  <li><a href="#model-2-log-log-model" id="toc-model-2-log-log-model" class="nav-link" data-scroll-target="#model-2-log-log-model">MODEL 2: Log-Log Model</a>
+  <ul class="collapse">
+  <li><a href="#model-output-and-interpretation" id="toc-model-output-and-interpretation" class="nav-link" data-scroll-target="#model-output-and-interpretation">Model Output and Interpretation</a></li>
+  </ul></li>
+  <li><a href="#another-log-log-model" id="toc-another-log-log-model" class="nav-link" data-scroll-target="#another-log-log-model">Another Log-Log Model</a>
+  <ul class="collapse">
+  <li><a href="#model-3a---linear-linear-model" id="toc-model-3a---linear-linear-model" class="nav-link" data-scroll-target="#model-3a---linear-linear-model">MODEL 3a - Linear-Linear Model</a></li>
+  </ul></li>
+  <li><a href="#model-3b-another-log-log-model" id="toc-model-3b-another-log-log-model" class="nav-link" data-scroll-target="#model-3b-another-log-log-model">MODEL 3b: Another Log-Log Model</a>
+  <ul class="collapse">
+  <li><a href="#model-output-and-interpretation-1" id="toc-model-output-and-interpretation-1" class="nav-link" data-scroll-target="#model-output-and-interpretation-1">Model Output and Interpretation</a></li>
+  <li><a href="#model-equations-and-coefficients" id="toc-model-equations-and-coefficients" class="nav-link" data-scroll-target="#model-equations-and-coefficients">Model Equations and Coefficients</a></li>
+  <li><a href="#calculation-for-an-automatic-transmission-car-wt-2-units-am-0" id="toc-calculation-for-an-automatic-transmission-car-wt-2-units-am-0" class="nav-link" data-scroll-target="#calculation-for-an-automatic-transmission-car-wt-2-units-am-0">Calculation for an Automatic Transmission Car (wt = 2 units, am = 0)</a></li>
+  <li><a href="#calculation-for-a-manual-transmission-car-wt-2-units-am-1" id="toc-calculation-for-a-manual-transmission-car-wt-2-units-am-1" class="nav-link" data-scroll-target="#calculation-for-a-manual-transmission-car-wt-2-units-am-1">Calculation for a Manual Transmission Car (wt = 2 units, am = 1)</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
@@ -266,45 +328,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+
 <section id="log-log-regression" class="level1">
 <h1>Log-Log Regression</h1>
-<p><em>July 26, 2023</em></p>
-<section id="overview-of-log-log-regression" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-log-log-regression">Overview of Log-Log Regression</h2>
-<ol type="1">
-<li><p>In log-log regression, both the dependent and independent variables are transformed by the natural logarithm.</p></li>
-<li><p>Standard linear regression techniques are then used to estimate the resulting model.</p></li>
-<li><p>When the relationship between the variables is anticipated to be nonlinear, but the relationship between their logarithms is linear, the log-log transformation is frequently employed.</p></li>
-</ol>
+<p><em>April 14, 2024</em></p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Log-log regression is a statistical technique used to model the relationship between a dependent variable and one or more independent variables, where both the dependent and the independent variables undergo logarithmic transformations. This method is particularly effective for examining multiplicative relationships and elasticities between variables that exhibit exponential growth or decline.</p>
+<section id="purpose" class="level3">
+<h3 class="anchored" data-anchor-id="purpose">Purpose</h3>
+<ul>
+<li><strong>Elasticity Analysis:</strong> Log-log regression is commonly employed to analyze the elasticity of a variable, which is useful for understanding how percentage changes in one variable are associated with percentage changes in another.</li>
+<li><strong>Scale Invariance:</strong> The logarithmic transformation of both dependent and independent variables helps in handling data across different scales and makes the model scale-invariant.</li>
+</ul>
 </section>
-<section id="advantages-of-log-log-regression" class="level2">
-<h2 class="anchored" data-anchor-id="advantages-of-log-log-regression">Advantages of Log-Log Regression</h2>
-<p>Among the benefits of log-log regression are:</p>
-<ol type="1">
-<li><p>In some instances, the relationship between dependent and independent variables may not be linear. Log-log regression can capture nonlinear relationships and provide a superior fit than linear regression by taking the logarithm of both variables.</p></li>
-<li><p>It can facilitate comprehension: Log-log regression permits coefficients to be construed as elasticity values, which are more intuitive than linear regression coefficients. Elasticities quantify the proportional change in the dependent variable for a one-percent change in the independent variable.</p></li>
-<li><p>It can manage data with heteroscedasticity: The variance of the dependent variable may not be constant across all levels of the independent variable in some instances. Log-log regression can stabilize variance and provide more precise estimates of coefficients by taking the logarithm of the dependent variable.</p></li>
-<li><p>It can manage non-normal data: If the dependent variable is not normally distributed, the logarithm can transform it into a normal distribution, thereby improving the accuracy of the estimates.</p></li>
-<li><p>It can handle extreme values: Log-log regression can handle extreme values or outliers better than linear regression because the logarithm of extreme values is closer to the logarithm of the other values in the data. [1]</p></li>
-</ol>
 </section>
 <section id="business-applications-of-log-log-regression" class="level2">
 <h2 class="anchored" data-anchor-id="business-applications-of-log-log-regression">Business Applications of Log-Log Regression</h2>
 <section id="marketing" class="level3">
 <h3 class="anchored" data-anchor-id="marketing">Marketing</h3>
 <p>The following are some marketing applications of log-log regression:</p>
-<p>Analysis of Price Elasticity:&nbsp;Log-log regression can be used to estimate the price elasticity of a product’s demand. A linear relationship can be depicted between the log of the price and the log of the quantity demanded by taking the natural logarithm of both the dependent and independent variables. The estimated elasticity can be used to inform pricing strategies and maximize revenue for businesses.</p>
-<p>Advertising Effectiveness: The effect of advertising on sales can be estimated using log-log regression. A linear relationship can be modeled between the log of sales and the log of advertising expenditure by taking the natural logarithm of both the dependent and independent variables. The estimated coefficient can be used to guide advertising expenditure decisions and assist businesses in optimizing their marketing campaigns.</p>
-<p>Analysis of Brand Loyalty:&nbsp;Log-log regression can be utilized to estimate the impact of brand loyalty on sales. A linear relationship can be modeled between the log of sales and the log of brand loyalty by taking the natural logarithm of both the dependent and independent variables. The estimated coefficient can be used to inform brand strategy decisions and assist businesses in identifying market share expansion opportunities.</p>
-<p>Market Segmentation Analysis: Log-log regression can be used to identify and analyze market segments based on product attributes. A linear relationship can be modeled between the log of the product attribute and the log of market share by taking the natural logarithm of both the dependent and independent variables. Estimates of the resulting coefficients can be used to determine which product attributes are most essential to each market segment and to inform decisions regarding product development. [2]</p>
+<p><strong>Price Elasticity</strong>: Log-log regression can be used to estimate the price elasticity of a product’s demand. A linear relationship can be depicted between the <strong>log of the quantity demanded</strong> and the <strong>log of the price</strong> by taking the natural logarithm of both the dependent and independent variables. The estimated <strong>price elasticity of demand</strong> can be used to inform pricing strategies and maximize revenue for businesses.</p>
+<p><strong>Advertising Effectiveness:</strong> The effect of advertising on sales can be estimated using log-log regression. A linear relationship can be modeled between the <strong>log of sales</strong> and the <strong>log of advertising</strong> expenditure by taking the natural logarithm of both the dependent and independent variables. The estimated coefficient can be used to guide advertising expenditure decisions and assist businesses in optimizing their marketing campaigns.</p>
+<p><strong>Brand Loyalty:</strong> Log-log regression can be utilized to estimate the impact of brand loyalty on sales. A linear relationship can be modeled between the <strong>log of sales</strong> and the <strong>log of brand loyalty</strong> by taking the natural logarithm of both the dependent and independent variables. The estimated coefficient can be used to <strong>inform brand strategy decisions</strong> and assist businesses in identifying market share expansion opportunities.</p>
+<p><strong>Market Segmentation Analysis</strong>: Log-log regression can be used to identify and analyze market segments based on product attributes. A linear relationship can be modeled between the log of the product attribute and the log of market share by taking the natural logarithm of both the dependent and independent variables. Estimates of the resulting coefficients can be used to determine which product attributes are most essential to each market segment and to inform decisions regarding product development. [2]</p>
 </section>
 <section id="finance" class="level3">
 <h3 class="anchored" data-anchor-id="finance">Finance</h3>
 <p>The following are some finance applications of log-log regression:</p>
-<p>Asset Pricing Models: Log-log regression can be used to estimate asset pricing models, such as the capital asset pricing model (CAPM). By taking the natural logarithm of both the dependent and independent variables, a linear relationship can be modeled between the log of the expected return and the log of the risk premium. The resulting coefficient estimate can be used to inform investment decisions and help investors evaluate the risk and return of a portfolio.</p>
-<p>Risk Management: Log-log regression can be used to estimate risk models, such as value at risk (VaR). By taking the natural logarithm of both the dependent and independent variables, a linear relationship can be modeled between the log of the portfolio value and the log of the portfolio risk. The resulting coefficient estimate can be used to estimate the level of risk that the portfolio is exposed to and inform risk management decisions.</p>
-<p>Option Pricing: Log-log regression can be used to estimate option pricing models, such as the Black-Scholes model. By taking the natural logarithm of both the dependent and independent variables, a linear relationship can be modeled between the log of the stock price and the log of the option price. The resulting coefficient estimate can be used to inform option pricing decisions and help investors evaluate the fair value of an option.</p>
-<p>Credit Risk Analysis: Log-log regression can be used to estimate credit risk models, such as the credit default swap (CDS) pricing model. By taking the natural logarithm of both the dependent and independent variables, a linear relationship can be modeled between the log of the CDS spread and the log of the credit risk. The resulting coefficient estimate can be used to inform credit risk analysis and help investors evaluate the creditworthiness of a company. [3]</p>
+<p><strong>Asset Pricing Models:</strong> Log-log regression can be used to estimate asset pricing models, such as the capital asset pricing model (CAPM). By taking the natural logarithm of both the dependent and independent variables, a linear relationship can be modeled between the <strong>log of the expected return</strong> and the <strong>log of the risk premium</strong>. The resulting coefficient estimate can be used to inform investment decisions and help investors evaluate the risk and return of a portfolio.</p>
+<p><strong>Risk Management:</strong> Log-log regression can be used to estimate risk models, such as <strong>value at risk (VaR)</strong>. By taking the natural logarithm of both the dependent and independent variables, a linear relationship can be modeled between the <strong>log of the portfolio value</strong> and the <strong>log of the portfolio risk</strong>. The resulting coefficient estimate can be used to estimate the level of risk that the portfolio is exposed to and inform risk management decisions.</p>
+<p><strong>Option Pricing:</strong> Log-log regression can be used to estimate option pricing models, such as the Black-Scholes model. By taking the natural logarithm of both the dependent and independent variables, a linear relationship can be modeled between the <strong>log of the stock price</strong> and the <strong>log of the option price</strong>. The resulting coefficient estimate can be used to inform option pricing decisions and help investors <strong>evaluate the fair value of an option</strong>.</p>
+<p><strong>Credit Risk Analysis:</strong> Log-log regression can be used to estimate credit risk models, such as the <strong>credit default swap (CDS) pricing</strong> model. By taking the natural logarithm of both the dependent and independent variables, a linear relationship can be modeled between the <strong>log of the CDS spread</strong> and the <strong>log of the credit risk</strong>. The resulting coefficient estimate can be used to inform credit risk analysis and help investors evaluate the <strong>creditworthiness</strong> of a company. [3]</p>
 </section>
 <section id="organizational-behavior" class="level3">
 <h3 class="anchored" data-anchor-id="organizational-behavior">Organizational Behavior</h3>
@@ -317,30 +372,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="model" class="level2">
 <h2 class="anchored" data-anchor-id="model">Model</h2>
+<section id="model-form" class="level3">
+<h3 class="anchored" data-anchor-id="model-form">Model Form</h3>
+<p>The general form of a log-log regression model is represented by the following equation:</p>
+<p><span class="math display">\[\begin{equation}
+\log(Y) = \beta_0 + \beta_1\log(X_1) + \beta_2\log(X_2) + ... + \beta_n\log(X_n) + \epsilon
+\end{equation}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><p><span class="math inline">\(Y\)</span> is the dependent variable (after applying the logarithm).</p></li>
+<li><p><span class="math inline">\(X_1, X_2, ..., X_n\)</span> are the independent variables (after applying logarithms to each).</p></li>
+<li><p><span class="math inline">\(β_0, β_1, ..., β_n\)</span> are the coefficients that the regression model aims to estimate.</p></li>
+<li><p><span class="math inline">\(ε\)</span> is the error term.</p></li>
+</ul>
+</section>
+<section id="assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
+<p>Similar to other regression analyses, log-log regression relies on several assumptions:</p>
+<ul>
+<li><strong>Linearity:</strong> The relationship between the log-transformed dependent and independent variables is linear.</li>
+<li><strong>Independence:</strong> Observations must be independent of each other.</li>
+<li><strong>Homoscedasticity:</strong> The variance of error terms should be consistent across different values of independent variables.</li>
+<li><strong>Normal Distribution of Errors:</strong> Errors should follow a normal distribution for valid hypothesis testing.</li>
+</ul>
+</section>
+<section id="advantages" class="level3">
+<h3 class="anchored" data-anchor-id="advantages">Advantages</h3>
+<ul>
+<li><strong>Interpretability of Elasticities:</strong> The coefficients in a log-log model represent the elasticity between variables, providing insights into how a percentage change in one variable affects another.</li>
+<li><strong>Handling Non-linear Patterns:</strong> By transforming variables logarithmically, non-linear relationships can be modeled linearly, enhancing the analysis of complex patterns.</li>
+</ul>
+</section>
+<section id="disadvantages" class="level3">
+<h3 class="anchored" data-anchor-id="disadvantages">Disadvantages</h3>
+<ul>
+<li><strong>Zero Values Problem:</strong> Logarithmic transformation cannot be applied directly to zero or negative values, which might require additional data adjustments or transformations.</li>
+<li><strong>Interpretation Complexity:</strong> Understanding and interpreting elasticities might be less straightforward compared to additive models, requiring a good grasp of logarithmic relationships. [1]</li>
+</ul>
+</section>
+</section>
+<section id="estimation" class="level2">
+<h2 class="anchored" data-anchor-id="estimation">Estimation</h2>
 <ol type="1">
-<li><p>The model equation for log-log regression is:</p>
-<p><span class="math display">\[log(y) = β_0 + β_1 * log(x) + ε\]</span></p></li>
-<li><p>where y represents the dependent variable, x represents the independent variable, β0 and β1 represent the coefficients to be estimated, and ε represents the error term.</p></li>
-<li><p>In this equation, both the dependent variable y and the independent variable x are transformed by taking the natural logarithm. The coefficients <span class="math inline">\(β_0\)</span> and <span class="math inline">\(β_1\)</span> represent the intercept and slope of the linear relationship between the natural logarithms of the dependent and independent variables.</p></li>
 <li><p>The natural logarithm transformation of both variables can help to capture non-linear relationships, stabilize the data variance, and clarify the relationship between the variables. The coefficients <span class="math inline">\(β_0\)</span> and <span class="math inline">\(β_1\)</span> are elasticities that quantify the percentage change in the dependent variable for a one percent change in the independent variable.</p></li>
 <li><p>The method of least squares is used to minimize the sum of squared residuals when estimating coefficients. This involves determining the values of <span class="math inline">\(β_0\)</span> and <span class="math inline">\(β_1\)</span> that minimize the difference between the observed and predicted values of the dependent variable. [5]</p></li>
 </ol>
 </section>
-<section id="running-log-log-regression-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="running-log-log-regression-in-r">Running Log-Log Regression in R</h2>
-<p>Here is an illustration of how to conduct a log-log regression using the mtcars dataset and R.</p>
-<ol type="1">
-<li>Reading the data</li>
-</ol>
+<section id="model-1-base-model" class="level2">
+<h2 class="anchored" data-anchor-id="model-1-base-model">MODEL 1: Base Model</h2>
+<p>For reference and a point of comparison, we setup the same Base Model as the one used in the previous chapter on Log-Linear Regression.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the mtcars dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a log-log regression model of mpg on weight</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> <span class="fu">log</span>(wt), <span class="at">data =</span> mtcars)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the summary of the model</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="simple-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="simple-linear-regression">Simple Linear Regression</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.5432 -2.3647 -0.1252  1.4096  6.8727 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.046 on 30 degrees of freedom
+Multiple R-squared:  0.7528,    Adjusted R-squared:  0.7446 
+F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="model-2-log-log-model" class="level2">
+<h2 class="anchored" data-anchor-id="model-2-log-log-model">MODEL 2: Log-Log Model</h2>
+<p>Model 2 adopts a log-log regression approach to explore the relationship between the weight (<code>wt</code>) of cars and their fuel efficiency (<code>mpg</code>) using the <code>mtcars</code> dataset. In contrast to a simple linear regression model that predicts <code>mpg</code> directly from <code>wt</code>, this model predicts the logarithm of <code>mpg</code> from the logarithm of <code>wt</code>. This double logarithmic transformation is particularly useful for examining how percentage changes in vehicle weight influence percentage changes in fuel efficiency, reflecting an elasticity-based relationship between these variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> <span class="fu">log</span>(wt), <span class="at">data =</span> mtcars)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -362,16 +480,227 @@ Multiple R-squared:  0.8056,    Adjusted R-squared:  0.7992
 F-statistic: 124.4 on 1 and 30 DF,  p-value: 3.406e-12</code></pre>
 </div>
 </div>
-<p>In this example, the R function lm() is used to estimate a log-log regression model of mpg (miles per gallon) on wt (weight). The data argument specifies the desired dataset. (mtcars in this case). Note that we are using the log() function in R to calculate the natural logarithm of both mpg and wt. R’s summary() function can be used to display the model’s summary.</p>
-<p>summary() will return the estimated coefficients of the log-log regression model along with measures of goodness-of-fit, such as the R-squared value and standard errors. The coefficients can be understood as the percentage change in mpg for a 1% change in weight.</p>
-<p>The output of the log-log regression model of mpg on wt using the mtcars dataset is explained below.</p>
-<p>call:&nbsp; It&nbsp;indicates the dispatch to the lm() function, which specifies the model-fitting formula and the dataset used. Residuals: It&nbsp;displays the minimum, first quartile, median, third quartile, and maximum residual values, which are the differences between the observed and predicted dependent variable values. (mpg in this case).</p>
-<p>Coefficients:&nbsp;displays the estimated model coefficients, such as the intercept and slope of the log-log regression line. In this instance, the intercept is estimated to be 2.34131, so when the weight (wt) of a vehicle is zero, the predicted miles per gallon (mpg) is exp(2.34131) = 10.395. The estimated slope of the log-log regression line is -0.82104, which indicates that the predicted miles per gallon decrease by 0.82104% for every 1% increase in the weight of a vehicle.</p>
-<p>Signif. codes: section displays the significance level of the coefficients based on their respective p-values. The *** symbols indicate that both the intercept and slope of the log-log regression line are highly significant in this instance.</p>
-<p>Residual standard error: line displays the residual standard error, a measure of the residuals’ variability around the regression line. In this instance, the residual standard error is 0.277, indicating that the actual MPG values for each vehicle in the dataset vary from the predicted values by approximately 0.277.</p>
-<p>Multiple R-squared: line indicates the R-squared value, which is the proportion of the variation in the dependent variable (in this case, mpg) that is explained by the independent variable. (wt in this case). The R-squared value in this instance is 0.7578, indicating that the weight of a vehicle explains 75.78% of the variation in miles per gallon. Adjusted R-squared: line represents the adjusted R-squared value, which accounts for the number of independent variables in the model. The adjusted R-squared value in this instance is 0.7464.</p>
-<p>F-statistic: line displays the F-statistic and corresponding p-value, which test the model’s overall significance. In this instance, the F-statistic with 1 and 30 degrees of freedom is 43.95, and the corresponding p-value is 1.79e-06, indicating that the model is highly significant.</p>
-<p>Regenerate response</p>
+<section id="model-output-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="model-output-and-interpretation">Model Output and Interpretation</h3>
+<p>The results from our log-log regression model are elucidated below:</p>
+<section id="residuals" class="level4">
+<h4 class="anchored" data-anchor-id="residuals">Residuals</h4>
+<p>The residuals, or the differences between observed and predicted values of <code>log(mpg)</code>, show a median close to zero (-0.02125), indicating that, on average, the model’s predictions closely match the actual log values. The spread of residuals from the minimum (-0.18141) to the maximum (0.26930) shows that most predictions fall within this range, suggesting a reasonable model fit.</p>
+</section>
+<section id="model-fit" class="level4">
+<h4 class="anchored" data-anchor-id="model-fit">Model Fit</h4>
+<ul>
+<li><p><strong>Residual Standard Error (RSE): 0.1334</strong> on 30 degrees of freedom indicates the typical deviation of the predicted values from the actual values.</p></li>
+<li><p><strong>Multiple R-squared (0.8056):</strong> About 80.56% of the variability in <code>log(mpg)</code> is explained by the model, indicating a strong fit.</p></li>
+<li><p><strong>Adjusted R-squared (0.7992):</strong> This adjusted statistic accounts for the number of predictors and still explains about 79.92% of the variability in <code>log(mpg)</code>, supporting a robust model.</p></li>
+<li><p><strong>F-statistic (124.4):</strong> This high value and the corresponding very low p-value (3.406e-12) affirm the overall significance of the model, demonstrating that the model fits the data well and the variables are appropriate.</p></li>
+</ul>
+</section>
+<section id="coefficients" class="level4">
+<h4 class="anchored" data-anchor-id="coefficients">Coefficients</h4>
+<ul>
+<li><strong>Intercept (3.90181):</strong> This value represents the expected value of <code>log(mpg)</code> when <code>log(wt)</code> equals zero. Since <code>log(wt)</code> equals zero when <code>wt</code> is 1 (not zero due to the nature of logarithmic transformation), this intercept can be interpreted as the expected log of mpg for a car with a weight of 1 unit.</li>
+</ul>
+<p>To find the fuel efficiency (mpg) of a car with a weight of 1 unit, we can use the intercept value from the log-log regression model. The calculation involves converting <code>log(mpg)</code> back to <code>mpg</code> using the exponential function:</p>
+<p>To ensure the given equations compile correctly in a Quarto (previously R Markdown) document when converting to HTML or PDF, you can format the equations using LaTeX syntax within a Quarto document. Here’s how you can write it:</p>
+<p><span class="math display">\[
+\text{mpg} = e^{\text{intercept}} = e^{3.90181}
+\]</span></p>
+<p>Evaluating this expression yields:</p>
+<p><span class="math display">\[
+\text{mpg} = 49.49
+\]</span></p>
+<p>This result indicates that the mpg for a car weighing 1 unit is approximately 49.49 miles per gallon.</p>
+<ul>
+<li><strong>log(wt) Coefficient (-0.84182):</strong> This coefficient indicates the expected change in <code>log(mpg)</code> for each one-unit increase in <code>log(wt)</code>. Specifically, a one-unit increase in <code>log(wt)</code> is associated with a decrease of 0.84182 in <code>log(mpg)</code>. This negative coefficient reflects a strong inverse relationship, suggesting that as car weight increases on a logarithmic scale, fuel efficiency decreases.</li>
+</ul>
+<p>In practical terms, a 1% increase in a car’s weight leads to an approximate 0.84182% decrease in its fuel efficiency. This is interpreted as the elasticity of mpg to weight, indicating a highly elastic relationship where small percentage changes in weight lead to substantial percentage changes in mpg.</p>
+<p>Therefore, the beta coefficient of -0.84182 indicates a strong negative elasticity, signifying that increases in car weight have a substantial negative impact on fuel efficiency, all else being constant.</p>
+<p>In contrast, in the linear-linear model, the relationship is additive rather than multiplicative, with each unit increase in weight reducing the mpg linearly by 0.27178 units.</p>
+</section>
+<section id="calculating-percentage-change" class="level4">
+<h4 class="anchored" data-anchor-id="calculating-percentage-change"><strong>Calculating Percentage Change:</strong></h4>
+<p>To translate this coefficient into more intuitive terms, we use the exponential function:</p>
+<p><span class="math display">\[
+\text{Percentage Change} = e^{\text{Coefficient}}
+\]</span></p>
+<p>For the given coefficient:</p>
+<p><span class="math display">\[
+e^{-0.84182} \approx 0.431
+\]</span></p>
+<p>This result means that for every 1% increase in weight, the fuel efficiency decreases to about 43.1% of its previous amount in terms of multiplicative change.</p>
+<p><strong>Interpreting the Percentage:</strong>: If fuel efficiency decreases to 43.1% of its previous amount with each 1% increase in weight, it effectively decreases by 56.9% (100% - 43.1%) of the additional amount that it would have been without the weight increase. This shows a significant decline in efficiency as weight increases.</p>
+<p>The coefficient in a log-log regression tells us about the elasticity between variables. Here, a negative elasticity of about -0.84182 means that increasing the car’s weight by 1% results in reducing its fuel efficiency by about 56.9%, indicating a strong negative impact of increased weight on fuel efficiency.</p>
+</section>
+<section id="significance" class="level4">
+<h4 class="anchored" data-anchor-id="significance">Significance</h4>
+<p>In the log-log regression model, we conduct hypothesis testing for each coefficient separately to assess their statistical significance in predicting the dependent variable, <code>log(mpg)</code>. Here’s how we define and interpret the tests for the intercept and <code>log(wt)</code>:</p>
+<ul>
+<li><strong>For the Intercept:</strong>
+<ul>
+<li><strong>Null Hypothesis (H0):</strong> The intercept is zero, suggesting it has no effect on <code>log(mpg)</code> when all independent variables are zero (logarithmically speaking).</li>
+<li><strong>Alternative Hypothesis (H1):</strong> The intercept is not zero, indicating it does affect <code>log(mpg)</code> and provides a baseline level of mpg when <code>wt</code> equals 1 unit (since <code>log(1) = 0</code>).</li>
+<li><strong>Result:</strong> Given that the p-value for the intercept is significantly below 0.05, we reject the null hypothesis. This means there is strong statistical evidence that the intercept is a significant contributor to the model, affecting the baseline mpg calculation.</li>
+</ul></li>
+<li><strong>For <code>log(wt)</code>:</strong>
+<ul>
+<li><strong>Null Hypothesis (H0):</strong> The coefficient for <code>log(wt)</code> is zero, implying no relationship between weight and mpg on a logarithmic scale.</li>
+<li><strong>Alternative Hypothesis (H1):</strong> The coefficient for <code>log(wt)</code> is not zero, suggesting that changes in weight have a significant effect on mpg.</li>
+<li><strong>Result:</strong> The very low p-value associated with the <code>log(wt)</code> coefficient leads us to reject the null hypothesis. This rejection provides substantial evidence that an increase in weight significantly decreases mpg, affirming the predictive power of <code>log(wt)</code> in the model.</li>
+</ul></li>
+</ul>
+<p>The statistical tests confirm that both the baseline level of mpg and the effect of weight changes are significant factors in the model.</p>
+</section>
+</section>
+</section>
+<section id="another-log-log-model" class="level2">
+<h2 class="anchored" data-anchor-id="another-log-log-model">Another Log-Log Model</h2>
+<p>We present two regression models, Model 3a (Linear-Linear Model) and Model 3b (Log-Log Model), using the <code>mtcars</code> dataset. Both models aim to predict the miles per gallon (<code>mpg</code>) of cars based on their weight (<code>wt</code>) and transmission type (<code>am</code>, with levels “Automatic” and “Manual”).</p>
+<section id="model-3a---linear-linear-model" class="level3">
+<h3 class="anchored" data-anchor-id="model-3a---linear-linear-model">MODEL 3a - Linear-Linear Model</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert am to a factor variable</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am <span class="ot">&lt;-</span> <span class="fu">factor</span>(mtcars<span class="sc">$</span>am, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>, <span class="st">"Manual"</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>fit3a <span class="ot">&lt;-</span> <span class="fu">lm</span>((mpg) <span class="sc">~</span> wt <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = (mpg) ~ wt + am, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.5295 -2.3619 -0.1317  1.4025  6.8782 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 37.32155    3.05464  12.218 5.84e-13 ***
+wt          -5.35281    0.78824  -6.791 1.87e-07 ***
+amManual    -0.02362    1.54565  -0.015    0.988    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.098 on 29 degrees of freedom
+Multiple R-squared:  0.7528,    Adjusted R-squared:  0.7358 
+F-statistic: 44.17 on 2 and 29 DF,  p-value: 1.579e-09</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="model-3b-another-log-log-model" class="level2">
+<h2 class="anchored" data-anchor-id="model-3b-another-log-log-model">MODEL 3b: Another Log-Log Model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit3b <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> <span class="fu">log</span>(wt) <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(mpg) ~ log(wt) + am, data = mtcars)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.194110 -0.117056 -0.008833  0.071274  0.258052 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  4.04162    0.14480  27.911  &lt; 2e-16 ***
+log(wt)     -0.93629    0.10822  -8.652 1.58e-09 ***
+amManual    -0.08329    0.06886  -1.210    0.236    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1324 on 29 degrees of freedom
+Multiple R-squared:  0.815, Adjusted R-squared:  0.8022 
+F-statistic: 63.87 on 2 and 29 DF,  p-value: 2.369e-11</code></pre>
+</div>
+</div>
+<section id="model-output-and-interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="model-output-and-interpretation-1">Model Output and Interpretation</h3>
+<p>The output from Model 3b highlights the relationship between the logarithm of miles per gallon (<code>mpg</code>) and factors including the logarithm of car weight (<code>wt</code>) and transmission type (<code>am</code>). Below, we detail the interpretation of the model’s results:</p>
+<section id="residuals-1" class="level4">
+<h4 class="anchored" data-anchor-id="residuals-1">Residuals</h4>
+<ul>
+<li>The residuals of the model show a median very close to zero (-0.008833) and are relatively tightly distributed, ranging from -0.194110 to 0.258052. This tight clustering indicates that the model predictions are generally close to the observed data, demonstrating a good fit.</li>
+</ul>
+</section>
+<section id="coefficients-1" class="level4">
+<h4 class="anchored" data-anchor-id="coefficients-1">Coefficients</h4>
+<ul>
+<li><p><strong>Intercept (4.04162):</strong> The intercept, statistically highly significant with a p-value much less than 0.05, represents the expected value of <code>log(mpg)</code> when <code>log(wt)</code> equals zero and when the car has an automatic transmission. The high t-value (27.911) underlines its statistical reliability. For practical purposes, this value can be interpreted as the expected log of mpg for a hypothetically light car with a weight of 1 unit (since <code>log(1) = 0</code>) and an automatic transmission.</p></li>
+<li><p><strong>log(wt) Coefficient (-0.93629):</strong> The coefficient for <code>log(wt)</code> is negative, indicating that as the weight of a car increases, its fuel efficiency decreases. The elasticity of mpg with respect to weight is about -0.936, meaning that a 1% increase in weight leads to roughly a 0.936% decrease in mpg. This relationship is statistically significant, with a very low p-value (1.58e-09) and a strong t-value (-8.652), suggesting a strong and reliable negative impact of weight on fuel efficiency.</p></li>
+<li><p><strong>amManual (-0.08329):</strong> This coefficient is associated with cars having manual transmissions compared to the baseline of automatic transmissions. The negative sign suggests a decrease in fuel efficiency for manual compared to automatic, but this result is not statistically significant (p-value = 0.236), indicated by a t-value of -1.210. It implies that, after controlling for weight, the type of transmission (manual vs.&nbsp;automatic) does not have a significant effect on the mpg in this dataset.</p></li>
+</ul>
+</section>
+<section id="model-fit-and-statistics" class="level4">
+<h4 class="anchored" data-anchor-id="model-fit-and-statistics">Model Fit and Statistics</h4>
+<ul>
+<li><strong>Residual Standard Error (0.1324):</strong> The RSE is quite low, which reflects the small average distance of the data points from the fitted line, indicating a good fit.</li>
+<li><strong>Multiple R-squared (0.815):</strong> Approximately 81.5% of the variation in <code>log(mpg)</code> is explained by the combined effects of <code>log(wt)</code> and transmission type. This high R-squared value shows that the model does a good job of capturing the relationship between these variables.</li>
+<li><strong>Adjusted R-squared (0.8022):</strong> Adjusted for the number of predictors, it confirms that the model explains a significant amount of the variability in <code>log(mpg)</code>.</li>
+<li><strong>F-statistic (63.87):</strong> This value tests the overall significance of the regression model, and the associated p-value (2.369e-11) indicates the model is statistically significant.</li>
+</ul>
+<p>This analysis reveals that weight is a critical factor in predicting the fuel efficiency of cars, with significant impacts demonstrated through the log-log regression model. However, the transmission type does not show a statistically significant influence on mpg when considering this dataset.</p>
+</section>
+<section id="model-prediction" class="level4">
+<h4 class="anchored" data-anchor-id="model-prediction">Model Prediction</h4>
+<p>To illustrate the prediction of fuel efficiency using Model 3b for a car with a weight of 2 units, we’ll calculate the predicted <code>mpg</code> for both automatic and manual transmission types using the regression coefficients obtained from the log-log model. Below are the steps involved:</p>
+</section>
+</section>
+<section id="model-equations-and-coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="model-equations-and-coefficients">Model Equations and Coefficients</h3>
+<p>The model formula based on the regression output is expressed as:</p>
+<p><span class="math display">\[
+\log(\text{mpg}) = \beta_0 + \beta_1\log(\text{wt}) + \beta_2\text{amManual}
+\]</span></p>
+<p>where: <span class="math display">\[
+\beta_0 \text{ (Intercept)} = 4.04162,
+\]</span> <span class="math display">\[
+\beta_1 \text{ (Coefficient for } \log(\text{wt})) = -0.93629,
+\]</span> <span class="math display">\[
+\beta_2 \text{ (Coefficient for } \text{amManual}) = -0.08329
+\]</span></p>
+</section>
+<section id="calculation-for-an-automatic-transmission-car-wt-2-units-am-0" class="level3">
+<h3 class="anchored" data-anchor-id="calculation-for-an-automatic-transmission-car-wt-2-units-am-0">Calculation for an Automatic Transmission Car (wt = 2 units, am = 0)</h3>
+<ol type="1">
+<li><strong>Log of Weight</strong>: Since ( = 2 ), we calculate ( (2) ).</li>
+<li><strong>Substitute into Model</strong>: <span class="math display">\[
+\log(\text{mpg}) = 4.04162 + (-0.93629 \times 0.693) + (-0.08329 \times 0)
+\]</span> <span class="math display">\[
+\log(\text{mpg}) = 4.04162 - 0.64874
+\]</span> <span class="math display">\[
+\log(\text{mpg}) = 3.39288
+\]</span></li>
+<li><strong>Exponentiate to find MPG</strong>: <span class="math display">\[
+\text{mpg} = e^{3.39288} \approx 29.76
+\]</span></li>
+</ol>
+</section>
+<section id="calculation-for-a-manual-transmission-car-wt-2-units-am-1" class="level3">
+<h3 class="anchored" data-anchor-id="calculation-for-a-manual-transmission-car-wt-2-units-am-1">Calculation for a Manual Transmission Car (wt = 2 units, am = 1)</h3>
+<ol type="1">
+<li><strong>Log of Weight</strong>: ( (2) ) (same as before).</li>
+<li><strong>Substitute into Model</strong>: <span class="math display">\[
+\log(\text{mpg}) = 4.04162 + (-0.93629 \times 0.693) + (-0.08329 \times 1)
+\]</span> <span class="math display">\[
+\log(\text{mpg}) = 4.04162 - 0.64874 - 0.08329
+\]</span> <span class="math display">\[
+\log(\text{mpg}) = 3.30959
+\]</span></li>
+<li><strong>Exponentiate to find MPG</strong>: <span class="math display">\[
+\text{mpg} = e^{3.30959} \approx 27.36
+\]</span></li>
+</ol>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
+<ul>
+<li><strong>Automatic Transmission Car</strong>: A car with an automatic transmission and a weight of 2 units is predicted to have an <code>mpg</code> of approximately 29.76. This demonstrates that, even with an increase in weight, the car maintains relatively high fuel efficiency.</li>
+<li><strong>Manual Transmission Car</strong>: A car with a manual transmission and the same weight has a slightly lower predicted <code>mpg</code> of about 27.36. The negative coefficient for manual transmission, though not statistically significant, suggests a minor reduction in fuel efficiency compared to an automatic transmission model.</li>
+</ul>
+<p>These calculations clearly show how the log-log model can be applied to predict the impact of weight and transmission type on the fuel efficiency of cars. The significant negative impact of weight, as shown by the elasticity coefficient, highlights the strong influence of weight increase on reducing fuel efficiency, which is consistent with general automotive principles.</p>
+</section>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
@@ -486,10 +815,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -499,8 +827,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -513,6 +850,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -556,6 +1012,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -581,6 +1038,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -649,10 +1132,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/">Sameer Mathur</a>
+    <a class="nav-link" href="https://www.qatar.cmu.edu/directory/sameer-mathur/">
+<p>Sameer Mathur</p>
+</a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true">Aryeman Gupta Mathur</a>
+    <a class="nav-link" href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?usp=sharing&amp;ouid=100224206438187222136&amp;rtpof=true&amp;sd=true">
+<p>Aryeman Gupta Mathur</p>
+</a>
   </li>  
 </ul>
     </div>
@@ -661,6 +1148,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 
