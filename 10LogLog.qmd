@@ -1,15 +1,15 @@
 # Log-Log Regression
 
-*April 14, 2024*
-
+*April 16, 2024*
 
 ## Overview
 
 Log-log regression is a statistical technique used to model the relationship between a dependent variable and one or more independent variables, where both the dependent and the independent variables undergo logarithmic transformations. This method is particularly effective for examining multiplicative relationships and elasticities between variables that exhibit exponential growth or decline.
 
 ### Purpose
-- **Elasticity Analysis:** Log-log regression is commonly employed to analyze the elasticity of a variable, which is useful for understanding how percentage changes in one variable are associated with percentage changes in another.
-- **Scale Invariance:** The logarithmic transformation of both dependent and independent variables helps in handling data across different scales and makes the model scale-invariant.
+
+-   **Elasticity Analysis:** Log-log regression is commonly employed to analyze the elasticity of a variable, which is useful for understanding how percentage changes in one variable are associated with percentage changes in another.
+-   **Scale Invariance:** The logarithmic transformation of both dependent and independent variables helps in handling data across different scales and makes the model scale-invariant.
 
 ## Business Applications of Log-Log Regression
 
@@ -41,122 +41,108 @@ The following are some finance applications of log-log regression:
 
 The following are some applications of log-log regression in Organizational Behavior:
 
-Analysis of Employee attrition: Log-log regression can be used to predict employee attrition rates based on a variety of variables, including compensation, job satisfaction, and work environment. A linear relationship can be modeled between the log of the employee turnover rate and the log of the various factors by taking the natural logarithm of both the dependent and independent variables. Estimates of the resulting coefficients can be used to identify the most influential factors influencing employee attrition and inform strategies for employee retention.
+**Analysis of Employee attrition:** Log-log regression can be used to predict employee attrition rates based on a variety of variables, including compensation, job satisfaction, and work environment. A linear relationship can be modeled between the log of the employee turnover rate and the log of the various factors by taking the natural logarithm of both the dependent and independent variables. Estimates of the resulting coefficients can be used to identify the most influential factors influencing employee attrition and inform strategies for employee retention.
 
-Analysis of Employee Performance: Log-log regression can be used to predict employee performance based on a number of variables, including job training, work experience, and job satisfaction. A linear relationship can be modeled between the log of employee performance and the log of the various factors by taking the natural logarithm of both the dependent and independent variables. The estimated coefficients can be used to determine the most influential employee performance factors and to inform training and development strategies.
+**Analysis of Employee Performance:** Log-log regression can be used to predict employee performance based on a number of variables, including job training, work experience, and job satisfaction. A linear relationship can be modeled between the log of employee performance and the log of the various factors by taking the natural logarithm of both the dependent and independent variables. The estimated coefficients can be used to determine the most influential employee performance factors and to inform training and development strategies.
 
-Organizational Culture Analysis: Analyzing the influence of organizational culture on employee behavior and attitudes can be accomplished through the use of log-log regression. By taking the natural logarithm of both the dependent and independent variables, it is possible to construct a linear relationship between the log of employee behavior and attitudes and the log of the different aspects of organizational culture. The estimated coefficients can be used to determine the most influential aspects of organizational culture on employee conduct and attitudes.
+**Organizational Culture Analysis:** Analyzing the influence of organizational culture on employee behavior and attitudes can be accomplished through the use of log-log regression. By taking the natural logarithm of both the dependent and independent variables, it is possible to construct a linear relationship between the log of employee behavior and attitudes and the log of the different aspects of organizational culture. The estimated coefficients can be used to determine the most influential aspects of organizational culture on employee conduct and attitudes.
 
-Leadership Effectiveness Analysis: Analyzing the influence of leadership on employee behavior and performance can be accomplished using log-log regression. A linear relationship can be modeled between the log of employee behavior and performance and the log of the various leadership factors by taking the natural logarithm of both the dependent and independent variables. The estimated coefficients can be used to identify the most influential leadership factors on employee behavior and performance, as well as to inform leadership development strategies. \[4\]
-
-
+**Leadership Effectiveness Analysis:** Analyzing the influence of leadership on employee behavior and performance can be accomplished using log-log regression. A linear relationship can be modeled between the log of employee behavior and performance and the log of the various leadership factors by taking the natural logarithm of both the dependent and independent variables. The estimated coefficients can be used to identify the most influential leadership factors on employee behavior and performance, as well as to inform leadership development strategies. \[4\]
 
 ## Model
 
 ### Model Form
+
 The general form of a log-log regression model is represented by the following equation:
 
+```{=tex}
 \begin{equation}
 \log(Y) = \beta_0 + \beta_1\log(X_1) + \beta_2\log(X_2) + ... + \beta_n\log(X_n) + \epsilon
 \end{equation}
+```
+where:
 
-Where:
+-   $Y$ is the dependent variable (after applying the logarithm).
 
-- $Y$ is the dependent variable (after applying the logarithm).
+-   $X_1, X_2, ..., X_n$ are the independent variables (after applying logarithms to each).
 
-- $X_1, X_2, ..., X_n$ are the independent variables (after applying logarithms to each).
+-   $β_0, β_1, ..., β_n$ are the coefficients that the regression model aims to estimate.
 
-- $β_0, β_1, ..., β_n$ are the coefficients that the regression model aims to estimate.
-
-- $ε$ is the error term.
+-   $ε$ is the error term.
 
 ### Assumptions
+
 Similar to other regression analyses, log-log regression relies on several assumptions:
 
-- **Linearity:** The relationship between the log-transformed dependent and independent variables is linear.
-- **Independence:** Observations must be independent of each other.
-- **Homoscedasticity:** The variance of error terms should be consistent across different values of independent variables.
-- **Normal Distribution of Errors:** Errors should follow a normal distribution for valid hypothesis testing.
+-   **Linearity:** The relationship between the log-transformed dependent and independent variables is linear.
+-   **Independence:** Observations must be independent of each other.
+-   **Homoscedasticity:** The variance of error terms should be consistent across different values of independent variables.
+-   **Normal Distribution of Errors:** Errors should follow a normal distribution for valid hypothesis testing.
 
 ### Advantages
-- **Interpretability of Elasticities:** The coefficients in a log-log model represent the elasticity between variables, providing insights into how a percentage change in one variable affects another.
-- **Handling Non-linear Patterns:** By transforming variables logarithmically, non-linear relationships can be modeled linearly, enhancing the analysis of complex patterns.
+
+-   **Interpretability of Elasticities:** The coefficients in a log-log model represent the elasticity between variables, providing insights into how a percentage change in one variable affects another.
+-   **Handling Non-linear Patterns:** By transforming variables logarithmically, non-linear relationships can be modeled linearly, enhancing the analysis of complex patterns.
 
 ### Disadvantages
-- **Zero Values Problem:** Logarithmic transformation cannot be applied directly to zero or negative values, which might require additional data adjustments or transformations.
-- **Interpretation Complexity:** Understanding and interpreting elasticities might be less straightforward compared to additive models, requiring a good grasp of logarithmic relationships. \[1\]
 
-
+-   **Zero Values Problem:** Logarithmic transformation cannot be applied directly to zero or negative values, which might require additional data adjustments or transformations.
+-   **Interpretation Complexity:** Understanding and interpreting elasticities might be less straightforward compared to additive models, requiring a good grasp of logarithmic relationships. \[1\]
 
 ## Estimation
 
 1.  The natural logarithm transformation of both variables can help to capture non-linear relationships, stabilize the data variance, and clarify the relationship between the variables. The coefficients $β_0$ and $β_1$ are elasticities that quantify the percentage change in the dependent variable for a one percent change in the independent variable.
 
-2.  The method of least squares is used to minimize the sum of squared residuals when estimating coefficients. This involves determining the values of $β_0$ and $β_1$ that minimize the difference between the observed and predicted values of the dependent variable. \[5\]
-
-
-
-
-
-
+2.  The **method of least squares** is used to **minimize the sum of squared residuals** when estimating coefficients. This involves determining the values of $β_0$ and $β_1$ that minimize the difference between the observed and predicted values of the dependent variable. \[5\]
 
 ## MODEL 1: Base Model
 
-For reference and a point of comparison, we setup the same Base Model as the one used in the previous chapter on Log-Linear Regression.
+For reference and a point of comparison, we setup the same base model as the one used in the previous chapter on Log-Linear Regression.
 
 ```{r}
 data(mtcars)
 attach(mtcars)
 ```
 
-### Simple Linear Regression
+### Linear Regression
 
 ```{r}
 fit <- lm(mpg ~ wt, data = mtcars)
 summary(fit)
 ```
 
-
-
 ## MODEL 2: Log-Log Model
 
-Model 2 adopts a log-log regression approach to explore the relationship between the weight (`wt`) of cars and their fuel efficiency (`mpg`) using the `mtcars` dataset. In contrast to a simple linear regression model that predicts `mpg` directly from `wt`, this model predicts the logarithm of `mpg` from the logarithm of `wt`. This double logarithmic transformation is particularly useful for examining how percentage changes in vehicle weight influence percentage changes in fuel efficiency, reflecting an elasticity-based relationship between these variables.
+Model 2 adopts a log-log regression approach to explore the relationship between the weight (`wt`) of cars and their fuel efficiency (`mpg`). In contrast to a simple linear regression model that predicts `mpg` directly from `wt`, this model predicts the logarithm of `mpg` from the logarithm of `wt`. This double logarithmic transformation is particularly useful for examining how percentage changes in vehicle weight influence percentage changes in fuel efficiency, reflecting an elasticity-based relationship between these variables.
 
 ```{r}
 fit2 <- lm(log(mpg) ~ log(wt), data = mtcars)
 summary(fit2)
 ```
 
-
 ### Model Output and Interpretation
 
-The results from our log-log regression model are elucidated below:
+The results from our log-log regression model are explained below:
 
 #### Residuals
-The residuals, or the differences between observed and predicted values of `log(mpg)`, show a median close to zero (-0.02125), indicating that, on average, the model's predictions closely match the actual log values. The spread of residuals from the minimum (-0.18141) to the maximum (0.26930) shows that most predictions fall within this range, suggesting a reasonable model fit.
 
+The residuals, or the **differences between observed and predicted values** of `log(mpg)`, show a **median close to zero** (-0.02125), indicating that, on average, the model's predictions closely match the actual log values. The spread of residuals from the minimum (-0.18141) to the maximum (0.26930) shows that most predictions fall within this range, suggesting a reasonable model fit.
 
 #### Model Fit
-- **Residual Standard Error (RSE): 0.1334** on 30 degrees of freedom indicates the typical deviation of the predicted values from the actual values.
-  
-- **Multiple R-squared (0.8056):** About 80.56% of the variability in `log(mpg)` is explained by the model, indicating a strong fit.
-  
-- **Adjusted R-squared (0.7992):** This adjusted statistic accounts for the number of predictors and still explains about 79.92% of the variability in `log(mpg)`, supporting a robust model.
 
-- **F-statistic (124.4):** This high value and the corresponding very low p-value (3.406e-12) affirm the overall significance of the model, demonstrating that the model fits the data well and the variables are appropriate.
+-   **Residual Standard Error (RSE): 0.1334** on 30 degrees of freedom indicates the typical deviation of the predicted values from the actual values.
 
+-   **Multiple R-squared (0.8056):** About 80.56% of the variability in `log(mpg)` is explained by the model, indicating a strong fit.
 
+-   **Adjusted R-squared (0.7992):** This adjusted statistic accounts for the number of predictors and still explains about 79.92% of the variability in `log(mpg)`, supporting a robust model.
 
-
+-   **F-statistic (124.4):** This high value and the corresponding very low p-value (3.406e-12) affirm the overall significance of the model, demonstrating that the model fits the data well and the variables are appropriate.
 
 #### Coefficients
 
-- **Intercept (3.90181):** This value represents the expected value of `log(mpg)` when `log(wt)` equals zero. Since `log(wt)` equals zero when `wt` is 1 (not zero due to the nature of logarithmic transformation), this intercept can be interpreted as the expected log of mpg for a car with a weight of 1 unit.
+-   **Intercept (3.90181):** This value represents the expected value of `log(mpg)` when `log(wt)` equals zero. Since `log(wt)` equals zero when `wt` is 1 (not zero due to the nature of logarithmic transformation), this intercept can be interpreted as the expected log of mpg for a car with a weight of 1 unit.
 
 To find the fuel efficiency (mpg) of a car with a weight of 1 unit, we can use the intercept value from the log-log regression model. The calculation involves converting `log(mpg)` back to `mpg` using the exponential function:
-
-
-To ensure the given equations compile correctly in a Quarto (previously R Markdown) document when converting to HTML or PDF, you can format the equations using LaTeX syntax within a Quarto document. Here's how you can write it:
 
 $$
 \text{mpg} = e^{\text{intercept}} = e^{3.90181}
@@ -168,68 +154,36 @@ $$
 \text{mpg} = 49.49
 $$
 
-This result indicates that the mpg for a car weighing 1 unit is approximately 49.49 miles per gallon.
+This result indicates that the **mpg for a car weighing 1 unit is approximately 49.49 miles per gallon**.
 
-- **log(wt) Coefficient (-0.84182):** This coefficient indicates the expected change in `log(mpg)` for each one-unit increase in `log(wt)`. Specifically, a one-unit increase in `log(wt)` is associated with a decrease of 0.84182 in `log(mpg)`. This negative coefficient reflects a strong inverse relationship, suggesting that as car weight increases on a logarithmic scale, fuel efficiency decreases.
+-   **log(wt) Coefficient (-0.84182):** This coefficient indicates the expected change in `log(mpg)` for each one-unit increase in `log(wt)`. Specifically, **a one-unit increase in `log(wt)` is associated with a decrease of 0.84182 in** **`log(mpg)`**. This negative coefficient reflects a strong inverse relationship, suggesting that as car weight increases on a logarithmic scale, fuel efficiency decreases.
 
-In practical terms, a 1% increase in a car's weight leads to an approximate 0.84182% decrease in its fuel efficiency. This is interpreted as the elasticity of mpg to weight, indicating a highly elastic relationship where small percentage changes in weight lead to substantial percentage changes in mpg.
+In practical terms, a **1% increase in a car's weight leads to an approximate 0.84182% decrease in its fuel efficiency**.
+
+This is interpreted as the **elasticity of mpg with respect to weight**, indicating a highly elastic relationship where small percentage changes in weight lead to substantial percentage changes in mpg.
 
 Therefore, the beta coefficient of -0.84182 indicates a strong negative elasticity, signifying that increases in car weight have a substantial negative impact on fuel efficiency, all else being constant.
 
-In contrast, in the linear-linear model, the relationship is additive rather than multiplicative, with each unit increase in weight reducing the mpg linearly by 0.27178 units.
+In contrast, **in the linear-linear model, the relationship was additive rather than multiplicative**, with each unit increase in weight reducing the mpg linearly by 0.27178 units.
 
-
-
-
-#### **Calculating Percentage Change:**
-
-To translate this coefficient into more intuitive terms, we use the exponential function:
-   
-$$
-\text{Percentage Change} = e^{\text{Coefficient}}
-$$
-
-For the given coefficient:
-
-$$
-e^{-0.84182} \approx 0.431
-$$
-   
-   This result means that for every 1% increase in weight, the fuel efficiency decreases to about 43.1% of its previous amount in terms of multiplicative change.
-
-**Interpreting the Percentage:**: If fuel efficiency decreases to 43.1% of its previous amount with each 1% increase in weight, it effectively decreases by 56.9% (100% - 43.1%) of the additional amount that it would have been without the weight increase. This shows a significant decline in efficiency as weight increases.
-
-The coefficient in a log-log regression tells us about the elasticity between variables. Here, a negative elasticity of about -0.84182 means that increasing the car’s weight by 1% results in reducing its fuel efficiency by about 56.9%, indicating a strong negative impact of increased weight on fuel efficiency.
-
-
-#### Significance
+#### Statistical Significance
 
 In the log-log regression model, we conduct hypothesis testing for each coefficient separately to assess their statistical significance in predicting the dependent variable, `log(mpg)`. Here’s how we define and interpret the tests for the intercept and `log(wt)`:
 
-- **For the Intercept:**
-  - **Null Hypothesis (H0):** The intercept is zero, suggesting it has no effect on `log(mpg)` when all independent variables are zero (logarithmically speaking).
-  - **Alternative Hypothesis (H1):** The intercept is not zero, indicating it does affect `log(mpg)` and provides a baseline level of mpg when `wt` equals 1 unit (since `log(1) = 0`).
-  - **Result:** Given that the p-value for the intercept is significantly below 0.05, we reject the null hypothesis. This means there is strong statistical evidence that the intercept is a significant contributor to the model, affecting the baseline mpg calculation.
-
-- **For `log(wt)`:**
-  - **Null Hypothesis (H0):** The coefficient for `log(wt)` is zero, implying no relationship between weight and mpg on a logarithmic scale.
-  - **Alternative Hypothesis (H1):** The coefficient for `log(wt)` is not zero, suggesting that changes in weight have a significant effect on mpg.
-  - **Result:** The very low p-value associated with the `log(wt)` coefficient leads us to reject the null hypothesis. This rejection provides substantial evidence that an increase in weight significantly decreases mpg, affirming the predictive power of `log(wt)` in the model.
+-   **For the Intercept:**
+    -   **Null Hypothesis (H0):** The intercept is zero, suggesting it has no effect on `log(mpg)` when all independent variables are zero (logarithmically speaking).
+    -   **Alternative Hypothesis (H1):** The intercept is not zero, indicating it does affect `log(mpg)` and provides a baseline level of mpg when `wt` equals 1 unit (since `log(1) = 0`).
+    -   **Result:** Given that the p-value for the intercept is significantly below 0.05, we reject the null hypothesis. This means there is strong statistical evidence that the intercept is a significant contributor to the model, affecting the baseline mpg calculation.
+-   **For `log(wt)`:**
+    -   **Null Hypothesis (H0):** The coefficient for `log(wt)` is zero, implying no relationship between weight and mpg on a logarithmic scale.
+    -   **Alternative Hypothesis (H1):** The coefficient for `log(wt)` is not zero, suggesting that changes in weight have a significant effect on mpg.
+    -   **Result:** The very low p-value associated with the `log(wt)` coefficient leads us to reject the null hypothesis. This rejection provides substantial evidence that an increase in weight significantly decreases mpg, affirming the predictive power of `log(wt)` in the model.
 
 The statistical tests confirm that both the baseline level of mpg and the effect of weight changes are significant factors in the model.
 
-
-
-
-
-
-
-
-
-
 ## Another Log-Log Model
 
-We present two regression models, Model 3a (Linear-Linear Model) and Model 3b (Log-Log Model), using the `mtcars` dataset. Both models aim to predict the miles per gallon (`mpg`) of cars based on their weight (`wt`) and transmission type (`am`, with levels "Automatic" and "Manual"). 
+We present two regression models, Model 3a (Linear-Linear Model) and Model 3b (Log-Log Model), using the `mtcars` dataset. Both models aim to predict the miles per gallon (`mpg`) of cars based on their weight (`wt`) and transmission type (`am`, with levels "Automatic" and "Manual").
 
 ### MODEL 3a - Linear-Linear Model
 
@@ -241,7 +195,6 @@ fit3a <- lm((mpg) ~ wt + am, data = mtcars)
 summary(fit3a)
 ```
 
-
 ## MODEL 3b: Another Log-Log Model
 
 ```{r}
@@ -250,99 +203,85 @@ fit3b <- lm(log(mpg) ~ log(wt) + am, data = mtcars)
 summary(fit3b)
 ```
 
-
-
-
 ### Model Output and Interpretation
 
 The output from Model 3b highlights the relationship between the logarithm of miles per gallon (`mpg`) and factors including the logarithm of car weight (`wt`) and transmission type (`am`). Below, we detail the interpretation of the model's results:
 
 #### Residuals
-- The residuals of the model show a median very close to zero (-0.008833) and are relatively tightly distributed, ranging from -0.194110 to 0.258052. This tight clustering indicates that the model predictions are generally close to the observed data, demonstrating a good fit.
+
+-   The residuals of the model show a median very close to zero (-0.008833) and are relatively tightly distributed, ranging from -0.194110 to 0.258052. This tight clustering indicates that the model predictions are generally close to the observed data, demonstrating a good fit.
 
 #### Coefficients
-- **Intercept (4.04162):** The intercept, statistically highly significant with a p-value much less than 0.05, represents the expected value of `log(mpg)` when `log(wt)` equals zero and when the car has an automatic transmission. The high t-value (27.911) underlines its statistical reliability. For practical purposes, this value can be interpreted as the expected log of mpg for a hypothetically light car with a weight of 1 unit (since `log(1) = 0`) and an automatic transmission.
-  
-- **log(wt) Coefficient (-0.93629):** The coefficient for `log(wt)` is negative, indicating that as the weight of a car increases, its fuel efficiency decreases. The elasticity of mpg with respect to weight is about -0.936, meaning that a 1% increase in weight leads to roughly a 0.936% decrease in mpg. This relationship is statistically significant, with a very low p-value (1.58e-09) and a strong t-value (-8.652), suggesting a strong and reliable negative impact of weight on fuel efficiency.
 
-- **amManual (-0.08329):** This coefficient is associated with cars having manual transmissions compared to the baseline of automatic transmissions. The negative sign suggests a decrease in fuel efficiency for manual compared to automatic, but this result is not statistically significant (p-value = 0.236), indicated by a t-value of -1.210. It implies that, after controlling for weight, the type of transmission (manual vs. automatic) does not have a significant effect on the mpg in this dataset.
+-   **Intercept (4.04162):** The intercept, statistically highly significant with a p-value much less than 0.05, represents the expected value of `log(mpg)` when `log(wt)` equals zero and when the car has an automatic transmission. The high t-value (27.911) underlines its statistical reliability. For practical purposes, this value can be interpreted as the expected log of mpg for a hypothetically light car with a weight of 1 unit (since `log(1) = 0`) and an automatic transmission.
+
+-   **log(wt) Coefficient (-0.93629):** The coefficient for `log(wt)` is negative, indicating that as the weight of a car increases, its fuel efficiency decreases. The elasticity of mpg with respect to weight is about -0.936, meaning that a 1% increase in weight leads to roughly a 0.936% decrease in mpg. This relationship is statistically significant, with a very low p-value (1.58e-09) and a strong t-value (-8.652), suggesting a strong and reliable negative impact of weight on fuel efficiency.
+
+-   **amManual (-0.08329):** This coefficient is associated with cars having manual transmissions compared to the baseline of automatic transmissions. The negative sign suggests a decrease in fuel efficiency for manual compared to automatic, but this result is not statistically significant (p-value = 0.236), indicated by a t-value of -1.210. It implies that, after controlling for weight, the type of transmission (manual vs. automatic) does not have a significant effect on the mpg in this dataset.
 
 #### Model Fit and Statistics
-- **Residual Standard Error (0.1324):** The RSE is quite low, which reflects the small average distance of the data points from the fitted line, indicating a good fit.
-- **Multiple R-squared (0.815):** Approximately 81.5% of the variation in `log(mpg)` is explained by the combined effects of `log(wt)` and transmission type. This high R-squared value shows that the model does a good job of capturing the relationship between these variables.
-- **Adjusted R-squared (0.8022):** Adjusted for the number of predictors, it confirms that the model explains a significant amount of the variability in `log(mpg)`.
-- **F-statistic (63.87):** This value tests the overall significance of the regression model, and the associated p-value (2.369e-11) indicates the model is statistically significant.
+
+-   **Residual Standard Error (0.1324):** The RSE is quite low, which reflects the small average distance of the data points from the fitted line, indicating a good fit.
+-   **Multiple R-squared (0.815):** Approximately 81.5% of the variation in `log(mpg)` is explained by the combined effects of `log(wt)` and transmission type. This high R-squared value shows that the model does a good job of capturing the relationship between these variables.
+-   **Adjusted R-squared (0.8022):** Adjusted for the number of predictors, it confirms that the model explains a significant amount of the variability in `log(mpg)`.
+-   **F-statistic (63.87):** This value tests the overall significance of the regression model, and the associated p-value (2.369e-11) indicates the model is statistically significant.
 
 This analysis reveals that weight is a critical factor in predicting the fuel efficiency of cars, with significant impacts demonstrated through the log-log regression model. However, the transmission type does not show a statistically significant influence on mpg when considering this dataset.
-
-
-
 
 #### Model Prediction
 
 To illustrate the prediction of fuel efficiency using Model 3b for a car with a weight of 2 units, we'll calculate the predicted `mpg` for both automatic and manual transmission types using the regression coefficients obtained from the log-log model. Below are the steps involved:
 
 ### Model Equations and Coefficients
+
 The model formula based on the regression output is expressed as:
 
 $$
 \log(\text{mpg}) = \beta_0 + \beta_1\log(\text{wt}) + \beta_2\text{amManual}
 $$
 
-where:
-$$
+where: $$
 \beta_0 \text{ (Intercept)} = 4.04162,
-$$
-$$
+$$ $$
 \beta_1 \text{ (Coefficient for } \log(\text{wt})) = -0.93629,
-$$
-$$
+$$ $$
 \beta_2 \text{ (Coefficient for } \text{amManual}) = -0.08329
 $$
 
-
 ### Calculation for an Automatic Transmission Car (wt = 2 units, am = 0)
-1. **Log of Weight**: Since \( \text{wt} = 2 \), we calculate \( \log(2) \approx 0.693 \).
-2. **Substitute into Model**:
-   $$
-   \log(\text{mpg}) = 4.04162 + (-0.93629 \times 0.693) + (-0.08329 \times 0)
-   $$
-   $$
-   \log(\text{mpg}) = 4.04162 - 0.64874
-   $$
-   $$
-   \log(\text{mpg}) = 3.39288
-   $$
-3. **Exponentiate to find MPG**:
-   $$
-   \text{mpg} = e^{3.39288} \approx 29.76
-   $$
+
+1.  **Log of Weight**: Since ( \text{wt} = 2 ), we calculate ( \log(2) \approx 0.693 ).
+2.  **Substitute into Model**: $$
+    \log(\text{mpg}) = 4.04162 + (-0.93629 \times 0.693) + (-0.08329 \times 0)
+    $$ $$
+    \log(\text{mpg}) = 4.04162 - 0.64874
+    $$ $$
+    \log(\text{mpg}) = 3.39288
+    $$
+3.  **Exponentiate to find MPG**: $$
+    \text{mpg} = e^{3.39288} \approx 29.76
+    $$
 
 ### Calculation for a Manual Transmission Car (wt = 2 units, am = 1)
-1. **Log of Weight**: \( \log(2) \approx 0.693 \) (same as before).
-2. **Substitute into Model**:
-   $$
-   \log(\text{mpg}) = 4.04162 + (-0.93629 \times 0.693) + (-0.08329 \times 1)
-   $$
-   $$
-   \log(\text{mpg}) = 4.04162 - 0.64874 - 0.08329
-   $$
-   $$
-   \log(\text{mpg}) = 3.30959
-   $$
-3. **Exponentiate to find MPG**:
-   $$
-   \text{mpg} = e^{3.30959} \approx 27.36
-   $$
+
+1.  **Log of Weight**: ( \log(2) \approx 0.693 ) (same as before).
+2.  **Substitute into Model**: $$
+    \log(\text{mpg}) = 4.04162 + (-0.93629 \times 0.693) + (-0.08329 \times 1)
+    $$ $$
+    \log(\text{mpg}) = 4.04162 - 0.64874 - 0.08329
+    $$ $$
+    \log(\text{mpg}) = 3.30959
+    $$
+3.  **Exponentiate to find MPG**: $$
+    \text{mpg} = e^{3.30959} \approx 27.36
+    $$
 
 ### Interpretation
-- **Automatic Transmission Car**: A car with an automatic transmission and a weight of 2 units is predicted to have an `mpg` of approximately 29.76. This demonstrates that, even with an increase in weight, the car maintains relatively high fuel efficiency.
-- **Manual Transmission Car**: A car with a manual transmission and the same weight has a slightly lower predicted `mpg` of about 27.36. The negative coefficient for manual transmission, though not statistically significant, suggests a minor reduction in fuel efficiency compared to an automatic transmission model.
+
+-   **Automatic Transmission Car**: A car with an automatic transmission and a weight of 2 units is predicted to have an `mpg` of approximately 29.76. This demonstrates that, even with an increase in weight, the car maintains relatively high fuel efficiency.
+-   **Manual Transmission Car**: A car with a manual transmission and the same weight has a slightly lower predicted `mpg` of about 27.36. The negative coefficient for manual transmission, though not statistically significant, suggests a minor reduction in fuel efficiency compared to an automatic transmission model.
 
 These calculations clearly show how the log-log model can be applied to predict the impact of weight and transmission type on the fuel efficiency of cars. The significant negative impact of weight, as shown by the elasticity coefficient, highlights the strong influence of weight increase on reducing fuel efficiency, which is consistent with general automotive principles.
-
-
-
 
 ## References
 

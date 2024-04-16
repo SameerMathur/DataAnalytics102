@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2023.8.25)  14 APR 2024 19:22
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2023.8.25)  16 APR 2024 06:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -940,22 +940,22 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 345
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) [4] [5] [6] [7] [8]
+) [4] [5] [6] [7]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 673.
-[9] [10] [11] [12]
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 586.
+[8] [9] [10] [11]
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.889   \log
+l.854   \log
             (2) \approx 0.693 ). 
 Here is how much of TeX's memory you used:
- 23202 strings out of 479819
- 425264 string characters out of 5895846
- 989145 words of memory out of 5000000
- 40032 multiletter control sequences out of 15000+600000
+ 23201 strings out of 479819
+ 425252 string characters out of 5895846
+ 988145 words of memory out of 5000000
+ 40031 multiletter control sequences out of 15000+600000
  535889 words of font info for 58 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  56i,8n,115p,10113b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 10LogLog.pdf (12 pages).
+Output written on 10LogLog.pdf (11 pages).

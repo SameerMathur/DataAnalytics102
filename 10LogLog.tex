@@ -187,7 +187,7 @@
 
 \chapter{Log-Log Regression}\label{log-log-regression}
 
-\emph{April 14, 2024}
+\emph{April 16, 2024}
 
 \section{Overview}\label{overview}
 
@@ -296,8 +296,8 @@ inform credit risk analysis and help investors evaluate the
 The following are some applications of log-log regression in
 Organizational Behavior:
 
-Analysis of Employee attrition:~Log-log regression can be used to
-predict employee attrition rates based on a variety of variables,
+\textbf{Analysis of Employee attrition:}~Log-log regression can be used
+to predict employee attrition rates based on a variety of variables,
 including compensation, job satisfaction, and work environment. A linear
 relationship can be modeled between the log of the employee turnover
 rate and the log of the various factors by taking the natural logarithm
@@ -306,16 +306,16 @@ resulting coefficients can be used to identify the most influential
 factors influencing employee attrition and inform strategies for
 employee retention.
 
-Analysis of Employee Performance:~Log-log regression can be used to
-predict employee performance based on a number of variables, including
-job training, work experience, and job satisfaction. A linear
+\textbf{Analysis of Employee Performance:}~Log-log regression can be
+used to predict employee performance based on a number of variables,
+including job training, work experience, and job satisfaction. A linear
 relationship can be modeled between the log of employee performance and
 the log of the various factors by taking the natural logarithm of both
 the dependent and independent variables. The estimated coefficients can
 be used to determine the most influential employee performance factors
 and to inform training and development strategies.
 
-Organizational Culture Analysis: Analyzing the influence of
+\textbf{Organizational Culture Analysis:} Analyzing the influence of
 organizational culture on employee behavior and attitudes can be
 accomplished through the use of log-log regression. By taking the
 natural logarithm of both the dependent and independent variables, it is
@@ -325,12 +325,12 @@ organizational culture. The estimated coefficients can be used to
 determine the most influential aspects of organizational culture on
 employee conduct and attitudes.
 
-Leadership Effectiveness Analysis: Analyzing the influence of leadership
-on employee behavior and performance can be accomplished using log-log
-regression. A linear relationship can be modeled between the log of
-employee behavior and performance and the log of the various leadership
-factors by taking the natural logarithm of both the dependent and
-independent variables. The estimated coefficients can be used to
+\textbf{Leadership Effectiveness Analysis:} Analyzing the influence of
+leadership on employee behavior and performance can be accomplished
+using log-log regression. A linear relationship can be modeled between
+the log of employee behavior and performance and the log of the various
+leadership factors by taking the natural logarithm of both the dependent
+and independent variables. The estimated coefficients can be used to
 identify the most influential leadership factors on employee behavior
 and performance, as well as to inform leadership development strategies.
 {[}4{]}
@@ -346,7 +346,7 @@ following equation:
 \log(Y) = \beta_0 + \beta_1\log(X_1) + \beta_2\log(X_2) + ... + \beta_n\log(X_n) + \epsilon
 \end{equation}
 
-Where:
+where:
 
 \begin{itemize}
 \item
@@ -421,15 +421,16 @@ several assumptions:
   change in the dependent variable for a one percent change in the
   independent variable.
 \item
-  The method of least squares is used to minimize the sum of squared
-  residuals when estimating coefficients. This involves determining the
-  values of \(β_0\) and \(β_1\) that minimize the difference between the
-  observed and predicted values of the dependent variable. {[}5{]}
+  The \textbf{method of least squares} is used to \textbf{minimize the
+  sum of squared residuals} when estimating coefficients. This involves
+  determining the values of \(β_0\) and \(β_1\) that minimize the
+  difference between the observed and predicted values of the dependent
+  variable. {[}5{]}
 \end{enumerate}
 
 \section{MODEL 1: Base Model}\label{model-1-base-model}
 
-For reference and a point of comparison, we setup the same Base Model as
+For reference and a point of comparison, we setup the same base model as
 the one used in the previous chapter on Log-Linear Regression.
 
 \begin{Shaded}
@@ -439,7 +440,7 @@ the one used in the previous chapter on Log-Linear Regression.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Simple Linear Regression}\label{simple-linear-regression}
+\subsection{Linear Regression}\label{linear-regression}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -473,13 +474,13 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10
 
 Model 2 adopts a log-log regression approach to explore the relationship
 between the weight (\texttt{wt}) of cars and their fuel efficiency
-(\texttt{mpg}) using the \texttt{mtcars} dataset. In contrast to a
-simple linear regression model that predicts \texttt{mpg} directly from
-\texttt{wt}, this model predicts the logarithm of \texttt{mpg} from the
-logarithm of \texttt{wt}. This double logarithmic transformation is
-particularly useful for examining how percentage changes in vehicle
-weight influence percentage changes in fuel efficiency, reflecting an
-elasticity-based relationship between these variables.
+(\texttt{mpg}). In contrast to a simple linear regression model that
+predicts \texttt{mpg} directly from \texttt{wt}, this model predicts the
+logarithm of \texttt{mpg} from the logarithm of \texttt{wt}. This double
+logarithmic transformation is particularly useful for examining how
+percentage changes in vehicle weight influence percentage changes in
+fuel efficiency, reflecting an elasticity-based relationship between
+these variables.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -512,16 +513,16 @@ F-statistic: 124.4 on 1 and 30 DF,  p-value: 3.406e-12
 \subsection{Model Output and
 Interpretation}\label{model-output-and-interpretation}
 
-The results from our log-log regression model are elucidated below:
+The results from our log-log regression model are explained below:
 
 \subsubsection{Residuals}\label{residuals}
 
-The residuals, or the differences between observed and predicted values
-of \texttt{log(mpg)}, show a median close to zero (-0.02125), indicating
-that, on average, the model's predictions closely match the actual log
-values. The spread of residuals from the minimum (-0.18141) to the
-maximum (0.26930) shows that most predictions fall within this range,
-suggesting a reasonable model fit.
+The residuals, or the \textbf{differences between observed and predicted
+values} of \texttt{log(mpg)}, show a \textbf{median close to zero}
+(-0.02125), indicating that, on average, the model's predictions closely
+match the actual log values. The spread of residuals from the minimum
+(-0.18141) to the maximum (0.26930) shows that most predictions fall
+within this range, suggesting a reasonable model fit.
 
 \subsubsection{Model Fit}\label{model-fit}
 
@@ -563,11 +564,6 @@ can use the intercept value from the log-log regression model. The
 calculation involves converting \texttt{log(mpg)} back to \texttt{mpg}
 using the exponential function:
 
-To ensure the given equations compile correctly in a Quarto (previously
-R Markdown) document when converting to HTML or PDF, you can format the
-equations using LaTeX syntax within a Quarto document. Here's how you
-can write it:
-
 \[
 \text{mpg} = e^{\text{intercept}} = e^{3.90181}
 \]
@@ -578,68 +574,37 @@ Evaluating this expression yields:
 \text{mpg} = 49.49
 \]
 
-This result indicates that the mpg for a car weighing 1 unit is
-approximately 49.49 miles per gallon.
+This result indicates that the \textbf{mpg for a car weighing 1 unit is
+approximately 49.49 miles per gallon}.
 
 \begin{itemize}
 \tightlist
 \item
   \textbf{log(wt) Coefficient (-0.84182):} This coefficient indicates
   the expected change in \texttt{log(mpg)} for each one-unit increase in
-  \texttt{log(wt)}. Specifically, a one-unit increase in
-  \texttt{log(wt)} is associated with a decrease of 0.84182 in
-  \texttt{log(mpg)}. This negative coefficient reflects a strong inverse
-  relationship, suggesting that as car weight increases on a logarithmic
-  scale, fuel efficiency decreases.
+  \texttt{log(wt)}. Specifically, \textbf{a one-unit increase in
+  \texttt{log(wt)} is associated with a decrease of 0.84182 in}
+  \textbf{\texttt{log(mpg)}}. This negative coefficient reflects a
+  strong inverse relationship, suggesting that as car weight increases
+  on a logarithmic scale, fuel efficiency decreases.
 \end{itemize}
 
-In practical terms, a 1\% increase in a car's weight leads to an
-approximate 0.84182\% decrease in its fuel efficiency. This is
-interpreted as the elasticity of mpg to weight, indicating a highly
-elastic relationship where small percentage changes in weight lead to
-substantial percentage changes in mpg.
+In practical terms, a \textbf{1\% increase in a car's weight leads to an
+approximate 0.84182\% decrease in its fuel efficiency}.
+
+This is interpreted as the \textbf{elasticity of mpg with respect to
+weight}, indicating a highly elastic relationship where small percentage
+changes in weight lead to substantial percentage changes in mpg.
 
 Therefore, the beta coefficient of -0.84182 indicates a strong negative
 elasticity, signifying that increases in car weight have a substantial
 negative impact on fuel efficiency, all else being constant.
 
-In contrast, in the linear-linear model, the relationship is additive
-rather than multiplicative, with each unit increase in weight reducing
-the mpg linearly by 0.27178 units.
+In contrast, \textbf{in the linear-linear model, the relationship was
+additive rather than multiplicative}, with each unit increase in weight
+reducing the mpg linearly by 0.27178 units.
 
-\subsubsection{\texorpdfstring{\textbf{Calculating Percentage
-Change:}}{Calculating Percentage Change:}}\label{calculating-percentage-change}
-
-To translate this coefficient into more intuitive terms, we use the
-exponential function:
-
-\[
-\text{Percentage Change} = e^{\text{Coefficient}}
-\]
-
-For the given coefficient:
-
-\[
-e^{-0.84182} \approx 0.431
-\]
-
-This result means that for every 1\% increase in weight, the fuel
-efficiency decreases to about 43.1\% of its previous amount in terms of
-multiplicative change.
-
-\textbf{Interpreting the Percentage:}: If fuel efficiency decreases to
-43.1\% of its previous amount with each 1\% increase in weight, it
-effectively decreases by 56.9\% (100\% - 43.1\%) of the additional
-amount that it would have been without the weight increase. This shows a
-significant decline in efficiency as weight increases.
-
-The coefficient in a log-log regression tells us about the elasticity
-between variables. Here, a negative elasticity of about -0.84182 means
-that increasing the car's weight by 1\% results in reducing its fuel
-efficiency by about 56.9\%, indicating a strong negative impact of
-increased weight on fuel efficiency.
-
-\subsubsection{Significance}\label{significance}
+\subsubsection{Statistical Significance}\label{statistical-significance}
 
 In the log-log regression model, we conduct hypothesis testing for each
 coefficient separately to assess their statistical significance in

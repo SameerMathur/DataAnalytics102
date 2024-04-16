@@ -300,7 +300,7 @@ window.Quarto = {
   <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation">Estimation</a></li>
   <li><a href="#model-1-base-model" id="toc-model-1-base-model" class="nav-link" data-scroll-target="#model-1-base-model">MODEL 1: Base Model</a>
   <ul class="collapse">
-  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear Regression</a></li>
   </ul></li>
   <li><a href="#model-2-log-log-model" id="toc-model-2-log-log-model" class="nav-link" data-scroll-target="#model-2-log-log-model">MODEL 2: Log-Log Model</a>
   <ul class="collapse">
@@ -331,7 +331,7 @@ window.Quarto = {
 
 <section id="log-log-regression" class="level1">
 <h1>Log-Log Regression</h1>
-<p><em>April 14, 2024</em></p>
+<p><em>April 16, 2024</em></p>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>Log-log regression is a statistical technique used to model the relationship between a dependent variable and one or more independent variables, where both the dependent and the independent variables undergo logarithmic transformations. This method is particularly effective for examining multiplicative relationships and elasticities between variables that exhibit exponential growth or decline.</p>
@@ -364,10 +364,10 @@ window.Quarto = {
 <section id="organizational-behavior" class="level3">
 <h3 class="anchored" data-anchor-id="organizational-behavior">Organizational Behavior</h3>
 <p>The following are some applications of log-log regression in Organizational Behavior:</p>
-<p>Analysis of Employee attrition:&nbsp;Log-log regression can be used to predict employee attrition rates based on a variety of variables, including compensation, job satisfaction, and work environment. A linear relationship can be modeled between the log of the employee turnover rate and the log of the various factors by taking the natural logarithm of both the dependent and independent variables. Estimates of the resulting coefficients can be used to identify the most influential factors influencing employee attrition and inform strategies for employee retention.</p>
-<p>Analysis of Employee Performance:&nbsp;Log-log regression can be used to predict employee performance based on a number of variables, including job training, work experience, and job satisfaction. A linear relationship can be modeled between the log of employee performance and the log of the various factors by taking the natural logarithm of both the dependent and independent variables. The estimated coefficients can be used to determine the most influential employee performance factors and to inform training and development strategies.</p>
-<p>Organizational Culture Analysis: Analyzing the influence of organizational culture on employee behavior and attitudes can be accomplished through the use of log-log regression. By taking the natural logarithm of both the dependent and independent variables, it is possible to construct a linear relationship between the log of employee behavior and attitudes and the log of the different aspects of organizational culture. The estimated coefficients can be used to determine the most influential aspects of organizational culture on employee conduct and attitudes.</p>
-<p>Leadership Effectiveness Analysis: Analyzing the influence of leadership on employee behavior and performance can be accomplished using log-log regression. A linear relationship can be modeled between the log of employee behavior and performance and the log of the various leadership factors by taking the natural logarithm of both the dependent and independent variables. The estimated coefficients can be used to identify the most influential leadership factors on employee behavior and performance, as well as to inform leadership development strategies. [4]</p>
+<p><strong>Analysis of Employee attrition:</strong>&nbsp;Log-log regression can be used to predict employee attrition rates based on a variety of variables, including compensation, job satisfaction, and work environment. A linear relationship can be modeled between the log of the employee turnover rate and the log of the various factors by taking the natural logarithm of both the dependent and independent variables. Estimates of the resulting coefficients can be used to identify the most influential factors influencing employee attrition and inform strategies for employee retention.</p>
+<p><strong>Analysis of Employee Performance:</strong>&nbsp;Log-log regression can be used to predict employee performance based on a number of variables, including job training, work experience, and job satisfaction. A linear relationship can be modeled between the log of employee performance and the log of the various factors by taking the natural logarithm of both the dependent and independent variables. The estimated coefficients can be used to determine the most influential employee performance factors and to inform training and development strategies.</p>
+<p><strong>Organizational Culture Analysis:</strong> Analyzing the influence of organizational culture on employee behavior and attitudes can be accomplished through the use of log-log regression. By taking the natural logarithm of both the dependent and independent variables, it is possible to construct a linear relationship between the log of employee behavior and attitudes and the log of the different aspects of organizational culture. The estimated coefficients can be used to determine the most influential aspects of organizational culture on employee conduct and attitudes.</p>
+<p><strong>Leadership Effectiveness Analysis:</strong> Analyzing the influence of leadership on employee behavior and performance can be accomplished using log-log regression. A linear relationship can be modeled between the log of employee behavior and performance and the log of the various leadership factors by taking the natural logarithm of both the dependent and independent variables. The estimated coefficients can be used to identify the most influential leadership factors on employee behavior and performance, as well as to inform leadership development strategies. [4]</p>
 </section>
 </section>
 <section id="model" class="level2">
@@ -375,10 +375,10 @@ window.Quarto = {
 <section id="model-form" class="level3">
 <h3 class="anchored" data-anchor-id="model-form">Model Form</h3>
 <p>The general form of a log-log regression model is represented by the following equation:</p>
-<p><span class="math display">\[\begin{equation}
+<span class="math display">\[\begin{equation}
 \log(Y) = \beta_0 + \beta_1\log(X_1) + \beta_2\log(X_2) + ... + \beta_n\log(X_n) + \epsilon
-\end{equation}\]</span></p>
-<p>Where:</p>
+\end{equation}\]</span>
+<p>where:</p>
 <ul>
 <li><p><span class="math inline">\(Y\)</span> is the dependent variable (after applying the logarithm).</p></li>
 <li><p><span class="math inline">\(X_1, X_2, ..., X_n\)</span> are the independent variables (after applying logarithms to each).</p></li>
@@ -415,18 +415,18 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="estimation">Estimation</h2>
 <ol type="1">
 <li><p>The natural logarithm transformation of both variables can help to capture non-linear relationships, stabilize the data variance, and clarify the relationship between the variables. The coefficients <span class="math inline">\(β_0\)</span> and <span class="math inline">\(β_1\)</span> are elasticities that quantify the percentage change in the dependent variable for a one percent change in the independent variable.</p></li>
-<li><p>The method of least squares is used to minimize the sum of squared residuals when estimating coefficients. This involves determining the values of <span class="math inline">\(β_0\)</span> and <span class="math inline">\(β_1\)</span> that minimize the difference between the observed and predicted values of the dependent variable. [5]</p></li>
+<li><p>The <strong>method of least squares</strong> is used to <strong>minimize the sum of squared residuals</strong> when estimating coefficients. This involves determining the values of <span class="math inline">\(β_0\)</span> and <span class="math inline">\(β_1\)</span> that minimize the difference between the observed and predicted values of the dependent variable. [5]</p></li>
 </ol>
 </section>
 <section id="model-1-base-model" class="level2">
 <h2 class="anchored" data-anchor-id="model-1-base-model">MODEL 1: Base Model</h2>
-<p>For reference and a point of comparison, we setup the same Base Model as the one used in the previous chapter on Log-Linear Regression.</p>
+<p>For reference and a point of comparison, we setup the same base model as the one used in the previous chapter on Log-Linear Regression.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="simple-linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="simple-linear-regression">Simple Linear Regression</h3>
+<section id="linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="linear-regression">Linear Regression</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -455,7 +455,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </section>
 <section id="model-2-log-log-model" class="level2">
 <h2 class="anchored" data-anchor-id="model-2-log-log-model">MODEL 2: Log-Log Model</h2>
-<p>Model 2 adopts a log-log regression approach to explore the relationship between the weight (<code>wt</code>) of cars and their fuel efficiency (<code>mpg</code>) using the <code>mtcars</code> dataset. In contrast to a simple linear regression model that predicts <code>mpg</code> directly from <code>wt</code>, this model predicts the logarithm of <code>mpg</code> from the logarithm of <code>wt</code>. This double logarithmic transformation is particularly useful for examining how percentage changes in vehicle weight influence percentage changes in fuel efficiency, reflecting an elasticity-based relationship between these variables.</p>
+<p>Model 2 adopts a log-log regression approach to explore the relationship between the weight (<code>wt</code>) of cars and their fuel efficiency (<code>mpg</code>). In contrast to a simple linear regression model that predicts <code>mpg</code> directly from <code>wt</code>, this model predicts the logarithm of <code>mpg</code> from the logarithm of <code>wt</code>. This double logarithmic transformation is particularly useful for examining how percentage changes in vehicle weight influence percentage changes in fuel efficiency, reflecting an elasticity-based relationship between these variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> <span class="fu">log</span>(wt), <span class="at">data =</span> mtcars)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -482,10 +482,10 @@ F-statistic: 124.4 on 1 and 30 DF,  p-value: 3.406e-12</code></pre>
 </div>
 <section id="model-output-and-interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="model-output-and-interpretation">Model Output and Interpretation</h3>
-<p>The results from our log-log regression model are elucidated below:</p>
+<p>The results from our log-log regression model are explained below:</p>
 <section id="residuals" class="level4">
 <h4 class="anchored" data-anchor-id="residuals">Residuals</h4>
-<p>The residuals, or the differences between observed and predicted values of <code>log(mpg)</code>, show a median close to zero (-0.02125), indicating that, on average, the model’s predictions closely match the actual log values. The spread of residuals from the minimum (-0.18141) to the maximum (0.26930) shows that most predictions fall within this range, suggesting a reasonable model fit.</p>
+<p>The residuals, or the <strong>differences between observed and predicted values</strong> of <code>log(mpg)</code>, show a <strong>median close to zero</strong> (-0.02125), indicating that, on average, the model’s predictions closely match the actual log values. The spread of residuals from the minimum (-0.18141) to the maximum (0.26930) shows that most predictions fall within this range, suggesting a reasonable model fit.</p>
 </section>
 <section id="model-fit" class="level4">
 <h4 class="anchored" data-anchor-id="model-fit">Model Fit</h4>
@@ -502,7 +502,6 @@ F-statistic: 124.4 on 1 and 30 DF,  p-value: 3.406e-12</code></pre>
 <li><strong>Intercept (3.90181):</strong> This value represents the expected value of <code>log(mpg)</code> when <code>log(wt)</code> equals zero. Since <code>log(wt)</code> equals zero when <code>wt</code> is 1 (not zero due to the nature of logarithmic transformation), this intercept can be interpreted as the expected log of mpg for a car with a weight of 1 unit.</li>
 </ul>
 <p>To find the fuel efficiency (mpg) of a car with a weight of 1 unit, we can use the intercept value from the log-log regression model. The calculation involves converting <code>log(mpg)</code> back to <code>mpg</code> using the exponential function:</p>
-<p>To ensure the given equations compile correctly in a Quarto (previously R Markdown) document when converting to HTML or PDF, you can format the equations using LaTeX syntax within a Quarto document. Here’s how you can write it:</p>
 <p><span class="math display">\[
 \text{mpg} = e^{\text{intercept}} = e^{3.90181}
 \]</span></p>
@@ -510,30 +509,17 @@ F-statistic: 124.4 on 1 and 30 DF,  p-value: 3.406e-12</code></pre>
 <p><span class="math display">\[
 \text{mpg} = 49.49
 \]</span></p>
-<p>This result indicates that the mpg for a car weighing 1 unit is approximately 49.49 miles per gallon.</p>
+<p>This result indicates that the <strong>mpg for a car weighing 1 unit is approximately 49.49 miles per gallon</strong>.</p>
 <ul>
-<li><strong>log(wt) Coefficient (-0.84182):</strong> This coefficient indicates the expected change in <code>log(mpg)</code> for each one-unit increase in <code>log(wt)</code>. Specifically, a one-unit increase in <code>log(wt)</code> is associated with a decrease of 0.84182 in <code>log(mpg)</code>. This negative coefficient reflects a strong inverse relationship, suggesting that as car weight increases on a logarithmic scale, fuel efficiency decreases.</li>
+<li><strong>log(wt) Coefficient (-0.84182):</strong> This coefficient indicates the expected change in <code>log(mpg)</code> for each one-unit increase in <code>log(wt)</code>. Specifically, <strong>a one-unit increase in <code>log(wt)</code> is associated with a decrease of 0.84182 in</strong> <strong><code>log(mpg)</code></strong>. This negative coefficient reflects a strong inverse relationship, suggesting that as car weight increases on a logarithmic scale, fuel efficiency decreases.</li>
 </ul>
-<p>In practical terms, a 1% increase in a car’s weight leads to an approximate 0.84182% decrease in its fuel efficiency. This is interpreted as the elasticity of mpg to weight, indicating a highly elastic relationship where small percentage changes in weight lead to substantial percentage changes in mpg.</p>
+<p>In practical terms, a <strong>1% increase in a car’s weight leads to an approximate 0.84182% decrease in its fuel efficiency</strong>.</p>
+<p>This is interpreted as the <strong>elasticity of mpg with respect to weight</strong>, indicating a highly elastic relationship where small percentage changes in weight lead to substantial percentage changes in mpg.</p>
 <p>Therefore, the beta coefficient of -0.84182 indicates a strong negative elasticity, signifying that increases in car weight have a substantial negative impact on fuel efficiency, all else being constant.</p>
-<p>In contrast, in the linear-linear model, the relationship is additive rather than multiplicative, with each unit increase in weight reducing the mpg linearly by 0.27178 units.</p>
+<p>In contrast, <strong>in the linear-linear model, the relationship was additive rather than multiplicative</strong>, with each unit increase in weight reducing the mpg linearly by 0.27178 units.</p>
 </section>
-<section id="calculating-percentage-change" class="level4">
-<h4 class="anchored" data-anchor-id="calculating-percentage-change"><strong>Calculating Percentage Change:</strong></h4>
-<p>To translate this coefficient into more intuitive terms, we use the exponential function:</p>
-<p><span class="math display">\[
-\text{Percentage Change} = e^{\text{Coefficient}}
-\]</span></p>
-<p>For the given coefficient:</p>
-<p><span class="math display">\[
-e^{-0.84182} \approx 0.431
-\]</span></p>
-<p>This result means that for every 1% increase in weight, the fuel efficiency decreases to about 43.1% of its previous amount in terms of multiplicative change.</p>
-<p><strong>Interpreting the Percentage:</strong>: If fuel efficiency decreases to 43.1% of its previous amount with each 1% increase in weight, it effectively decreases by 56.9% (100% - 43.1%) of the additional amount that it would have been without the weight increase. This shows a significant decline in efficiency as weight increases.</p>
-<p>The coefficient in a log-log regression tells us about the elasticity between variables. Here, a negative elasticity of about -0.84182 means that increasing the car’s weight by 1% results in reducing its fuel efficiency by about 56.9%, indicating a strong negative impact of increased weight on fuel efficiency.</p>
-</section>
-<section id="significance" class="level4">
-<h4 class="anchored" data-anchor-id="significance">Significance</h4>
+<section id="statistical-significance" class="level4">
+<h4 class="anchored" data-anchor-id="statistical-significance">Statistical Significance</h4>
 <p>In the log-log regression model, we conduct hypothesis testing for each coefficient separately to assess their statistical significance in predicting the dependent variable, <code>log(mpg)</code>. Here’s how we define and interpret the tests for the intercept and <code>log(wt)</code>:</p>
 <ul>
 <li><strong>For the Intercept:</strong>
