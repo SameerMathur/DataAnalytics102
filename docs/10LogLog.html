@@ -576,6 +576,7 @@ F-statistic: 44.17 on 2 and 29 DF,  p-value: 1.579e-09</code></pre>
 </section>
 <section id="model-3b-another-log-log-model" class="level2">
 <h2 class="anchored" data-anchor-id="model-3b-another-log-log-model">MODEL 3b: Another Log-Log Model</h2>
+<p>Suppose we want to understand the relationship between the logarithm of miles per gallon (<code>mpg</code>) and two predictors: the logarithm of car weight (<code>wt</code>) and the transmission type (<code>am</code>). The predictor <code>log(wt)</code> suggests an exploration of how changes in vehicle weight impact fuel efficiency on a multiplicative scale, while <code>am</code> (transmission type: automatic or manual) serves as a categorical variable to compare the fuel efficiency differences between transmission types. This model helps in quantifying how much vehicle weight and transmission type influence the fuel efficiency of cars, assuming multiplicative effects rather than additive ones.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit3b <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> <span class="fu">log</span>(wt) <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -613,16 +614,23 @@ F-statistic: 63.87 on 2 and 29 DF,  p-value: 2.369e-11</code></pre>
 <section id="coefficients-1" class="level4">
 <h4 class="anchored" data-anchor-id="coefficients-1">Coefficients</h4>
 <ul>
-<li><p><strong>Intercept (4.04162):</strong> The intercept, statistically highly significant with a p-value much less than 0.05, represents the expected value of <code>log(mpg)</code> when <code>log(wt)</code> equals zero and when the car has an automatic transmission. The high t-value (27.911) underlines its statistical reliability. For practical purposes, this value can be interpreted as the expected log of mpg for a hypothetically light car with a weight of 1 unit (since <code>log(1) = 0</code>) and an automatic transmission.</p></li>
-<li><p><strong>log(wt) Coefficient (-0.93629):</strong> The coefficient for <code>log(wt)</code> is negative, indicating that as the weight of a car increases, its fuel efficiency decreases. The elasticity of mpg with respect to weight is about -0.936, meaning that a 1% increase in weight leads to roughly a 0.936% decrease in mpg. This relationship is statistically significant, with a very low p-value (1.58e-09) and a strong t-value (-8.652), suggesting a strong and reliable negative impact of weight on fuel efficiency.</p></li>
-<li><p><strong>amManual (-0.08329):</strong> This coefficient is associated with cars having manual transmissions compared to the baseline of automatic transmissions. The negative sign suggests a decrease in fuel efficiency for manual compared to automatic, but this result is not statistically significant (p-value = 0.236), indicated by a t-value of -1.210. It implies that, after controlling for weight, the type of transmission (manual vs.&nbsp;automatic) does not have a significant effect on the mpg in this dataset.</p></li>
+<li><p><strong>Intercept (4.04162):</strong> The intercept, statistically highly significant with a p-value much less than 0.05, represents the expected value of <code>log(mpg)</code> when <code>log(wt)</code> equals zero and when the car has an automatic transmission <code>(am=0)</code>. For practical purposes, this value can be interpreted as the expected log of mpg for a hypothetically light car with a weight of 1 unit (since <code>log(1) = 0</code>) and an automatic transmission.</p></li>
+<li><p><strong>log(wt) Coefficient (-0.93629):</strong> The coefficient for <code>log(wt)</code> is negative, indicating that as the weight of a car increases, its fuel efficiency decreases.</p>
+<ul>
+<li><p>The elasticity of mpg with respect to weight is about -0.936, meaning that a 1% increase in weight leads to roughly a 0.936% decrease in mpg.</p></li>
+<li><p>This relationship is statistically significant, with a very low p-value (1.58e-09), suggesting a strong and reliable negative impact of weight on fuel efficiency.</p></li>
+</ul></li>
+<li><p><strong>am (-0.08329):</strong> This coefficient is associated with cars having manual transmission <code>(am=1)</code> compared to the baseline of automatic transmission <code>(am=0)</code>.</p>
+<ul>
+<li><p>The negative sign suggests a decrease in fuel efficiency for manual compared to automatic, but this result is not statistically significant (p-value = 0.236).</p></li>
+<li><p>It implies that, after controlling for weight, the type of transmission (manual vs.&nbsp;automatic) does not have a significant effect on the <code>mpg</code>.</p></li>
+</ul></li>
 </ul>
 </section>
 <section id="model-fit-and-statistics" class="level4">
 <h4 class="anchored" data-anchor-id="model-fit-and-statistics">Model Fit and Statistics</h4>
 <ul>
 <li><strong>Residual Standard Error (0.1324):</strong> The RSE is quite low, which reflects the small average distance of the data points from the fitted line, indicating a good fit.</li>
-<li><strong>Multiple R-squared (0.815):</strong> Approximately 81.5% of the variation in <code>log(mpg)</code> is explained by the combined effects of <code>log(wt)</code> and transmission type. This high R-squared value shows that the model does a good job of capturing the relationship between these variables.</li>
 <li><strong>Adjusted R-squared (0.8022):</strong> Adjusted for the number of predictors, it confirms that the model explains a significant amount of the variability in <code>log(mpg)</code>.</li>
 <li><strong>F-statistic (63.87):</strong> This value tests the overall significance of the regression model, and the associated p-value (2.369e-11) indicates the model is statistically significant.</li>
 </ul>
@@ -637,14 +645,14 @@ F-statistic: 63.87 on 2 and 29 DF,  p-value: 2.369e-11</code></pre>
 <h3 class="anchored" data-anchor-id="model-equations-and-coefficients">Model Equations and Coefficients</h3>
 <p>The model formula based on the regression output is expressed as:</p>
 <p><span class="math display">\[
-\log(\text{mpg}) = \beta_0 + \beta_1\log(\text{wt}) + \beta_2\text{amManual}
+\log(\text{mpg}) = \beta_0 + \beta_1\log(\text{wt}) + \beta_2\text{am}
 \]</span></p>
 <p>where: <span class="math display">\[
 \beta_0 \text{ (Intercept)} = 4.04162,
 \]</span> <span class="math display">\[
 \beta_1 \text{ (Coefficient for } \log(\text{wt})) = -0.93629,
 \]</span> <span class="math display">\[
-\beta_2 \text{ (Coefficient for } \text{amManual}) = -0.08329
+\beta_2 \text{ (Coefficient for } \text{am}) = -0.08329
 \]</span></p>
 </section>
 <section id="calculation-for-an-automatic-transmission-car-wt-2-units-am-0" class="level3">
